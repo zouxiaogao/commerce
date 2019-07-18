@@ -1,7 +1,6 @@
 package com.neusoft.commerce.ctrls;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import com.neusoft.commerce.common.Result;
 
 /**
  * @Author zqy
@@ -9,22 +8,28 @@ import javax.servlet.http.HttpSession;
  */
 public class BaseCtrl {
     /**
-     * 管理员session管理
-     * **/
+     * 处理成功时的返回
+     * @param o 返回的结果集
+     * @return Result
+     */
+    protected Result send(Object o) {
+        Result ret = new Result(o);
+        return ret;
+    }
 
-//    public void setAdminToSession(AdminInfo adminInfo, HttpServletRequest request) {
-//        HttpSession session = request.getSession();
-//        session.setAttribute("admin", adminInfo);
-//    }
-//
-//    public AdminInfo getAdminInfoFromSession(HttpServletRequest request) {
-//        HttpSession session = request.getSession();
-//        AdminInfo info = (AdminInfo) session.getAttribute("admin");
-//        return info;
-//    }
-//
-//    public void removeAdminInfo(HttpServletRequest request) {
-//        request.getSession().removeAttribute("admin");
-//    }
+    /**
+     * 非正常情况的返回
+     * @param code 错误码
+     * @param message 错误信息
+     * @return Result
+     */
+    protected Result send(int code, String message) {
+        Result ret = new Result(code,message);
+        return ret;
+    }
 
+    protected Result send( int code, String message,Object o) {
+        Result ret = new Result(code,message,o);
+        return ret;
+    }
 }

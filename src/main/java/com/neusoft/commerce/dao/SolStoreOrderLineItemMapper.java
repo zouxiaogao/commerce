@@ -1,6 +1,7 @@
 package com.neusoft.commerce.dao;
 
-import com.app.pojo.SolStoreOrderLineItem;
+
+import com.neusoft.commerce.models.SolStoreOrderLineItem;
 
 public interface SolStoreOrderLineItemMapper {
     int deleteByPrimaryKey(Integer solId);

@@ -1,12 +1,15 @@
-package com.neusoft.commerce.dao;
-
+package com.neusoft.commerce.services;
 
 import com.neusoft.commerce.models.SysUser;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-@Mapper
-public interface SysUserMapper {
+/**
+ * @Author zqy
+ * @Date 2019/07/18
+ */
+public interface SysUserService {
+
+    SysUser selectByAccount(String username);
     int deleteByPrimaryKey(Integer userId);
 
     int insert(SysUser record);
@@ -18,6 +21,4 @@ public interface SysUserMapper {
     int updateByPrimaryKeySelective(SysUser record);
 
     int updateByPrimaryKey(SysUser record);
-
-    SysUser selectByAccount(@Param("username") String username);
 }

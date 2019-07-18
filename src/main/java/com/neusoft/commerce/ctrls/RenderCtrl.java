@@ -16,10 +16,20 @@ import java.io.IOException;
 @Controller
 public class RenderCtrl {
 
-    @GetMapping("/")
+    @GetMapping(value = {"/","/login"})
     public String console(){
         return "login";
     }
+
+    @GetMapping(value = {"/index"})
+    public String index(){
+        return "index";
+    }
+
+
+
+
+
 //    @RequestMapping("/admin")
 //    public ModelAndView admin(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
 //        AdminInfo admin = this.getAdminInfoFromSession(httpServletRequest);
