@@ -1,6 +1,7 @@
 package com.neusoft.commerce.ctrls;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -14,6 +15,11 @@ import java.io.IOException;
  */
 @Controller
 public class RenderCtrl {
+
+    @GetMapping("/")
+    public String console(){
+        return "login";
+    }
 //    @RequestMapping("/admin")
 //    public ModelAndView admin(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
 //        AdminInfo admin = this.getAdminInfoFromSession(httpServletRequest);
