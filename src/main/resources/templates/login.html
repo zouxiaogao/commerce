@@ -10,7 +10,7 @@
 	<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
 	<script type="text/javascript">
         $(function(){
-            $("form").submit(function(){
+            $("#login").submit(function(){
                 $.ajax({
                     url :  "../checklogin",
                     type : "POST",
@@ -38,8 +38,8 @@
 				<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">登录</label>
 				<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">注册</label>
 				<div class="login-form">
-                    <form method="post" name="form-login">
-                        <div class="sign-in-htm" id="login">
+                    <form method="post" id="login">
+                        <div class="sign-in-htm" >
                             <div class="group">
                                 <label for="user" class="label">用户名</label>
                                 <input id="username" name="username" type="text" class="input">

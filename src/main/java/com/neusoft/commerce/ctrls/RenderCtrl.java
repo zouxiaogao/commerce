@@ -1,5 +1,6 @@
 package com.neusoft.commerce.ctrls;
 
+import com.neusoft.commerce.models.SysUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,10 +22,20 @@ public class RenderCtrl {
         return "login";
     }
 
-    @GetMapping(value = {"/index"})
-    public String index(){
+    @GetMapping("/index")
+    public String console(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
+        SysUser user =(SysUser) httpServletRequest.getSession().getAttribute("user");
+        if (user == null) {
+           return "login";
+        }
         return "index";
     }
+
+
+//    @GetMapping(value = {"/index"})
+//    public String index(){
+//        return "index";
+//    }
 
 
 

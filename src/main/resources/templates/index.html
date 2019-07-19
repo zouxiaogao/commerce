@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>管理员后台</title>
 </head>
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -40,7 +40,7 @@
                 <li class="light-blue user-profile">
                     <a class="user-menu dropdown-toggle" href="javascript:;" data-toggle="dropdown">
                         <img alt="LRJ" src="image/avatar.jpg" class="nav-user-photo">
-                        <span id="user_info"><small>Welcome</small> gmcbrand</span>
+                        <span id="user_info"><small>Welcome</small><label th:text="${session.user.username}"></label></span>
                         <i class="icon-caret-down"></i>
                     </a>
                     <ul id="user_menu" class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
@@ -90,7 +90,7 @@
 
         <li>
 
-            <a href="brand-addbrand.html" target="menuFrame">
+            <a href="brand-addbrand" target="menuFrame">
 
                 <i class="icon-dashboard"></i>
 
@@ -307,11 +307,11 @@
 
     <div id="sidebar-collapse"><i class="icon-double-angle-left"></i></div>
 </div>
-<iframe id="menuFrame" name="menuFrame" src="brand-addbrand.html" frameborder="no" width="100%" height="100%">
+<iframe id="menuFrame" name="menuFrame" src="brand-addbrand" frameborder="no" width="100%" height="100%">
 </iframe>
 </body>
-<script src="js/jquery-1.9.1.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script>
     $('.nav-list li ').click(function () {
         $(this).addClass('blue').siblings().removeClass('blue');

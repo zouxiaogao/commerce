@@ -1,11 +1,13 @@
-package com.neusoft.commerce.dao;
-
+package com.neusoft.commerce.services;
 
 import com.neusoft.commerce.models.ManManufacturer;
-import org.apache.ibatis.annotations.Mapper;
 
-@Mapper
-public interface ManManufacturerMapper {
+/**
+ * @Author zqy
+ * @Date 2019/07/19
+ */
+
+public interface ManManufacturerService {
     int deleteByPrimaryKey(Integer manId);
 
     int insert(ManManufacturer record);

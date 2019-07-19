@@ -2,6 +2,7 @@ package com.neusoft.commerce.models;
 
 import java.util.Date;
 
+/**品牌商信息**/
 public class ManManufacturer {
     private Integer manId;
 

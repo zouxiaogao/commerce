@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * @Author zqy
@@ -41,5 +43,18 @@ public class LoginCtrl extends BaseCtrl{
             e.printStackTrace();
             return this.send(-1,"操作失败");
         }
+    }
+
+
+    /**
+     * 退出登录
+     * @param request
+     * @return
+     */
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+        request.getSession().removeAttribute("user");
+        return "login";
+
     }
 }
