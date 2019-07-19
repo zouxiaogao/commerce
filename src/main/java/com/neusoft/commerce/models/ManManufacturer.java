@@ -133,4 +133,23 @@ public class ManManufacturer {
     public void setDescription(String description) {
         this.description = description == null ? null : description.trim();
     }
+
+    @Override
+    public String toString() {
+        return "ManManufacturer{" +
+                "manId=" + manId +
+                ", nameEn='" + nameEn + '\'' +
+                ", nameCn='" + nameCn + '\'' +
+                ", gmcReportType='" + gmcReportType + '\'' +
+                ", gmcReportUrl='" + gmcReportUrl + '\'' +
+                ", createdBy='" + createdBy + '\'' +
+                ", creationDate=" + creationDate +
+                ", lastUpdateBy='" + lastUpdateBy + '\'' +
+                ", lastUpdateDate=" + lastUpdateDate +
+                ", callCnt=" + callCnt +
+                ", remark='" + remark + '\'' +
+                ", stsCd='" + stsCd + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

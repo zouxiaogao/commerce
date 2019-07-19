@@ -37,7 +37,7 @@
     delete from man_manufacturer
     where MAN_ID = #{manId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.neusoft.commerce.models.ManManufacturer" >
+  <insert id="insert" parameterType="com.neusoft.commerce.models.ManManufacturer" keyProperty="id">
     insert into man_manufacturer (MAN_ID, NAME_EN, NAME_CN, 
       GMC_REPORT_TYPE, GMC_REPORT_URL, CREATED_BY, 
       CREATION_DATE, LAST_UPDATE_BY, LAST_UPDATE_DATE, 
@@ -203,8 +203,7 @@
       LAST_UPDATE_BY = #{lastUpdateBy,jdbcType=VARCHAR},
       LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
       CALL_CNT = #{callCnt,jdbcType=INTEGER},
-      REMARK = #{remark,jdbcType=VARCHAR},
-      STS_CD = #{stsCd,jdbcType=CHAR}
-    where MAN_ID = #{manId,jdbcType=INTEGER}
+      REMARK = #{remark,jdbcType=VARCHAR}
+      where MAN_ID = #{manId,jdbcType=INTEGER}
   </update>
 </mapper>

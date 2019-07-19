@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="utf-8">
@@ -6,10 +7,10 @@
         <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
         <link href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
         <link rel="stylesheet" href="richText/index.css" type="text/css"> </link>
-        <script src="js/jquery-1.9.1.js"></script>
         <script src="js/bootstrap.min.js"></script>
-        <script src="js/brand/brand.js"></script>
+        <!--<script src="js/brand/brand.js"></script>-->
         <script src="richText/bootstrap-wysiwyg.js" type="text/javascript"></script>
+        <script src="js/jquery-1.9.1.js"></script>
         <script src="richText/jquery.hotkeys.js" type="text/javascript"></script>
   <style>
      body,html{
@@ -34,6 +35,44 @@
 
 
   </style>
+
+        <script th:inline="javascript">
+            $(function(){
+                var message = [[${manManufacturer}]];
+                console.log(message);
+
+                $("#btnsave").click(function(){
+
+                    var data={
+                        manId:message.manId,
+                        nameCn: $("#nameCn").val(),
+                        nameEn: $("#nameEn").val(),
+                        description:$("#editor").val(),
+                        gmcReportType:$("#confirm_type").val(),
+                        gmcReportUrl:$("#confirm_url").val()
+                    };
+                    console.log(data)
+                    $.ajax({
+                        url:"../saveBrand",
+                        type:"POST",
+                        contentType:"application/json",
+                        dataType:"json",
+                        data:  JSON.stringify(data),
+                        success : function (result) {
+                            if(result.code==200){
+                                alert(result.message)
+                                window.location.href="/brand-addbrand";
+                            }else if(result.code==-1){
+                                alert(result.message)
+                            }else {
+                                alert("系统繁忙")
+                            }
+                        }
+                    });
+                    return false;
+                });
+            });
+        </script>
 
     </head>
     <body>
@@ -121,9 +160,9 @@
             </div>
 
             <div class="control-group">
-              <label class="control-label" for="report_url">GMC Report Url<br>证书地址</label>
+              <label class="control-label" for="confirm_url">GMC Report Url<br>证书地址</label>
               <div class="controls">
-                <input type="text" id="report_url"  th:value="${brand.gmcReportUrl}">
+                <input type="text" id="confirm_url"  th:value="${brand.gmcReportUrl}">
               </div>
             </div>
 

@@ -24,7 +24,7 @@ public class ManManufacturerServiceImpl implements ManManufacturerService {
 
     @Override
     public int insert(ManManufacturer record) {
-        return 0;
+        return manManufacturerMapper.insert(record);
     }
 
     @Override
