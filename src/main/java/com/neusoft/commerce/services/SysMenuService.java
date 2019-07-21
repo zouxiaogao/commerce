@@ -1,15 +1,15 @@
-package com.neusoft.commerce.dao;
-
+package com.neusoft.commerce.services;
 
 import com.neusoft.commerce.models.SysMenu;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import javax.validation.constraints.Max;
 import java.util.List;
 
-@Mapper
-public interface SysMenuMapper {
+/**
+ * @Author zqy
+ * @Date 2019/07/21
+ */
+public interface SysMenuService {
     int deleteByPrimaryKey(Integer menuId);
 
     int insert(SysMenu record);

@@ -1,15 +1,15 @@
-package com.neusoft.commerce.dao;
-
+package com.neusoft.commerce.services;
 
 import com.neusoft.commerce.models.ProProduct;
 import com.neusoft.commerce.models.dto.ProductDTO;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-@Mapper
-public interface ProProductMapper {
+/**
+ * @Author zqy
+ * @Date 2019/07/21
+ */
+public interface ProductService {
     int deleteByPrimaryKey(Integer proId);
 
     int insert(ProProduct record);
@@ -24,6 +24,7 @@ public interface ProProductMapper {
 
     int updateByPrimaryKey(ProProduct record);
 
-    List<ProductDTO> selectByManId(@Param("manId") Integer manId);
-    List<ProductDTO> selectByManIdAndCondition(@Param("manId") Integer manBuyerId,@Param("tittle") String tittle);
+    List<ProductDTO> selectByManId(Integer manId);
+
+    List<ProductDTO> selectByManIdAndCondition(Integer manBuyerId,String tittle);
 }

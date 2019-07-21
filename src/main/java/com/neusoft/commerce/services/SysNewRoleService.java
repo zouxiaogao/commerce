@@ -1,11 +1,12 @@
-package com.neusoft.commerce.dao;
-
+package com.neusoft.commerce.services;
 
 import com.neusoft.commerce.models.SysNewRole;
-import org.apache.ibatis.annotations.Mapper;
 
-@Mapper
-public interface SysNewRoleMapper {
+/**
+ * @Author zqy
+ * @Date 2019/07/21
+ */
+public interface SysNewRoleService {
     int deleteByPrimaryKey(Integer roleId);
 
     int insert(SysNewRole record);

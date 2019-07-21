@@ -1,14 +1,18 @@
 package com.neusoft.commerce.ctrls;
 
+import com.neusoft.commerce.common.StringUtils;
+import com.neusoft.commerce.models.SysMenu;
+import com.neusoft.commerce.models.SysNewRole;
 import com.neusoft.commerce.models.SysUser;
+import com.neusoft.commerce.services.impl.SysMenuServiceImpl;
+import com.neusoft.commerce.services.impl.SysNewRoleServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.util.List;
 
 /**
  * @Author zqy
@@ -17,18 +21,32 @@ import java.io.IOException;
 @Controller
 public class RenderCtrl {
 
+    @Autowired
+    private SysNewRoleServiceImpl sysNewRoleService;
+    @Autowired
+    private SysMenuServiceImpl sysMenuService;
+
     @GetMapping(value = {"/","/login"})
     public String console(){
         return "login";
     }
 
     @GetMapping("/index")
-    public String console(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
+    public String console(HttpServletRequest httpServletRequest, Model model){
         SysUser user =(SysUser) httpServletRequest.getSession().getAttribute("user");
         if (user == null) {
            return "login";
+        }else{
+            //角色信息
+            SysNewRole sysNewRole = sysNewRoleService.selectByPrimaryKey(Integer.parseInt(user.getRoleId()));
+            String[] menu=StringUtils.splitTo(sysNewRole.getVisibleMenuId());
+            List<Integer> menuIds = StringUtils.StringConvertInter(menu);
+            //菜单信息
+            List<SysMenu> sysMenus = sysMenuService.selectByMenuIds(menuIds);
+            model.addAttribute("role",sysNewRole);
+            model.addAttribute("menus",sysMenus);
+            return "index";
         }
-        return "index";
     }
 
 

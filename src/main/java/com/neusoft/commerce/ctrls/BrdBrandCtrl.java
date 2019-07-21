@@ -44,12 +44,13 @@ public class BrdBrandCtrl extends BaseCtrl{
     public Result saveBrand(@RequestBody ManManufacturer manufacturer, HttpServletRequest request){
         try {
             Integer num = manufacturerService.updateByPrimaryKey(manufacturer);
-            return this.send(200,"操作成功");
-//            if(num>0){
-//                return this.send(200,"操作成功");
-//            }else {
-//                return this.send(-1,"操作失败");
-//            }
+
+
+            if(num>0){
+                return this.send(200,"保存成功");
+            }else {
+                return this.send(-1,"保存失败");
+            }
         }catch (Exception e){
             e.printStackTrace();
             return this.send(-1,"操作失败");

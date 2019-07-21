@@ -3,7 +3,6 @@ package com.neusoft.commerce.ctrls;
 import com.neusoft.commerce.common.PasswordUtil;
 import com.neusoft.commerce.common.Result;
 import com.neusoft.commerce.models.SysUser;
-import com.neusoft.commerce.services.SysUserService;
 import com.neusoft.commerce.services.impl.SysUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
