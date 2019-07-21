@@ -71,6 +71,36 @@
 
   </select>
 
+
+    <select id="selectByProId" resultType="com.neusoft.commerce.models.dto.ProductDTO" parameterType="java.lang.Integer" >
+    select
+    pro.PRO_ID,
+    pro.SKU_CD,
+    pro.MAN_ID,
+    pro.TITLE,
+	ofp.OFP_ID,
+    ofp.PRICE,
+	pck.PCK_ID,
+    pck.WAR_ID ,
+	pdn.PDN_ID,
+    pdn.DESCRITION ,
+	spa.SPA_ID,
+    spa.NAME_EN ,
+	spv.SPV_ID,
+    spv.NAME_CN
+
+    from pro_product pro
+    left join ofp_offer_price ofp on ofp.PRO_ID =  pro.PRO_ID
+    left join pck_package_info pck on pck.PRO_ID = pro.PRO_ID
+    left join pdn_product_descrition pdn on pdn.PRO_ID = pro.PRO_ID
+    left join spa_specific_attribute spa on spa.PRO_ID=pro.PRO_ID
+    left join spv_specific_attribute_value spv on spv.SPA_ID = spa.SPA_ID
+    where pro.PRO_ID = #{proId,jdbcType=INTEGER}
+
+  </select>
+
+
+
   <!--条件查询-->
   <select id="selectByManIdAndCondition" resultType="com.neusoft.commerce.models.dto.ProductDTO" parameterType="java.util.Map" >
     select

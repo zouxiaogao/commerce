@@ -36,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProProduct selectByPrimaryKey(Integer proId) {
-        return null;
+        return proProductMapper.selectByPrimaryKey(proId);
     }
 
     @Override
@@ -62,5 +62,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDTO> selectByManIdAndCondition(Integer manBuyerId,String tittle) {
         return proProductMapper.selectByManIdAndCondition(manBuyerId,tittle);
+    }
+
+    @Override
+    public ProductDTO selectByProId(Integer proId) {
+        return proProductMapper.selectByProId(proId);
     }
 }

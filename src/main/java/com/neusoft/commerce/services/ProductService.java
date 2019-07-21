@@ -27,4 +27,6 @@ public interface ProductService {
     List<ProductDTO> selectByManId(Integer manId);
 
     List<ProductDTO> selectByManIdAndCondition(Integer manBuyerId,String tittle);
+
+    ProductDTO selectByProId(Integer proId);
 }

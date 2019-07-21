@@ -18,6 +18,8 @@ public interface ProProductMapper {
 
     ProProduct selectByPrimaryKey(Integer proId);
 
+    ProductDTO selectByProId(Integer proId);
+
     int updateByPrimaryKeySelective(ProProduct record);
 
     int updateByPrimaryKeyWithBLOBs(ProProduct record);
