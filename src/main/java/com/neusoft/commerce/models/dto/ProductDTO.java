@@ -31,6 +31,15 @@ public class ProductDTO {
     private String description; //商品描述
     private Integer spaId; //商品属性表id
     private Integer spvId; //商品属性值表id
+    private String isDel; //删除标记
+
+    public String getIsDel() {
+        return isDel;
+    }
+
+    public void setIsDel(String isDel) {
+        this.isDel = isDel;
+    }
 
     public Integer getProId() {
         return proId;
@@ -224,6 +233,7 @@ public class ProductDTO {
                 ", description='" + description + '\'' +
                 ", spaId=" + spaId +
                 ", spvId=" + spvId +
+                ", isDel='" + isDel + '\'' +
                 '}';
     }
 }

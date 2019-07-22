@@ -19,11 +19,53 @@
           background: #fff;
         }
       </style>
-      <script>
+       <script type="text/javascript">
+           $(function () {
+               //多选
+               $('.ace-checkbox-2').change(function(){
+                   if($('.ace-checkbox-2').prop('checked')){
+                       $('.input').prop('checked',true);
+                   }else{
+                       $('.input').prop('checked',false);
+                   }
+               });
+
+               $("#btnDel").click(function(){
+                   alert(111)
+                   if(window.confirm("是否删除")){
+                       alert("删除成功！")
+                   }
+                   // bootbox.alert("删除成功！");
+               });
+           });
+
+           function del(proId) {
+               if(window.confirm("是否删除")){
+                   //删除数据 用
+                   $.ajax({
+                       type: "GET",
+                       url: "/brand-productInput-attr/delete",
+                       data: {"id": proId},
+                       success: function(data){//data就是 controller 中的 return 的 数据
+                           if(data.code==200){
+                               //刷新数据
+                               alert(data.message)
+                               window.location.reload();
+                           }else{
+                               alert(data.message);
+                           }
+                       }
+                   });
+               }
+           }
+
+       </script>
+
+
+      <script type="text/javascript">
           $(function(){
 
               //显示所有数据  用
-
               $.ajax({
                   url : "/brand-productInput-attr/productlist",
                   type : "GET",
@@ -31,8 +73,6 @@
                       $("table:last tbody:last").before(result);
                   }
               });
-
-
 
               //查询
               $("form[name=form1]").submit(function(){
@@ -50,20 +90,9 @@
                   return false;
               });
 
-
-              $('.ace-checkbox-2').change(function(){
-                  if($('.ace-checkbox-2').prop('checked')){
-                      $('.input').prop('checked',true);
-                  }else{
-                      $('.input').prop('checked',false);
-                  }
-              });
-
-              $('.btn-danger').click(function(){
-                  bootbox.alert("删除成功！");
-              })
-
           });
+
+          //新增  编辑
           function gotoadd(proId) {
               console.log(proId)
               if(proId!=null){
@@ -73,11 +102,7 @@
               }
 
           }
-
-
       </script>
-
-
     </head>
 
     <body>
@@ -122,7 +147,7 @@
           <td>
             <div class="inline position-relative" >
               <button class="btn btn-mini btn-info"  th:onclick="javascript:gotoadd(([[${product.proId}]]))"><i class="icon-edit"></i></button>
-              <button class="btn btn-mini btn-danger"><i class="icon-trash"></i></button>
+              <button class="btn btn-mini btn-danger" th:onclick="javascript:del(([[${product.proId}]]))" id="btnDel" type="button"><i class="icon-trash" ></i></button>
             </div>
           </td>
         </tr>

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -85,5 +86,25 @@ public class BrandProductCtrl extends BaseCtrl{
             e.printStackTrace();
             return this.send(-1,"操作失败");
         }
+    }
+
+
+    //删除
+    @GetMapping("/brand-productInput-attr/delete")
+    @ResponseBody
+    public Result delete(Integer id) {
+
+
+        try {
+            //productService.deleteByPrimaryKey(id);
+            productService.deleteByProduct(id);
+            return this.send(200,"删除成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            return this.send(-1,"操作失败");
+        }
+
+
+
     }
 }

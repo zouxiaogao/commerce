@@ -32,4 +32,6 @@ public interface ProductService {
 
     int updateProduct(ProductDTO productDTO,String name);
     int insertProduct(ProductDTO productDTO,String name);
+
+    int deleteByProduct(Integer id);
 }

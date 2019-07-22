@@ -24,6 +24,7 @@
     <result column="KEY_WORDS" property="keyWords" jdbcType="VARCHAR" />
     <result column="TIME_UNIT" property="timeUnit" jdbcType="VARCHAR" />
     <result column="STOCKSETING" property="stockseting" jdbcType="INTEGER" />
+    <result column="IS_DEL" property="isDel" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.neusoft.commerce.models.ProProduct" extends="BaseResultMap" >
     <result column="WARRANTY" property="warranty" jdbcType="LONGVARCHAR" />
@@ -31,7 +32,7 @@
   <sql id="Base_Column_List" >
     PRO_ID, SKU_CD, BRD_ID, MAN_ID, TITLE, UPC, EAN, MODEL, WARRANTY_DAY, RETAIL_PRICE, 
     CREATED_BY, CREATION_DATE, LAST_UPDATE_BY, LAST_UPDATE_DATE, CALL_CNT, REMARK, STS_CD, 
-    MININUM_RETAIL_PRICE, REPLENISHMENT_PERIOD, KEY_WORDS, TIME_UNIT, STOCKSETING
+    MININUM_RETAIL_PRICE, REPLENISHMENT_PERIOD, KEY_WORDS, TIME_UNIT, STOCKSETING,IS_DEL
   </sql>
   <sql id="Blob_Column_List" >
     WARRANTY
@@ -54,6 +55,7 @@
 	pro.EAN,
 	pro.MODEL,
 	pro.TIME_UNIT,
+	pro.IS_DEL,
 	ofp.OFP_ID,
     ofp.PRICE,
 	pck.PCK_ID,
@@ -76,7 +78,7 @@
     left join pdn_product_descrition pdn on pdn.PRO_ID = pro.PRO_ID
     left join spa_specific_attribute spa on spa.PRO_ID=pro.PRO_ID
     left join spv_specific_attribute_value spv on spv.SPA_ID = spa.SPA_ID
-    where pro.MAN_ID = #{manId,jdbcType=INTEGER}
+    where pro.MAN_ID = #{manId,jdbcType=INTEGER} and pro.IS_DEL =1
     order by  ofp.PRICE
 
   </select>
@@ -92,6 +94,7 @@
 	pro.EAN,
 	pro.MODEL,
 	pro.TIME_UNIT,
+	pro.IS_DEL
 	ofp.OFP_ID,
     ofp.PRICE,
 	pck.PCK_ID,
@@ -113,7 +116,7 @@
     left join pdn_product_descrition pdn on pdn.PRO_ID = pro.PRO_ID
     left join spa_specific_attribute spa on spa.PRO_ID=pro.PRO_ID
     left join spv_specific_attribute_value spv on spv.SPA_ID = spa.SPA_ID
-    where pro.PRO_ID = #{proId,jdbcType=INTEGER}
+    where pro.PRO_ID = #{proId,jdbcType=INTEGER} and pro.IS_DEL =1
 
   </select>
 
@@ -150,12 +153,18 @@
     left join pdn_product_descrition pdn on pdn.PRO_ID = pro.PRO_ID
     left join spa_specific_attribute spa on spa.PRO_ID=pro.PRO_ID
     left join spv_specific_attribute_value spv on spv.SPA_ID = spa.SPA_ID
-    where pro.MAN_ID = #{manId,jdbcType=INTEGER}
+    where pro.MAN_ID = #{manId,jdbcType=INTEGER} and pro.IS_DEL =1
     <if test="tittle">
       and pro.TITLE like concat('%',#{tittle,jdbcType=VARCHAR},'%')
     </if>
   </select>
 
+  <update id="deleteProductById" parameterType="java.lang.Integer">
+      update pro_product
+      set
+      IS_DEL=0
+      where PRO_ID = #{proId,jdbcType=INTEGER}
+  </update>
 
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >

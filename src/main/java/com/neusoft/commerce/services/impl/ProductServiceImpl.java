@@ -35,7 +35,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public int deleteByPrimaryKey(Integer proId) {
-        return 0;
+        return proProductMapper.deleteByPrimaryKey(proId);
     }
 
     @Override
@@ -157,6 +157,14 @@ public class ProductServiceImpl implements ProductService {
         productDescrition.setCreatedBy(name);
         productDescrition.setProId(product.getProId());
         productDescritionMapper.insert(productDescrition);
+
+        return 0;
+    }
+
+    @Override
+    public int deleteByProduct(Integer id) {
+
+        int i = proProductMapper.deleteProductById(id);
 
         return 0;
     }

@@ -28,4 +28,5 @@ public interface ProProductMapper {
 
     List<ProductDTO> selectByManId(@Param("manId") Integer manId);
     List<ProductDTO> selectByManIdAndCondition(@Param("manId") Integer manBuyerId,@Param("tittle") String tittle);
+    int deleteProductById(Integer proId);
 }
