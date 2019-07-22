@@ -97,17 +97,35 @@ public class ProductServiceImpl implements ProductService {
         //插入pck
         PckPackageInfo packageInfo = ProductUtils.setPackage(productDTO);
         packageInfo.setLastUpdateBy(name);
-        pckPackageInfoMapper.updateByPrimaryKey(packageInfo);
+        packageInfo.setProId(product.getProId());
+        if(packageInfo.getPckId()!=null){
+            pckPackageInfoMapper.updateByPrimaryKey(packageInfo);
+        }else {
+            pckPackageInfoMapper.insert(packageInfo);
+        }
+
 
         //插入ofp
         OfpOfferPrice offerPrice = ProductUtils.setOfp(productDTO);
         offerPrice.setLastUpdateBy(name);
-        offerPriceMapper.updateByPrimaryKey(offerPrice);
+        offerPrice.setProId(product.getProId());
+        offerPrice.setManId(productDTO.getManId());
+        if(offerPrice.getOfpId()!=null){
+            offerPriceMapper.updateByPrimaryKey(offerPrice);
+        }else {
+            offerPriceMapper.insert(offerPrice);
+        }
+
 
         //插入pdn
         PdnProductDescrition productDescrition = ProductUtils.setPdn(productDTO);
         productDescrition.setLastUpdateBy(name);
-        productDescritionMapper.updateByPrimaryKey(productDescrition);
+        productDescrition.setProId(productDTO.getProId());
+        if(productDescrition.getPdnId()!=null){
+            productDescritionMapper.updateByPrimaryKey(productDescrition);
+        }else {
+            productDescritionMapper.insert(productDescrition);
+        }
 
         return 1;
     }
@@ -137,7 +155,7 @@ public class ProductServiceImpl implements ProductService {
         //插入pdn
         PdnProductDescrition productDescrition = ProductUtils.setPdn(productDTO);
         productDescrition.setCreatedBy(name);
-        offerPrice.setProId(product.getProId());
+        productDescrition.setProId(product.getProId());
         productDescritionMapper.insert(productDescrition);
 
         return 0;

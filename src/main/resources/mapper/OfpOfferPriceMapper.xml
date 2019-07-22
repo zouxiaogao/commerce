@@ -217,7 +217,7 @@
       LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
       CALL_CNT = #{callCnt,jdbcType=INTEGER},
       REMARK = #{remark,jdbcType=VARCHAR},
-      STS_CD = #{stsCd,jdbcType=CHAR},
+      STS_CD = 'A',
       PERIOD = #{period,jdbcType=VARCHAR}
     where OFP_ID = #{ofpId,jdbcType=INTEGER}
   </update>

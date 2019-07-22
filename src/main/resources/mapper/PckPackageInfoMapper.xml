@@ -226,7 +226,7 @@
       LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
       CALL_CNT = #{callCnt,jdbcType=INTEGER},
       REMARK = #{remark,jdbcType=VARCHAR},
-      STS_CD = #{stsCd,jdbcType=CHAR},
+      STS_CD = 'A',
       HEAVY_CARGO = #{heavyCargo,jdbcType=VARCHAR},
       LOGISTICS_COMPANY = #{logisticsCompany,jdbcType=VARCHAR}
     where PCK_ID = #{pckId,jdbcType=INTEGER}

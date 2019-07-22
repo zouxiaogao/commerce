@@ -22,8 +22,9 @@
       height: 200px;
     }
 
-
   </style>
+
+
     <body>
 
     <div id="main-content" class="clearfix">
@@ -201,7 +202,7 @@
 
         </form>
         <div style="text-align: center"><button class="btn">取消 </button>
-          <button class="btn btn-primary saved" id="btnsave">保存</button></div>
+          <button class="btn btn-primary saved" id="btnsave" type="button">保存</button></div>
       </div>
 
     </div>
@@ -210,7 +211,7 @@
     <script src="../js/bootbox.min.js"></script>
     <script src="../richText/bootstrap-wysiwyg.js" type="text/javascript"></script>
     <script src="../richText/jquery.hotkeys.js" type="text/javascript"></script>
-    <script>
+    <script th:inline="javascript">
       $(function(){
         function initToolbarBootstrapBindings() {
           var fonts = ['Serif', 'Sans', 'Arial', 'Arial Black', 'Courier',
@@ -248,9 +249,84 @@
         initToolbarBootstrapBindings();
         $('#editor').wysiwyg({ fileUploadError: showErrorAlert} );
 
-        $('.saved').click(function () {
-          window.location.href = "brand-productInput-attr";
-        })
+        // $('.saved').click(function () {
+        //   window.location.href = "brand-productInput-attr";
+        // })
+
+        $("#btnsave").click(function(){
+              var product=[[${product}]];
+              if(product!=null){
+                  var data={
+                      proId:product.proId,
+                      manId:product.manId,
+                      skuCd: $("#skuCd").val(),
+                      upc: $("#upc").val(),
+                      ena:$("#ena").val(),
+                      model:$("#model").val(),
+                      title:$("#product_tittle").val(),
+                      timeUnit:$("#timeUnit").val(),
+                      ofpId:product.ofpId,
+                      price:$("#price").val(),
+                      pckId:product.pckId,
+                      height:$("#height").val(),
+                      width:$("#width").val(),
+                      length:$("#length").val(),
+                      weight:$("#weight").val(),
+                      pdnId:product.pdnId,
+                      typeCd:$("#typeCd").val(),
+                      description:$("#description").val()
+                  }
+                  console.log(data)
+                  $.ajax({
+                      url: "/brand-productInput-attr/save",
+                      type:"POST",
+                      contentType:"application/json",
+                      dataType:"json",
+                      data:  JSON.stringify(data),
+                      success: function(result){
+                          if(result.code==200){
+                              alert(result.message)
+                              window.location.href="/brand-productInput-attr2/detail?id="+data.proId;
+                          }else{
+                              alert(result.message);
+                          }
+                      }
+                  });
+              }else {
+                  var data={
+                      skuCd: $("#skuCd").val(),
+                      upc: $("#upc").val(),
+                      ena:$("#ena").val(),
+                      model:$("#model").val(),
+                      title:$("#product_tittle").val(),
+                      timeUnit:$("#timeUnit").val(),
+                      price:$("#price").val(),
+                      height:$("#height").val(),
+                      width:$("#width").val(),
+                      length:$("#length").val(),
+                      weight:$("#weight").val(),
+                      typeCd:$("#typeCd").val(),
+                      description:$("#description").val()
+                  }
+                  console.log(data)
+                  $.ajax({
+                      url: "/brand-productInput-attr/save",
+                      type:"POST",
+                      contentType:"application/json",
+                      dataType:"json",
+                      data:  JSON.stringify(data),
+                      success: function(result){
+                          if(result.code==200){
+                              alert(result.message)
+                              window.location.href="/brand-productInput-attr";
+                          }else{
+                              alert(result.message);
+                          }
+                      }
+                  });
+              }
+              return false;
+          });
 })
 
 

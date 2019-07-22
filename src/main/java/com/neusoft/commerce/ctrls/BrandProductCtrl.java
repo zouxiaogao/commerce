@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -66,7 +68,8 @@ public class BrandProductCtrl extends BaseCtrl{
 
     @Transactional
     @PostMapping("/brand-productInput-attr/save")
-    public Result brandProductSave(HttpServletRequest request,ProductDTO productDTO){
+    @ResponseBody
+    public Result brandProductSave(HttpServletRequest request,@RequestBody ProductDTO productDTO){
         try {
             SysUser user =(SysUser) request.getSession().getAttribute("user");
             productDTO.setManId(user.getManBuyerId());

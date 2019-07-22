@@ -59,7 +59,7 @@ public class ProductUtils {
         productDescrition.setPdnId(productDTO.getPdnId());
         productDescrition.setProId(productDTO.getProId());
         productDescrition.setTypeCd(productDTO.getTypeCd());
-        productDescrition.setDescrition(productDescrition.getDescrition());
+        productDescrition.setDescrition(productDTO.getDescription());
         return  productDescrition;
     }
 
