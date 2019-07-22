@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.commerce.dao.OfpOfferPriceMapper" >
+  <resultMap id="BaseResultMap" type="com.neusoft.commerce.models.OfpOfferPrice" >
+    <id column="OFP_ID" property="ofpId" jdbcType="INTEGER" />
+    <result column="MAN_ID" property="manId" jdbcType="INTEGER" />
+    <result column="EFFETIVE_START_DATE" property="effetiveStartDate" jdbcType="TIMESTAMP" />
+    <result column="EFFECTIVE_END_DATE" property="effectiveEndDate" jdbcType="TIMESTAMP" />
+    <result column="PRO_ID" property="proId" jdbcType="INTEGER" />
+    <result column="PRICE" property="price" jdbcType="DECIMAL" />
+    <result column="TYPE_CD" property="typeCd" jdbcType="VARCHAR" />
+    <result column="DSR_ID" property="dsrId" jdbcType="INTEGER" />
+    <result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+    <result column="CREATION_DATE" property="creationDate" jdbcType="TIMESTAMP" />
+    <result column="LAST_UPDATE_BY" property="lastUpdateBy" jdbcType="VARCHAR" />
+    <result column="LAST_UPDATE_DATE" property="lastUpdateDate" jdbcType="TIMESTAMP" />
+    <result column="CALL_CNT" property="callCnt" jdbcType="INTEGER" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="STS_CD" property="stsCd" jdbcType="CHAR" />
+    <result column="PERIOD" property="period" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    OFP_ID, MAN_ID, EFFETIVE_START_DATE, EFFECTIVE_END_DATE, PRO_ID, PRICE, TYPE_CD, 
+    DSR_ID, CREATED_BY, CREATION_DATE, LAST_UPDATE_BY, LAST_UPDATE_DATE, CALL_CNT, REMARK, 
+    STS_CD, PERIOD
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ofp_offer_price
+    where OFP_ID = #{ofpId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ofp_offer_price
+    where OFP_ID = #{ofpId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.neusoft.commerce.models.OfpOfferPrice" >
+    insert into ofp_offer_price (OFP_ID, MAN_ID, EFFETIVE_START_DATE, 
+      EFFECTIVE_END_DATE, PRO_ID, PRICE, 
+      TYPE_CD, DSR_ID, CREATED_BY, 
+      CREATION_DATE, LAST_UPDATE_BY, LAST_UPDATE_DATE, 
+      CALL_CNT, REMARK, STS_CD, 
+      PERIOD)
+    values (#{ofpId,jdbcType=INTEGER}, #{manId,jdbcType=INTEGER}, #{effetiveStartDate,jdbcType=TIMESTAMP}, 
+      #{effectiveEndDate,jdbcType=TIMESTAMP}, #{proId,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL}, 
+      #{typeCd,jdbcType=VARCHAR}, #{dsrId,jdbcType=INTEGER}, #{createdBy,jdbcType=VARCHAR}, 
+      #{creationDate,jdbcType=TIMESTAMP}, #{lastUpdateBy,jdbcType=VARCHAR}, #{lastUpdateDate,jdbcType=TIMESTAMP}, 
+      #{callCnt,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR},'A',
+      #{period,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neusoft.commerce.models.OfpOfferPrice" >
+    insert into ofp_offer_price
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ofpId != null" >
+        OFP_ID,
+      </if>
+      <if test="manId != null" >
+        MAN_ID,
+      </if>
+      <if test="effetiveStartDate != null" >
+        EFFETIVE_START_DATE,
+      </if>
+      <if test="effectiveEndDate != null" >
+        EFFECTIVE_END_DATE,
+      </if>
+      <if test="proId != null" >
+        PRO_ID,
+      </if>
+      <if test="price != null" >
+        PRICE,
+      </if>
+      <if test="typeCd != null" >
+        TYPE_CD,
+      </if>
+      <if test="dsrId != null" >
+        DSR_ID,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="creationDate != null" >
+        CREATION_DATE,
+      </if>
+      <if test="lastUpdateBy != null" >
+        LAST_UPDATE_BY,
+      </if>
+      <if test="lastUpdateDate != null" >
+        LAST_UPDATE_DATE,
+      </if>
+      <if test="callCnt != null" >
+        CALL_CNT,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="stsCd != null" >
+        STS_CD,
+      </if>
+      <if test="period != null" >
+        PERIOD,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ofpId != null" >
+        #{ofpId,jdbcType=INTEGER},
+      </if>
+      <if test="manId != null" >
+        #{manId,jdbcType=INTEGER},
+      </if>
+      <if test="effetiveStartDate != null" >
+        #{effetiveStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effectiveEndDate != null" >
+        #{effectiveEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="proId != null" >
+        #{proId,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="typeCd != null" >
+        #{typeCd,jdbcType=VARCHAR},
+      </if>
+      <if test="dsrId != null" >
+        #{dsrId,jdbcType=INTEGER},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="creationDate != null" >
+        #{creationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateBy != null" >
+        #{lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateDate != null" >
+        #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="callCnt != null" >
+        #{callCnt,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="stsCd != null" >
+        #{stsCd,jdbcType=CHAR},
+      </if>
+      <if test="period != null" >
+        #{period,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.neusoft.commerce.models.OfpOfferPrice" >
+    update ofp_offer_price
+    <set >
+      <if test="manId != null" >
+        MAN_ID = #{manId,jdbcType=INTEGER},
+      </if>
+      <if test="effetiveStartDate != null" >
+        EFFETIVE_START_DATE = #{effetiveStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effectiveEndDate != null" >
+        EFFECTIVE_END_DATE = #{effectiveEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="proId != null" >
+        PRO_ID = #{proId,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        PRICE = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="typeCd != null" >
+        TYPE_CD = #{typeCd,jdbcType=VARCHAR},
+      </if>
+      <if test="dsrId != null" >
+        DSR_ID = #{dsrId,jdbcType=INTEGER},
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="creationDate != null" >
+        CREATION_DATE = #{creationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateBy != null" >
+        LAST_UPDATE_BY = #{lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateDate != null" >
+        LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="callCnt != null" >
+        CALL_CNT = #{callCnt,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="stsCd != null" >
+        STS_CD = #{stsCd,jdbcType=CHAR},
+      </if>
+      <if test="period != null" >
+        PERIOD = #{period,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where OFP_ID = #{ofpId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.neusoft.commerce.models.OfpOfferPrice" >
+    update ofp_offer_price
+    set MAN_ID = #{manId,jdbcType=INTEGER},
+      EFFETIVE_START_DATE = #{effetiveStartDate,jdbcType=TIMESTAMP},
+      EFFECTIVE_END_DATE = #{effectiveEndDate,jdbcType=TIMESTAMP},
+      PRO_ID = #{proId,jdbcType=INTEGER},
+      PRICE = #{price,jdbcType=DECIMAL},
+      TYPE_CD = #{typeCd,jdbcType=VARCHAR},
+      DSR_ID = #{dsrId,jdbcType=INTEGER},
+      CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      CREATION_DATE = #{creationDate,jdbcType=TIMESTAMP},
+      LAST_UPDATE_BY = #{lastUpdateBy,jdbcType=VARCHAR},
+      LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      CALL_CNT = #{callCnt,jdbcType=INTEGER},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      STS_CD = #{stsCd,jdbcType=CHAR},
+      PERIOD = #{period,jdbcType=VARCHAR}
+    where OFP_ID = #{ofpId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -29,4 +29,7 @@ public interface ProductService {
     List<ProductDTO> selectByManIdAndCondition(Integer manBuyerId,String tittle);
 
     ProductDTO selectByProId(Integer proId);
+
+    int updateProduct(ProductDTO productDTO,String name);
+    int insertProduct(ProductDTO productDTO,String name);
 }

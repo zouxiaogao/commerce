@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.commerce.dao.PckPackageInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.neusoft.commerce.models.PckPackageInfo" >
+    <id column="PCK_ID" property="pckId" jdbcType="INTEGER" />
+    <result column="WAR_ID" property="warId" jdbcType="INTEGER" />
+    <result column="PRO_ID" property="proId" jdbcType="INTEGER" />
+    <result column="TYPE_CD" property="typeCd" jdbcType="CHAR" />
+    <result column="WIDTH" property="width" jdbcType="DECIMAL" />
+    <result column="HEIGHT" property="height" jdbcType="DECIMAL" />
+    <result column="LENGTH" property="length" jdbcType="DECIMAL" />
+    <result column="WEIGHT" property="weight" jdbcType="DECIMAL" />
+    <result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+    <result column="CREATION_DATE" property="creationDate" jdbcType="TIMESTAMP" />
+    <result column="LAST_UPDATE_BY" property="lastUpdateBy" jdbcType="VARCHAR" />
+    <result column="LAST_UPDATE_DATE" property="lastUpdateDate" jdbcType="TIMESTAMP" />
+    <result column="CALL_CNT" property="callCnt" jdbcType="INTEGER" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="STS_CD" property="stsCd" jdbcType="CHAR" />
+    <result column="HEAVY_CARGO" property="heavyCargo" jdbcType="VARCHAR" />
+    <result column="LOGISTICS_COMPANY" property="logisticsCompany" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    PCK_ID, WAR_ID, PRO_ID, TYPE_CD, WIDTH, HEIGHT, LENGTH, WEIGHT, CREATED_BY, CREATION_DATE, 
+    LAST_UPDATE_BY, LAST_UPDATE_DATE, CALL_CNT, REMARK, STS_CD, HEAVY_CARGO, LOGISTICS_COMPANY
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pck_package_info
+    where PCK_ID = #{pckId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pck_package_info
+    where PCK_ID = #{pckId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.neusoft.commerce.models.PckPackageInfo" >
+    insert into pck_package_info (PCK_ID, WAR_ID, PRO_ID, 
+      TYPE_CD, WIDTH, HEIGHT, 
+      LENGTH, WEIGHT, CREATED_BY, 
+      CREATION_DATE, LAST_UPDATE_BY, LAST_UPDATE_DATE, 
+      CALL_CNT, REMARK, STS_CD, 
+      HEAVY_CARGO, LOGISTICS_COMPANY)
+    values (#{pckId,jdbcType=INTEGER}, #{warId,jdbcType=INTEGER}, #{proId,jdbcType=INTEGER}, 
+      #{typeCd,jdbcType=CHAR}, #{width,jdbcType=DECIMAL}, #{height,jdbcType=DECIMAL}, 
+      #{length,jdbcType=DECIMAL}, #{weight,jdbcType=DECIMAL}, #{createdBy,jdbcType=VARCHAR}, 
+      #{creationDate,jdbcType=TIMESTAMP}, #{lastUpdateBy,jdbcType=VARCHAR}, #{lastUpdateDate,jdbcType=TIMESTAMP}, 
+      #{callCnt,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR},'A',
+      #{heavyCargo,jdbcType=VARCHAR}, #{logisticsCompany,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neusoft.commerce.models.PckPackageInfo" >
+    insert into pck_package_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pckId != null" >
+        PCK_ID,
+      </if>
+      <if test="warId != null" >
+        WAR_ID,
+      </if>
+      <if test="proId != null" >
+        PRO_ID,
+      </if>
+      <if test="typeCd != null" >
+        TYPE_CD,
+      </if>
+      <if test="width != null" >
+        WIDTH,
+      </if>
+      <if test="height != null" >
+        HEIGHT,
+      </if>
+      <if test="length != null" >
+        LENGTH,
+      </if>
+      <if test="weight != null" >
+        WEIGHT,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="creationDate != null" >
+        CREATION_DATE,
+      </if>
+      <if test="lastUpdateBy != null" >
+        LAST_UPDATE_BY,
+      </if>
+      <if test="lastUpdateDate != null" >
+        LAST_UPDATE_DATE,
+      </if>
+      <if test="callCnt != null" >
+        CALL_CNT,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="stsCd != null" >
+        STS_CD,
+      </if>
+      <if test="heavyCargo != null" >
+        HEAVY_CARGO,
+      </if>
+      <if test="logisticsCompany != null" >
+        LOGISTICS_COMPANY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pckId != null" >
+        #{pckId,jdbcType=INTEGER},
+      </if>
+      <if test="warId != null" >
+        #{warId,jdbcType=INTEGER},
+      </if>
+      <if test="proId != null" >
+        #{proId,jdbcType=INTEGER},
+      </if>
+      <if test="typeCd != null" >
+        #{typeCd,jdbcType=CHAR},
+      </if>
+      <if test="width != null" >
+        #{width,jdbcType=DECIMAL},
+      </if>
+      <if test="height != null" >
+        #{height,jdbcType=DECIMAL},
+      </if>
+      <if test="length != null" >
+        #{length,jdbcType=DECIMAL},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="creationDate != null" >
+        #{creationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateBy != null" >
+        #{lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateDate != null" >
+        #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="callCnt != null" >
+        #{callCnt,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="stsCd != null" >
+        #{stsCd,jdbcType=CHAR},
+      </if>
+      <if test="heavyCargo != null" >
+        #{heavyCargo,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsCompany != null" >
+        #{logisticsCompany,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.neusoft.commerce.models.PckPackageInfo" >
+    update pck_package_info
+    <set >
+      <if test="warId != null" >
+        WAR_ID = #{warId,jdbcType=INTEGER},
+      </if>
+      <if test="proId != null" >
+        PRO_ID = #{proId,jdbcType=INTEGER},
+      </if>
+      <if test="typeCd != null" >
+        TYPE_CD = #{typeCd,jdbcType=CHAR},
+      </if>
+      <if test="width != null" >
+        WIDTH = #{width,jdbcType=DECIMAL},
+      </if>
+      <if test="height != null" >
+        HEIGHT = #{height,jdbcType=DECIMAL},
+      </if>
+      <if test="length != null" >
+        LENGTH = #{length,jdbcType=DECIMAL},
+      </if>
+      <if test="weight != null" >
+        WEIGHT = #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="creationDate != null" >
+        CREATION_DATE = #{creationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateBy != null" >
+        LAST_UPDATE_BY = #{lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateDate != null" >
+        LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="callCnt != null" >
+        CALL_CNT = #{callCnt,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="stsCd != null" >
+        STS_CD = #{stsCd,jdbcType=CHAR},
+      </if>
+      <if test="heavyCargo != null" >
+        HEAVY_CARGO = #{heavyCargo,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsCompany != null" >
+        LOGISTICS_COMPANY = #{logisticsCompany,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PCK_ID = #{pckId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.neusoft.commerce.models.PckPackageInfo" >
+    update pck_package_info
+    set WAR_ID = #{warId,jdbcType=INTEGER},
+      PRO_ID = #{proId,jdbcType=INTEGER},
+      TYPE_CD = #{typeCd,jdbcType=CHAR},
+      WIDTH = #{width,jdbcType=DECIMAL},
+      HEIGHT = #{height,jdbcType=DECIMAL},
+      LENGTH = #{length,jdbcType=DECIMAL},
+      WEIGHT = #{weight,jdbcType=DECIMAL},
+      CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      CREATION_DATE = #{creationDate,jdbcType=TIMESTAMP},
+      LAST_UPDATE_BY = #{lastUpdateBy,jdbcType=VARCHAR},
+      LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      CALL_CNT = #{callCnt,jdbcType=INTEGER},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      STS_CD = #{stsCd,jdbcType=CHAR},
+      HEAVY_CARGO = #{heavyCargo,jdbcType=VARCHAR},
+      LOGISTICS_COMPANY = #{logisticsCompany,jdbcType=VARCHAR}
+    where PCK_ID = #{pckId,jdbcType=INTEGER}
+  </update>
+</mapper>

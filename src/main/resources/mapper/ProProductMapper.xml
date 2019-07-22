@@ -47,14 +47,23 @@
   <select id="selectByManId" resultType="com.neusoft.commerce.models.dto.ProductDTO" parameterType="java.lang.Integer" >
     select
     pro.PRO_ID,
-    pro.SKU_CD,
     pro.MAN_ID,
     pro.TITLE,
+	pro.SKU_CD,
+	pro.UPC,
+	pro.EAN,
+	pro.MODEL,
+	pro.TIME_UNIT,
 	ofp.OFP_ID,
     ofp.PRICE,
 	pck.PCK_ID,
     pck.WAR_ID ,
+	pck.WIDTH,
+	pck.HEIGHT,
+	pck.LENGTH,
+	pck.WEIGHT,
 	pdn.PDN_ID,
+	pdn.TYPE_CD,
     pdn.DESCRITION ,
 	spa.SPA_ID,
     spa.NAME_EN ,
@@ -75,20 +84,28 @@
     <select id="selectByProId" resultType="com.neusoft.commerce.models.dto.ProductDTO" parameterType="java.lang.Integer" >
     select
     pro.PRO_ID,
-    pro.SKU_CD,
     pro.MAN_ID,
     pro.TITLE,
+	pro.SKU_CD,
+	pro.UPC,
+	pro.EAN,
+	pro.MODEL,
+	pro.TIME_UNIT,
 	ofp.OFP_ID,
     ofp.PRICE,
 	pck.PCK_ID,
     pck.WAR_ID ,
+	pck.WIDTH,
+	pck.HEIGHT,
+	pck.LENGTH,
+	pck.WEIGHT,
 	pdn.PDN_ID,
+	pdn.TYPE_CD,
     pdn.DESCRITION ,
 	spa.SPA_ID,
     spa.NAME_EN ,
 	spv.SPV_ID,
     spv.NAME_CN
-
     from pro_product pro
     left join ofp_offer_price ofp on ofp.PRO_ID =  pro.PRO_ID
     left join pck_package_info pck on pck.PRO_ID = pro.PRO_ID
@@ -105,18 +122,27 @@
   <select id="selectByManIdAndCondition" resultType="com.neusoft.commerce.models.dto.ProductDTO" parameterType="java.util.Map" >
     select
     pro.PRO_ID,
-    pro.SKU_CD,
     pro.MAN_ID,
     pro.TITLE,
-	ofp.OFP_ID,
+    pro.SKU_CD,
+    pro.UPC,
+    pro.EAN,
+    pro.MODEL,
+    pro.TIME_UNIT,
+    ofp.OFP_ID,
     ofp.PRICE,
-	pck.PCK_ID,
+    pck.PCK_ID,
     pck.WAR_ID ,
-	pdn.PDN_ID,
+    pck.WIDTH,
+    pck.HEIGHT,
+    pck.LENGTH,
+    pck.WEIGHT,
+    pdn.PDN_ID,
+    pdn.TYPE_CD,
     pdn.DESCRITION ,
-	spa.SPA_ID,
+    spa.SPA_ID,
     spa.NAME_EN ,
-	spv.SPV_ID,
+    spv.SPV_ID,
     spv.NAME_CN
 
     from pro_product pro
@@ -137,7 +163,7 @@
     delete from pro_product
     where PRO_ID = #{proId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.neusoft.commerce.models.ProProduct" >
+  <insert id="insert" parameterType="com.neusoft.commerce.models.ProProduct" useGeneratedKeys="true" keyProperty="proId">
     insert into pro_product (PRO_ID, SKU_CD, BRD_ID, 
       MAN_ID, TITLE, UPC, 
       EAN, MODEL, WARRANTY_DAY, 
@@ -149,9 +175,9 @@
     values (#{proId,jdbcType=INTEGER}, #{skuCd,jdbcType=VARCHAR}, #{brdId,jdbcType=INTEGER}, 
       #{manId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{upc,jdbcType=VARCHAR}, 
       #{ean,jdbcType=VARCHAR}, #{model,jdbcType=VARCHAR}, #{warrantyDay,jdbcType=VARCHAR}, 
-      #{retailPrice,jdbcType=DECIMAL}, #{createdBy,jdbcType=VARCHAR}, #{creationDate,jdbcType=TIMESTAMP}, 
-      #{lastUpdateBy,jdbcType=VARCHAR}, #{lastUpdateDate,jdbcType=TIMESTAMP}, #{callCnt,jdbcType=INTEGER}, 
-      #{remark,jdbcType=VARCHAR}, #{stsCd,jdbcType=CHAR}, #{mininumRetailPrice,jdbcType=DECIMAL}, 
+      #{retailPrice,jdbcType=DECIMAL}, #{createdBy,jdbcType=VARCHAR},now(),
+      #{lastUpdateBy,jdbcType=VARCHAR},now(), #{callCnt,jdbcType=INTEGER},
+      #{remark,jdbcType=VARCHAR}, 'A', #{mininumRetailPrice,jdbcType=DECIMAL},
       #{replenishmentPeriod,jdbcType=INTEGER}, #{keyWords,jdbcType=VARCHAR}, #{timeUnit,jdbcType=VARCHAR}, 
       #{stockseting,jdbcType=INTEGER}, #{warranty,jdbcType=LONGVARCHAR})
   </insert>
@@ -340,7 +366,7 @@
         LAST_UPDATE_BY = #{lastUpdateBy,jdbcType=VARCHAR},
       </if>
       <if test="lastUpdateDate != null" >
-        LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
+        LAST_UPDATE_DATE = now(),
       </if>
       <if test="callCnt != null" >
         CALL_CNT = #{callCnt,jdbcType=INTEGER},
@@ -400,27 +426,15 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.neusoft.commerce.models.ProProduct" >
     update pro_product
-    set SKU_CD = #{skuCd,jdbcType=VARCHAR},
-      BRD_ID = #{brdId,jdbcType=INTEGER},
-      MAN_ID = #{manId,jdbcType=INTEGER},
-      TITLE = #{title,jdbcType=VARCHAR},
-      UPC = #{upc,jdbcType=VARCHAR},
-      EAN = #{ean,jdbcType=VARCHAR},
-      MODEL = #{model,jdbcType=VARCHAR},
-      WARRANTY_DAY = #{warrantyDay,jdbcType=VARCHAR},
-      RETAIL_PRICE = #{retailPrice,jdbcType=DECIMAL},
-      CREATED_BY = #{createdBy,jdbcType=VARCHAR},
-      CREATION_DATE = #{creationDate,jdbcType=TIMESTAMP},
-      LAST_UPDATE_BY = #{lastUpdateBy,jdbcType=VARCHAR},
-      LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
-      CALL_CNT = #{callCnt,jdbcType=INTEGER},
-      REMARK = #{remark,jdbcType=VARCHAR},
-      STS_CD = #{stsCd,jdbcType=CHAR},
-      MININUM_RETAIL_PRICE = #{mininumRetailPrice,jdbcType=DECIMAL},
-      REPLENISHMENT_PERIOD = #{replenishmentPeriod,jdbcType=INTEGER},
-      KEY_WORDS = #{keyWords,jdbcType=VARCHAR},
-      TIME_UNIT = #{timeUnit,jdbcType=VARCHAR},
-      STOCKSETING = #{stockseting,jdbcType=INTEGER}
-    where PRO_ID = #{proId,jdbcType=INTEGER}
+    set SKU_CD = #{product.skuCd,jdbcType=VARCHAR},
+      BRD_ID = #{product.brdId,jdbcType=INTEGER},
+      MAN_ID = #{product.manId,jdbcType=INTEGER},
+      TITLE = #{product.title,jdbcType=VARCHAR},
+      UPC = #{product.upc,jdbcType=VARCHAR},
+      EAN = #{product.ean,jdbcType=VARCHAR},
+      MODEL = #{product.model,jdbcType=VARCHAR},
+      LAST_UPDATE_DATE = now(),
+      TIME_UNIT = #{product.timeUnit,jdbcType=VARCHAR}
+    where PRO_ID = #{product.proId,jdbcType=INTEGER}
   </update>
 </mapper>

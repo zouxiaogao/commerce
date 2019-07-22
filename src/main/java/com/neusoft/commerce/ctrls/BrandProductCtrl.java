@@ -1,9 +1,10 @@
 package com.neusoft.commerce.ctrls;
 
-import com.neusoft.commerce.models.ProProduct;
-import com.neusoft.commerce.models.SysUser;
+import com.neusoft.commerce.common.Result;
+import com.neusoft.commerce.models.*;
 import com.neusoft.commerce.models.dto.ProductDTO;
 import com.neusoft.commerce.services.impl.ProductServiceImpl;
+import com.neusoft.commerce.services.impl.SysNewRoleServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +20,7 @@ import java.util.List;
  * @Date 2019/07/19
  */
 @Controller
-public class BrandProductCtrl {
+public class BrandProductCtrl extends BaseCtrl{
 
     @Autowired
     private ProductServiceImpl productService;
@@ -63,10 +64,23 @@ public class BrandProductCtrl {
 
 
 
+    @Transactional
     @PostMapping("/brand-productInput-attr/save")
-    public String brandProductSave(HttpServletRequest request, Model model,ProductDTO productDTO){
-        SysUser user =(SysUser) request.getSession().getAttribute("user");
-        //model.addAttribute("products",productService.insert());
-        return "brand-productInput-attr::productlist";
+    public Result brandProductSave(HttpServletRequest request,ProductDTO productDTO){
+        try {
+            SysUser user =(SysUser) request.getSession().getAttribute("user");
+            productDTO.setManId(user.getManBuyerId());
+            //SysNewRole sysNewRole = sysNewRoleService.selectByPrimaryKey(Integer.parseInt(user.getRoleId()));
+            if(productDTO.getProId()!=null){  //update
+                productService.updateProduct(productDTO,user.getName());
+                return this.send(200,"修改成功");
+            }else { //insert
+                productService.insertProduct(productDTO,user.getName());
+                return this.send(200,"新增成功");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return this.send(-1,"操作失败");
+        }
     }
 }

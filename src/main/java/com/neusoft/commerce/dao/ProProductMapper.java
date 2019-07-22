@@ -24,7 +24,7 @@ public interface ProProductMapper {
 
     int updateByPrimaryKeyWithBLOBs(ProProduct record);
 
-    int updateByPrimaryKey(ProProduct record);
+    int updateByPrimaryKey(@Param("product") ProProduct record);
 
     List<ProductDTO> selectByManId(@Param("manId") Integer manId);
     List<ProductDTO> selectByManIdAndCondition(@Param("manId") Integer manBuyerId,@Param("tittle") String tittle);

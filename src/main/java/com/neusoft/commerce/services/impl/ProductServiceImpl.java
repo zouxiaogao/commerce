@@ -1,11 +1,19 @@
 package com.neusoft.commerce.services.impl;
 
+import com.neusoft.commerce.dao.OfpOfferPriceMapper;
+import com.neusoft.commerce.dao.PckPackageInfoMapper;
+import com.neusoft.commerce.dao.PdnProductDescritionMapper;
 import com.neusoft.commerce.dao.ProProductMapper;
+import com.neusoft.commerce.models.OfpOfferPrice;
+import com.neusoft.commerce.models.PckPackageInfo;
+import com.neusoft.commerce.models.PdnProductDescrition;
 import com.neusoft.commerce.models.ProProduct;
 import com.neusoft.commerce.models.dto.ProductDTO;
+import com.neusoft.commerce.models.dto.ProductUtils;
 import com.neusoft.commerce.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,6 +26,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProProductMapper proProductMapper;
+    @Autowired
+    private PckPackageInfoMapper pckPackageInfoMapper;
+    @Autowired
+    private OfpOfferPriceMapper offerPriceMapper;
+    @Autowired
+    private PdnProductDescritionMapper productDescritionMapper;
 
     @Override
     public int deleteByPrimaryKey(Integer proId) {
@@ -51,7 +65,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public int updateByPrimaryKey(ProProduct record) {
-        return 0;
+        return proProductMapper.updateByPrimaryKey(record);
     }
 
     @Override
@@ -68,4 +82,65 @@ public class ProductServiceImpl implements ProductService {
     public ProductDTO selectByProId(Integer proId) {
         return proProductMapper.selectByProId(proId);
     }
+
+
+    //修改
+    @Override
+    @Transactional
+    public int updateProduct(ProductDTO productDTO,String name) {
+        //插入product表
+        ProProduct product = ProductUtils.setProduct(productDTO);
+        product.setLastUpdateBy(name);
+        product.setManId(productDTO.getManId());
+        proProductMapper.updateByPrimaryKey(product);
+
+        //插入pck
+        PckPackageInfo packageInfo = ProductUtils.setPackage(productDTO);
+        packageInfo.setLastUpdateBy(name);
+        pckPackageInfoMapper.updateByPrimaryKey(packageInfo);
+
+        //插入ofp
+        OfpOfferPrice offerPrice = ProductUtils.setOfp(productDTO);
+        offerPrice.setLastUpdateBy(name);
+        offerPriceMapper.updateByPrimaryKey(offerPrice);
+
+        //插入pdn
+        PdnProductDescrition productDescrition = ProductUtils.setPdn(productDTO);
+        productDescrition.setLastUpdateBy(name);
+        productDescritionMapper.updateByPrimaryKey(productDescrition);
+
+        return 1;
+    }
+
+    @Override
+    @Transactional
+    public int insertProduct(ProductDTO productDTO, String name) {
+        //插入product表
+        ProProduct product = ProductUtils.setProduct(productDTO);
+        product.setCreatedBy(name);
+        product.setManId(productDTO.getManId());
+        proProductMapper.insert(product);
+
+        //插入pck
+        PckPackageInfo packageInfo = ProductUtils.setPackage(productDTO);
+        packageInfo.setCreatedBy(name);
+        packageInfo.setProId(product.getProId());
+        pckPackageInfoMapper.insert(packageInfo);
+
+        //插入ofp
+        OfpOfferPrice offerPrice = ProductUtils.setOfp(productDTO);
+        offerPrice.setCreatedBy(name);
+        offerPrice.setManId(productDTO.getManId());
+        offerPrice.setProId(product.getProId());
+        offerPriceMapper.insert(offerPrice);
+
+        //插入pdn
+        PdnProductDescrition productDescrition = ProductUtils.setPdn(productDTO);
+        productDescrition.setCreatedBy(name);
+        offerPrice.setProId(product.getProId());
+        productDescritionMapper.insert(productDescrition);
+
+        return 0;
+    }
+
 }
