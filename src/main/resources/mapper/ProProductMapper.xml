@@ -117,8 +117,6 @@
 
   </select>
 
-
-
   <!--条件查询-->
   <select id="selectByManIdAndCondition" resultType="com.neusoft.commerce.models.dto.ProductDTO" parameterType="java.util.Map" >
     select
