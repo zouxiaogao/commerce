@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="utf-8">
 
     </head>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/ace.min.css">
-    <link rel="stylesheet" href="css/ace-skins.min.css">
-    <link rel="stylesheet" href="css/ace-responsive.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/ace.min.css">
+    <link rel="stylesheet" href="../css/ace-skins.min.css">
+    <link rel="stylesheet" href="../css/ace-responsive.min.css">
   <style>
     body,html{
       width: 100%;
@@ -22,6 +22,7 @@
     }
 
   </style>
+
     <body>
 
     <div id="main-content" class="clearfix">
@@ -47,7 +48,7 @@
       <div class="tab-content">
         <div id="AwaitingPayment" class="tab-pane active">
           <p>
-          <table id="table_bug_report" class="table table-striped table-bordered table-hover">
+          <table id="table_no_pay" class="table table-striped table-bordered table-hover">
           <thead>
             <tr>
             <th class="center">
@@ -63,53 +64,30 @@
           </thead>
 
           <tbody>
-            <tr>
+            <tr th:fragment="orderlist" th:each="order:${orderlist}" name="orderrow" id="orderrow">
               <td class="center">
                 <label><input type="checkbox" class="input"><span class="lbl"></span></label>
               </td>
-              <td><a href="bvo-goodsdetail.html">max.com</a></td>
-              <td>$60</td>
-              <td class="hidden-480">4</td>
-              <td class="">GM100320</td>
-              <td class="hidden-480">75684894</td>
-              <td>
+              <td ><a href="bvo-goodsdetail" th:text="${order.title}">max.com</a></td>
+              <td th:text="${order.salesPrice}">$60</td>
+              <td class="hidden-480" th:text="${order.qty}">4</td>
+              <td class="" th:text="${order.skuNo}">GM100320</td>
+              <td class="hidden-480" th:text="${order.orderNo}">75684894</td>
+                <!--${#dates.format(order.orderCreatedTime,'yyyy-MM-dd HH:mm:ss')}-->
+              <td th:text="${order.orderCreatedTime}">
                   2017-23-02 19:00:20
               </td>
 
             </tr>
 
-
-            <tr>
-              <td class="center">
-                <label><input type="checkbox" class="input"><span class="lbl"></span></label>
-              </td>
-              <td><a href="bvo-goodsdetail.html">best.com</a></td>
-              <td>$75</td>
-              <td class="hidden-480">6</td>
-              <td class="hidden-phone">GM100320</td>
-              <td class="hidden-480">75684894</td>
-              <td>2017-23-02 19:00:20</td>
-
-            </tr>
-
-
-            <tr>
-              <td class="center">
-                <label><input type="checkbox" class="input"><span class="lbl"></span></label>
-              </td>
-              <td><a href="bvo-goodsdetail.html">pro.com</a></td>
-              <td>$55</td>
-              <td>4</td>
-              <td>GM100320</td>
-              <td>75684894</td>
-              <td>2017-23-02 19:00:20</td>
-
-            </tr>
-
-                  </tbody>
-            </table>
+          </tbody>
+        </table>
           </p>
         </div>
+
+
+
+
         <div id="AwaitingShipment" class="tab-pane">
           <p>
           <table id="table_bug_report" class="table table-striped table-bordered table-hover">
@@ -152,7 +130,7 @@
               <td class="center">
                 <label><input type="checkbox" class="input"><span class="lbl"></span></label>
               </td>
-              <td><a href="bvo-goodsdetail.html">pro.com</a></td>
+              <td><a href="bvo-goodsdetail">pro.com</a></td>
               <td>$55</td>
               <td class="hidden-480">4,250</td>
               <td class="">Jan 21</td>
@@ -420,14 +398,13 @@
 
 
 
-
-    <script src="js/jquery-1.9.1.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/bootbox.min.js"></script>
-
+    <script type="text/javascript" th:src="@{js/jquery-1.9.1.js}"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/bootbox.min.js"></script>
 
 
-    <script>
+
+    <script type="text/javascript">
 
       $(function(){
 
@@ -440,19 +417,23 @@
               }
           })
 
-        })
+        });
 
         $('.send-out').click(function(){
           bootbox.alert("已发货!");
         })
         $('.cancel').click(function(){
           bootbox.alert("订单已取消!");
-        })
+        });
 
-
-
-
-
+          //显示所有数据  用
+          $.ajax({
+              url : "/brand-orderlist/orderlist",
+              type : "GET",
+              success : function(result){
+                  $("#table-no-pay:last tbody:last").before(result);
+              }
+          });
 })
 
 
