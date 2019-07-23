@@ -94,7 +94,7 @@
 	pro.EAN,
 	pro.MODEL,
 	pro.TIME_UNIT,
-	pro.IS_DEL
+	pro.IS_DEL,
 	ofp.OFP_ID,
     ofp.PRICE,
 	pck.PCK_ID,

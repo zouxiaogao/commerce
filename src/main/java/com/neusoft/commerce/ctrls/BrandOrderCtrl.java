@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -30,12 +31,12 @@ public class BrandOrderCtrl {
 
 
     @GetMapping("/brand/orderlist")
-    public String OrderList(HttpServletRequest request, Model model){
+    public String OrderList(HttpServletRequest request, Model model,String status){
         SysUser user =(SysUser) request.getSession().getAttribute("user");
         //默认显示未支付订单
-        List<OrderDto> orderDtos = saoSalesOrderService.selectOrderByManId(user.getManBuyerId(),"1");
+        List<OrderDto> orderDtos = saoSalesOrderService.selectOrderByManId(user.getManBuyerId(),status);
         model.addAttribute("orderlist",orderDtos);
-        return "/brand-orderlist::orderlist";
+        return "brand-orderlist::orderlist";
     }
 
 //    @GetMapping("/brand/search")
