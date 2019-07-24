@@ -1,5 +1,6 @@
 package com.neusoft.commerce.ctrls;
 
+import com.neusoft.commerce.common.Result;
 import com.neusoft.commerce.models.SysUser;
 import com.neusoft.commerce.models.dto.OrderDto;
 import com.neusoft.commerce.models.dto.ProductDTO;
@@ -18,7 +19,7 @@ import java.util.List;
  * @Date 2019/07/23
  */
 @Controller
-public class BrandOrderCtrl {
+public class BrandOrderCtrl extends BaseCtrl{
 
     @Autowired
     private OrderServiceImpl saoSalesOrderService;
@@ -30,13 +31,23 @@ public class BrandOrderCtrl {
     }
 
 
+//    @GetMapping("/brand/orderlist")
+//    public String OrderList(HttpServletRequest request, Model model,String status){
+//        SysUser user =(SysUser) request.getSession().getAttribute("user");
+//        //默认显示未支付订单
+//        List<OrderDto> orderDtos = saoSalesOrderService.selectOrderByManId(user.getManBuyerId(),status);
+//        model.addAttribute("orderlist",orderDtos);
+//        return "brand-orderlist";
+//    }
+
+
     @GetMapping("/brand/orderlist")
-    public String OrderList(HttpServletRequest request, Model model,String status){
+    @ResponseBody
+    public Result OrderList(HttpServletRequest request, String status){
         SysUser user =(SysUser) request.getSession().getAttribute("user");
         //默认显示未支付订单
         List<OrderDto> orderDtos = saoSalesOrderService.selectOrderByManId(user.getManBuyerId(),status);
-        model.addAttribute("orderlist",orderDtos);
-        return "brand-orderlist::orderlist";
+        return this.send(200,"查询成功",orderDtos);
     }
 
 //    @GetMapping("/brand/search")
