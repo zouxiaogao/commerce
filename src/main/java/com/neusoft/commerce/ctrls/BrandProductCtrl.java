@@ -33,7 +33,7 @@ public class BrandProductCtrl extends BaseCtrl{
         return "/brand-productInput-attr";
     }
 
-
+    /************商品录入******************/
     @GetMapping("/brand-productInput-attr/productlist")
     public String brandProduct(HttpServletRequest request, Model model){
         SysUser user =(SysUser) request.getSession().getAttribute("user");
@@ -103,8 +103,14 @@ public class BrandProductCtrl extends BaseCtrl{
             e.printStackTrace();
             return this.send(-1,"操作失败");
         }
+    }
 
 
 
+
+    /**********************商品管理**************************/
+    @GetMapping("/product/showProductList")
+    public String showProductList(){
+        return "brand-productInput-pic";
     }
 }
