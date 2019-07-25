@@ -31,6 +31,7 @@ public class RenderCtrl {
         return "login";
     }
 
+
     @GetMapping("/index")
     public String console(HttpServletRequest httpServletRequest, Model model){
         SysUser user =(SysUser) httpServletRequest.getSession().getAttribute("user");

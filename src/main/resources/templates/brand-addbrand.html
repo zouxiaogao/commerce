@@ -42,33 +42,61 @@
                 console.log(message);
 
                 $("#btnsave").click(function(){
-
-                    var data={
-                        manId:message.manId,
-                        nameCn: $("#nameCn").val(),
-                        nameEn: $("#nameEn").val(),
-                        description:$("#editor").val(),
-                        gmcReportType:$("#confirm_type").val(),
-                        gmcReportUrl:$("#confirm_url").val()
-                    };
-                    console.log(data)
-                    $.ajax({
-                        url:"../saveBrand",
-                        type:"POST",
-                        contentType:"application/json",
-                        dataType:"json",
-                        data:  JSON.stringify(data),
-                        success : function (result) {
-                            if(result.code==200){
-                                alert(result.message)
-                                window.location.href="/brand-addbrand";
-                            }else if(result.code==-1){
-                                alert(result.message)
-                            }else {
-                                alert("系统繁忙")
+                    if(message!=null){
+                        var data={
+                            manId:message.manId,
+                            nameCn: $("#nameCn").val(),
+                            nameEn: $("#nameEn").val(),
+                            description:$("#editor").val(),
+                            gmcReportType:$("#confirm_type").val(),
+                            gmcReportUrl:$("#confirm_url").val()
+                        };
+                        console.log(data)
+                        $.ajax({
+                            url:"../saveBrand",
+                            type:"POST",
+                            contentType:"application/json",
+                            dataType:"json",
+                            data:  JSON.stringify(data),
+                            success : function (result) {
+                                if(result.code==200){
+                                    alert(result.message)
+                                    window.location.href="/brand-addbrand";
+                                }else if(result.code==-1){
+                                    alert(result.message)
+                                }else {
+                                    alert("系统繁忙")
+                                }
                             }
-                        }
-                    });
+                        });
+                    }else {
+                        var data={
+                            nameCn: $("#nameCn").val(),
+                            nameEn: $("#nameEn").val(),
+                            description:$("#editor").val(),
+                            gmcReportType:$("#confirm_type").val(),
+                            gmcReportUrl:$("#confirm_url").val()
+                        };
+                        console.log(data)
+                        $.ajax({
+                            url:"../saveBrand",
+                            type:"POST",
+                            contentType:"application/json",
+                            dataType:"json",
+                            data:  JSON.stringify(data),
+                            success : function (result) {
+                                if(result.code==200){
+                                    alert(result.message)
+                                    window.location.href="/brand-addbrand";
+                                }else if(result.code==-1){
+                                    alert(result.message)
+                                }else {
+                                    alert("系统繁忙")
+                                }
+                            }
+                        });
+                    }
+
                     return false;
                 });
             });
@@ -87,24 +115,24 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
         <!--th:text="${brand.nameCn} th:each="brand:${manManufacturer}""-->
-      <div class="modal-body" style="max-height:none" th:each="brand:${manManufacturer}">
+      <div class="modal-body" style="max-height:none">
           <form class="form-horizontal" >
 
             <div class="control-group">
               <label class="control-label" for="nameCn">Company Name<br>公司名称(中)</label>
               <div class="controls">
-                <input type="text" id="nameCn" th:value="${brand.nameCn}">
+                <input type="text" id="nameCn" th:value="${manManufacturer!=null}?${manManufacturer.nameCn}">
               </div>
             </div>
            <div class="control-group">
                   <label class="control-label" for="nameEn">Company Name<br>公司名称(英)</label>
                   <div class="controls">
-                    <input type="text" id="nameEn" th:value="${brand.nameEn}">
+                    <input type="text" id="nameEn" th:value="${manManufacturer!=null}?${manManufacturer.nameEn}">
                   </div>
                 </div>
             <div class="control-group">
               <label class="control-label" for="editor">Brief Introduction<br>公司简介</label>
-                <textarea  id="editor" class="form-control" rows="16" style="min-width: 60%;resize: none" th:text="${brand.description}" >
+                <textarea  id="editor" class="form-control" rows="16" style="min-width: 60%;resize: none" th:text="${manManufacturer!=null}?${manManufacturer.description}" >
 
                 </textarea>
             </div>
@@ -112,14 +140,14 @@
             <div class="control-group">
               <label class="control-label" for="confirm_type">GMC Report Type<br> 品牌商认证类型</label>
               <div class="controls">
-                <input type="text" id="confirm_type" th:value="${brand.gmcReportType}">
+                <input type="text" id="confirm_type" th:value="${manManufacturer!=null}?${manManufacturer.gmcReportType}">
               </div>
             </div>
 
             <div class="control-group">
               <label class="control-label" for="confirm_url">GMC Report Url<br>证书地址</label>
               <div class="controls">
-                <input type="text" id="confirm_url"  th:value="${brand.gmcReportUrl}">
+                <input type="text" id="confirm_url"  th:value="${manManufacturer!=null}?${manManufacturer.gmcReportUrl}">
               </div>
             </div>
 
@@ -137,45 +165,6 @@
 <div style="margin-left: -385px;width: 770px;" class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   </div></div></div>
 
-    <script>
-        function initToolbarBootstrapBindings() {
-            var fonts = ['Serif', 'Sans', 'Arial', 'Arial Black', 'Courier',
-                        'Courier New', 'Comic Sans MS', 'Helvetica', 'Impact', 'Lucida Grande', 'Lucida Sans', 'Tahoma', 'Times',
-                        'Times New Roman', 'Verdana'],
-                    fontTarget = $('[title=Font]').siblings('.dropdown-menu');
-            $.each(fonts, function (idx, fontName) {
-                fontTarget.append($('<li><a data-edit="fontName ' + fontName +'" style="font-family:\''+ fontName +'\'">'+fontName + '</a></li>'));
-            });
-            //$('a[title]').tooltip({container:'body'});
-            $('.dropdown-menu input').click(function() {return false;})
-                    .change(function () {$(this).parent('.dropdown-menu').siblings('.dropdown-toggle').dropdown('toggle');})
-                    .keydown('esc', function () {this.value='';$(this).change();});
 
-            $('[data-role=magic-overlay]').each(function () {
-                var overlay = $(this), target = $(overlay.data('target'));
-                overlay.css('opacity', 0).css('position', 'absolute').offset(target.offset()).width(target.outerWidth()).height(target.outerHeight());
-            });
-            if ("onwebkitspeechchange"  in document.createElement("input")) {
-                var editorOffset = $('#editor').offset();
-                $('#voiceBtn').css('position','absolute').offset({top: editorOffset.top, left: editorOffset.left+$('#editor').innerWidth()-35});
-            } else {
-                $('#voiceBtn').hide();
-            }
-        };
-        function showErrorAlert (reason, detail) {
-            var msg='';
-            if (reason==='unsupported-file-type') { msg = "Unsupported format " +detail; }
-            else {
-                console.log("error uploading file", reason, detail);
-            }
-            $('<div class="alert"> <button type="button" class="close" data-dismiss="alert">&times;</button>'+
-                    '<strong>File upload error</strong> '+msg+' </div>').prependTo('#alerts');
-        };
-        initToolbarBootstrapBindings();
-        $('#editor').wysiwyg({ fileUploadError: showErrorAlert} );
-        $('#btnsave').click(function () {
-            window.location.href = "brand-brandInput";
-        })
-    </script>
     </body>
 </html>

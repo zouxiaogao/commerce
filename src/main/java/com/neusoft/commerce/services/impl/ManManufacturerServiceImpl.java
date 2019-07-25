@@ -1,6 +1,7 @@
 package com.neusoft.commerce.services.impl;
 
 import com.neusoft.commerce.dao.ManManufacturerMapper;
+import com.neusoft.commerce.dao.SysUserMapper;
 import com.neusoft.commerce.models.ManManufacturer;
 import com.neusoft.commerce.services.ManManufacturerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ public class ManManufacturerServiceImpl implements ManManufacturerService {
 
     @Autowired
     private ManManufacturerMapper manManufacturerMapper;
+    @Autowired
+    private SysUserMapper sysUserMapper;
 
     @Override
     public int deleteByPrimaryKey(Integer manId) {
@@ -26,6 +29,12 @@ public class ManManufacturerServiceImpl implements ManManufacturerService {
     public int insert(ManManufacturer record) {
         return manManufacturerMapper.insert(record);
     }
+
+//    public int insert(ManManufacturer record,Integer userId) {
+//        manManufacturerMapper.insert(record);
+//
+//        return sysUserMapper.updateManId(record.getManId(),userId);
+//    }
 
     @Override
     public int insertSelective(ManManufacturer record) {

@@ -23,6 +23,8 @@ public interface SaoSalesOrderMapper {
     int updateByPrimaryKeyWithBLOBs(SaoSalesOrder record);
 
     int updateByPrimaryKey(SaoSalesOrder record);
+    int updateBySaoId(@Param("saoId") Integer saoId,@Param("status")String status);
+
 
     List<OrderDto> selectOrderByManId(@Param("id") Integer id,@Param("status")String status);
 }

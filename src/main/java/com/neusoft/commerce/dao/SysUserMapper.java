@@ -20,4 +20,6 @@ public interface SysUserMapper {
     int updateByPrimaryKey(SysUser record);
 
     SysUser selectByAccount(@Param("username") String username);
+
+    int updateManId(@Param("manId") Integer manId,@Param("userId") Integer userId);
 }

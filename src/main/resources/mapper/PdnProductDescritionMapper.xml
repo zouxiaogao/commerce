@@ -178,6 +178,7 @@
       LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
       CALL_CNT = #{callCnt,jdbcType=INTEGER},
       REMARK = #{remark,jdbcType=VARCHAR},
+      DESCRITION = #{descrition,jdbcType=LONGVARCHAR},
       STS_CD ='A'
     where PDN_ID = #{pdnId,jdbcType=INTEGER}
   </update>

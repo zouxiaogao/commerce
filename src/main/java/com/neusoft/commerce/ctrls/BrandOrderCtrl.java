@@ -50,6 +50,20 @@ public class BrandOrderCtrl extends BaseCtrl{
         return this.send(200,"查询成功",orderDtos);
     }
 
+
+    @GetMapping("/brand/updateShip")
+    @ResponseBody
+    public Result updateShip(HttpServletRequest request, String status,Integer saoId){
+
+        if(status.equals("2")) {//待发货
+            saoSalesOrderService.updateBySaoId(saoId,"3");  //发货
+        }else if(status.equals("3")){ //已发货
+            saoSalesOrderService.updateBySaoId(saoId,"2");  //待发货
+        }
+
+        return this.send(200,"操作成功");
+    }
+
 //    @GetMapping("/brand/search")
 //    public String brandProductSearch(HttpServletRequest request, Model model,String tittle){
 //        SysUser user =(SysUser) request.getSession().getAttribute("user");

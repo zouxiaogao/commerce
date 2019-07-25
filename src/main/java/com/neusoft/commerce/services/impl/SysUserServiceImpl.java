@@ -22,7 +22,7 @@ public class SysUserServiceImpl implements SysUserMapper {
 
     @Override
     public int insert(SysUser record) {
-        return 0;
+        return sysUserMapper.insert(record);
     }
 
     @Override
@@ -48,5 +48,10 @@ public class SysUserServiceImpl implements SysUserMapper {
     @Override
     public SysUser selectByAccount(String username) {
         return sysUserMapper.selectByAccount(username);
+    }
+
+    @Override
+    public int updateManId(Integer manId, Integer userId) {
+        return sysUserMapper.updateManId(manId,userId);
     }
 }

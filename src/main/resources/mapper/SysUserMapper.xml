@@ -36,6 +36,7 @@
     where USERNAME = #{username,jdbcType=VARCHAR}
   </select>
 
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from sys_user
     where USER_ID = #{userId,jdbcType=INTEGER}
@@ -52,7 +53,7 @@
       #{bz,jdbcType=VARCHAR}, #{skin,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}, 
       #{phone,jdbcType=VARCHAR}, #{manBuyerId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.neusoft.commerce.models.SysUser" >
+  <insert id="insertSelective" parameterType="com.neusoft.commerce.models.SysUser" useGeneratedKeys="true" keyProperty="userId">
     insert into sys_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userId != null" >
@@ -213,6 +214,12 @@
       NUMBER = #{number,jdbcType=VARCHAR},
       PHONE = #{phone,jdbcType=VARCHAR},
       MAN_BUYER_ID = #{manBuyerId,jdbcType=INTEGER}
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateManId" parameterType="java.util.Map">
+    update sys_user
+    set
+      MAN_BUYER_ID = #{manId,jdbcType=INTEGER}
     where USER_ID = #{userId,jdbcType=INTEGER}
   </update>
 </mapper>

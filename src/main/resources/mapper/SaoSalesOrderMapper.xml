@@ -464,7 +464,12 @@
   </select>
 
 
-
+  <update id="updateBySaoId" parameterType="java.lang.Integer" >
+     update sao_sales_order
+    set
+      ORDER_STS = #{status,jdbcType=VARCHAR}
+    where SAO_ID = #{saoId,jdbcType=INTEGER}
+  </update>
 
 
 

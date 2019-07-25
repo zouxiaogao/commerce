@@ -37,7 +37,7 @@
     delete from man_manufacturer
     where MAN_ID = #{manId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.neusoft.commerce.models.ManManufacturer" keyProperty="id">
+  <insert id="insert" parameterType="com.neusoft.commerce.models.ManManufacturer" useGeneratedKeys="true" keyProperty="manId">
     insert into man_manufacturer (MAN_ID, NAME_EN, NAME_CN, 
       GMC_REPORT_TYPE, GMC_REPORT_URL, CREATED_BY, 
       CREATION_DATE, LAST_UPDATE_BY, LAST_UPDATE_DATE, 
@@ -46,7 +46,7 @@
     values (#{manId,jdbcType=INTEGER}, #{nameEn,jdbcType=VARCHAR}, #{nameCn,jdbcType=VARCHAR}, 
       #{gmcReportType,jdbcType=VARCHAR}, #{gmcReportUrl,jdbcType=VARCHAR}, #{createdBy,jdbcType=VARCHAR}, 
       #{creationDate,jdbcType=TIMESTAMP}, #{lastUpdateBy,jdbcType=VARCHAR}, #{lastUpdateDate,jdbcType=TIMESTAMP}, 
-      #{callCnt,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{stsCd,jdbcType=CHAR}, 
+      #{callCnt,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 'A',
       #{description,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.neusoft.commerce.models.ManManufacturer" >
@@ -203,7 +203,8 @@
       LAST_UPDATE_BY = #{lastUpdateBy,jdbcType=VARCHAR},
       LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
       CALL_CNT = #{callCnt,jdbcType=INTEGER},
-      REMARK = #{remark,jdbcType=VARCHAR}
+      REMARK = #{remark,jdbcType=VARCHAR},
+      DESCRIPTION =#{description,jdbcType=VARCHAR}
       where MAN_ID = #{manId,jdbcType=INTEGER}
   </update>
 </mapper>

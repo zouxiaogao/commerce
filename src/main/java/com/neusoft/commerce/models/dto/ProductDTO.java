@@ -28,7 +28,7 @@ public class ProductDTO {
     private BigDecimal weight;  //重量
     private Integer pdnId; //商品描述表id
     private String typeCd; //Amazon商品描述
-    private String description; //商品描述
+    private String descrition; //商品描述  数据库字段DESCRITION
     private Integer spaId; //商品属性表id
     private Integer spvId; //商品属性值表id
     private String isDel; //删除标记
@@ -185,12 +185,12 @@ public class ProductDTO {
         this.typeCd = typeCd;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDescrition() {
+        return descrition;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescrition(String descrition) {
+        this.descrition = descrition;
     }
 
     public Integer getSpaId() {
@@ -230,7 +230,7 @@ public class ProductDTO {
                 ", weight=" + weight +
                 ", pdnId=" + pdnId +
                 ", typeCd='" + typeCd + '\'' +
-                ", description='" + description + '\'' +
+                ", descrition='" + descrition + '\'' +
                 ", spaId=" + spaId +
                 ", spvId=" + spvId +
                 ", isDel='" + isDel + '\'' +
