@@ -2,6 +2,7 @@ package com.neusoft.commerce.ctrls;
 
 import com.neusoft.commerce.common.Result;
 import com.neusoft.commerce.models.*;
+import com.neusoft.commerce.models.dto.ProductCategory;
 import com.neusoft.commerce.models.dto.ProductDTO;
 import com.neusoft.commerce.services.impl.ProductServiceImpl;
 import com.neusoft.commerce.services.impl.SysNewRoleServiceImpl;
@@ -28,12 +29,81 @@ public class BrandProductCtrl extends BaseCtrl{
     @Autowired
     private ProductServiceImpl productService;
 
+
+
+    /**********************商品管理**************************/
+    @GetMapping("/product/showProductList")
+    public String showProductList(){
+        return "brand-productInput-pic";
+    }
+
+    @GetMapping("/product/productlist")
+    public String productList(HttpServletRequest request, Model model){
+        SysUser user =(SysUser) request.getSession().getAttribute("user");
+        List<ProductCategory> productCategories = productService.selectProductCategory(user.getManBuyerId());
+        for(ProductCategory productCategory:productCategories){
+            if(productCategory.getStsCd().equals("I")){
+                productCategory.setStsCd("待上架");
+            }else if(productCategory.getStsCd().equals("A")){
+                productCategory.setStsCd("上架中");
+            }else if(productCategory.getStsCd().equals("W")){
+                productCategory.setStsCd("入仓中");
+            }else if(productCategory.getStsCd().equals("S")){
+                productCategory.setStsCd("待入仓");
+            }else {
+                productCategory.setStsCd("待入仓");
+            }
+        }
+        model.addAttribute("products",productCategories);
+        return "brand-productInput-pic";
+    }
+
+
+
+//    //修改页面
+//    @GetMapping("/product/productlist/detail")
+//    public String getProductDetail(Integer id, Model model){
+//        ProductCategory productCategory = productService.selectProductCategoryDetail(id);
+//        model.addAttribute("datail",productCategory);
+//        return "brand-productInput-pic";
+//    }
+
+
+    @PostMapping("/product/productlist/save")
+    @ResponseBody
+    public Result productSave(@RequestBody ProductCategory productCategory) {
+        try {
+
+            //查询分类
+            PrcProductCategory category = productService.selectCategory(productCategory.getProId());
+
+            if(category==null){
+                    productService.insertProductCategory(productCategory);
+            }else {
+                    productCategory.setPrcId(category.getPrcId());
+                    productService.updateProductCategory(productCategory);
+            }
+
+
+            return this.send(200, "操作成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return this.send(-1, "操作失败");
+        }
+    }
+
+
+
+
+
+    /***********************商品录入*****************************/
+
     @GetMapping("/brand-productInput-attr")
     public String brandProductattr(){
         return "/brand-productInput-attr";
     }
 
-    /************商品录入******************/
+
     @GetMapping("/brand-productInput-attr/productlist")
     public String brandProduct(HttpServletRequest request, Model model){
         SysUser user =(SysUser) request.getSession().getAttribute("user");
@@ -103,14 +173,5 @@ public class BrandProductCtrl extends BaseCtrl{
             e.printStackTrace();
             return this.send(-1,"操作失败");
         }
-    }
-
-
-
-
-    /**********************商品管理**************************/
-    @GetMapping("/product/showProductList")
-    public String showProductList(){
-        return "brand-productInput-pic";
     }
 }

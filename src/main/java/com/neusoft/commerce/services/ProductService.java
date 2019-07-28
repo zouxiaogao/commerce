@@ -1,7 +1,9 @@
 package com.neusoft.commerce.services;
 
 import com.neusoft.commerce.models.ProProduct;
+import com.neusoft.commerce.models.dto.ProductCategory;
 import com.neusoft.commerce.models.dto.ProductDTO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -25,6 +27,8 @@ public interface ProductService {
     int updateByPrimaryKey(ProProduct record);
 
     List<ProductDTO> selectByManId(Integer manId);
+    List<ProductDTO> selectAllByManId(Integer manId);
+
 
     List<ProductDTO> selectByManIdAndCondition(Integer manBuyerId,String tittle);
 
@@ -34,4 +38,10 @@ public interface ProductService {
     int insertProduct(ProductDTO productDTO,String name);
 
     int deleteByProduct(Integer id);
+
+
+    List<ProductCategory> selectProductCategory(@Param("manId") Integer manId);
+    ProductCategory selectProductCategoryDetail(@Param("proId") Integer proId);
+
+
 }

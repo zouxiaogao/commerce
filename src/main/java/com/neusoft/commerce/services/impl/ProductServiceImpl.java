@@ -1,13 +1,8 @@
 package com.neusoft.commerce.services.impl;
 
-import com.neusoft.commerce.dao.OfpOfferPriceMapper;
-import com.neusoft.commerce.dao.PckPackageInfoMapper;
-import com.neusoft.commerce.dao.PdnProductDescritionMapper;
-import com.neusoft.commerce.dao.ProProductMapper;
-import com.neusoft.commerce.models.OfpOfferPrice;
-import com.neusoft.commerce.models.PckPackageInfo;
-import com.neusoft.commerce.models.PdnProductDescrition;
-import com.neusoft.commerce.models.ProProduct;
+import com.neusoft.commerce.dao.*;
+import com.neusoft.commerce.models.*;
+import com.neusoft.commerce.models.dto.ProductCategory;
 import com.neusoft.commerce.models.dto.ProductDTO;
 import com.neusoft.commerce.models.dto.ProductUtils;
 import com.neusoft.commerce.services.ProductService;
@@ -32,6 +27,8 @@ public class ProductServiceImpl implements ProductService {
     private OfpOfferPriceMapper offerPriceMapper;
     @Autowired
     private PdnProductDescritionMapper productDescritionMapper;
+    @Autowired
+    private PrcProductCategoryMapper productCategoryMapper;
 
     @Override
     public int deleteByPrimaryKey(Integer proId) {
@@ -71,6 +68,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDTO> selectByManId(Integer manId) {
         return proProductMapper.selectByManId(manId);
+    }
+
+    @Override
+    public List<ProductDTO> selectAllByManId(Integer manId) {
+        return proProductMapper.selectAllByManId(manId);
     }
 
     @Override
@@ -167,6 +169,41 @@ public class ProductServiceImpl implements ProductService {
         int i = proProductMapper.deleteProductById(id);
 
         return 0;
+    }
+
+    @Override
+    public List<ProductCategory> selectProductCategory(Integer manId) {
+        return proProductMapper.selectProductCategory(manId);
+    }
+
+    @Override
+    public ProductCategory selectProductCategoryDetail(Integer proId) {
+        return proProductMapper.selectProductCategoryDetail(proId);
+    }
+
+
+    public PrcProductCategory selectCategory(Integer id){
+        return productCategoryMapper.selectByProId(id);
+    }
+
+
+
+    public int updateProductCategory(ProductCategory category){
+
+        PrcProductCategory prcProductCategory=new PrcProductCategory();
+        prcProductCategory.setPrcId(category.getPrcId());
+        prcProductCategory.setProId(category.getProId());
+        prcProductCategory.setCategoryName(category.getCategoryName());
+
+        return productCategoryMapper.updateByPrimaryKey(prcProductCategory);
+    }
+
+    public int insertProductCategory(ProductCategory category){
+
+        PrcProductCategory prcProductCategory=new PrcProductCategory();
+        prcProductCategory.setProId(category.getProId());
+        prcProductCategory.setCategoryName(category.getCategoryName());
+        return productCategoryMapper.insert(prcProductCategory);
     }
 
 }

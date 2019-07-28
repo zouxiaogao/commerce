@@ -31,14 +31,14 @@ public class ProductDTO {
     private String descrition; //商品描述  数据库字段DESCRITION
     private Integer spaId; //商品属性表id
     private Integer spvId; //商品属性值表id
-    private String isDel; //删除标记
+    private String stsCd; //删除标记
 
-    public String getIsDel() {
-        return isDel;
+    public String getStsCd() {
+        return stsCd;
     }
 
-    public void setIsDel(String isDel) {
-        this.isDel = isDel;
+    public void setStsCd(String stsCd) {
+        this.stsCd = stsCd;
     }
 
     public Integer getProId() {
@@ -233,7 +233,7 @@ public class ProductDTO {
                 ", descrition='" + descrition + '\'' +
                 ", spaId=" + spaId +
                 ", spvId=" + spvId +
-                ", isDel='" + isDel + '\'' +
+                ", stsCd='" + stsCd + '\'' +
                 '}';
     }
 }

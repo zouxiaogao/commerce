@@ -45,6 +45,12 @@
     from pro_product
     where PRO_ID = #{proId,jdbcType=INTEGER}
   </select>
+
+
+
+
+
+
   <select id="selectByManId" resultType="com.neusoft.commerce.models.dto.ProductDTO" parameterType="java.lang.Integer" >
     select
     pro.PRO_ID,
@@ -55,7 +61,7 @@
 	pro.EAN,
 	pro.MODEL,
 	pro.TIME_UNIT,
-	pro.IS_DEL,
+	pro.STS_CD,
 	ofp.OFP_ID,
     ofp.PRICE,
 	pck.PCK_ID,
@@ -78,13 +84,11 @@
     left join pdn_product_descrition pdn on pdn.PRO_ID = pro.PRO_ID
     left join spa_specific_attribute spa on spa.PRO_ID=pro.PRO_ID
     left join spv_specific_attribute_value spv on spv.SPA_ID = spa.SPA_ID
-    where pro.MAN_ID = #{manId,jdbcType=INTEGER} and pro.IS_DEL =1
+    where pro.MAN_ID = #{manId,jdbcType=INTEGER} and pro.STS_CD='A'
     order by  ofp.PRICE
 
   </select>
-
-
-    <select id="selectByProId" resultType="com.neusoft.commerce.models.dto.ProductDTO" parameterType="java.lang.Integer" >
+  <select id="selectByProId" resultType="com.neusoft.commerce.models.dto.ProductDTO" parameterType="java.lang.Integer" >
     select
     pro.PRO_ID,
     pro.MAN_ID,
@@ -94,7 +98,7 @@
 	pro.EAN,
 	pro.MODEL,
 	pro.TIME_UNIT,
-	pro.IS_DEL,
+	pro.STS_CD,
 	ofp.OFP_ID,
     ofp.PRICE,
 	pck.PCK_ID,
@@ -116,10 +120,9 @@
     left join pdn_product_descrition pdn on pdn.PRO_ID = pro.PRO_ID
     left join spa_specific_attribute spa on spa.PRO_ID=pro.PRO_ID
     left join spv_specific_attribute_value spv on spv.SPA_ID = spa.SPA_ID
-    where pro.PRO_ID = #{proId,jdbcType=INTEGER} and pro.IS_DEL =1
+    where pro.PRO_ID = #{proId,jdbcType=INTEGER}
 
   </select>
-
   <!--条件查询-->
   <select id="selectByManIdAndCondition" resultType="com.neusoft.commerce.models.dto.ProductDTO" parameterType="java.util.Map" >
     select
@@ -131,6 +134,7 @@
     pro.EAN,
     pro.MODEL,
     pro.TIME_UNIT,
+    pro.STS_CD,
     ofp.OFP_ID,
     ofp.PRICE,
     pck.PCK_ID,
@@ -153,16 +157,95 @@
     left join pdn_product_descrition pdn on pdn.PRO_ID = pro.PRO_ID
     left join spa_specific_attribute spa on spa.PRO_ID=pro.PRO_ID
     left join spv_specific_attribute_value spv on spv.SPA_ID = spa.SPA_ID
-    where pro.MAN_ID = #{manId,jdbcType=INTEGER} and pro.IS_DEL =1
+    where pro.MAN_ID = #{manId,jdbcType=INTEGER} and pro.STS_CD = 'A'
     <if test="tittle">
       and pro.TITLE like concat('%',#{tittle,jdbcType=VARCHAR},'%')
     </if>
   </select>
 
+  <!--商品管理；查询全部商品，不分状态查询-->
+  <select id="selectAllByManId" resultType="com.neusoft.commerce.models.dto.ProductDTO" parameterType="java.lang.Integer" >
+    select
+    pro.PRO_ID,
+    pro.MAN_ID,
+    pro.TITLE,
+	pro.SKU_CD,
+	pro.UPC,
+	pro.EAN,
+	pro.MODEL,
+	pro.TIME_UNIT,
+	pro.STS_CD,
+	ofp.OFP_ID,
+    ofp.PRICE,
+	pck.PCK_ID,
+    pck.WAR_ID ,
+	pck.WIDTH,
+	pck.HEIGHT,
+	pck.LENGTH,
+	pck.WEIGHT,
+	pdn.PDN_ID,
+	pdn.TYPE_CD,
+    pdn.DESCRITION ,
+	spa.SPA_ID,
+    spa.NAME_EN ,
+	spv.SPV_ID,
+    spv.NAME_CN
+
+    from pro_product pro
+    left join ofp_offer_price ofp on ofp.PRO_ID =  pro.PRO_ID
+    left join pck_package_info pck on pck.PRO_ID = pro.PRO_ID
+    left join pdn_product_descrition pdn on pdn.PRO_ID = pro.PRO_ID
+    left join spa_specific_attribute spa on spa.PRO_ID=pro.PRO_ID
+    left join spv_specific_attribute_value spv on spv.SPA_ID = spa.SPA_ID
+    where pro.MAN_ID = #{manId,jdbcType=INTEGER} and  pro.STS_CD in ('S', 'A','I','W')
+    order by  ofp.PRICE
+
+  </select>
+
+
+  <!--商品管理-->
+  <select id="selectProductCategory" parameterType="java.lang.Integer" resultType="com.neusoft.commerce.models.dto.ProductCategory">
+    select
+    pro.PRO_ID,
+    pro.MAN_ID,
+    pro.TITLE,
+	pro.STS_CD,
+	prc.PRC_ID,
+	prc.CATEGORY_NAME
+	from pro_product pro
+	left join prc_product_category prc on pro.PRO_ID = prc.PRO_ID
+	where pro.MAN_ID=#{manId} and pro.STS_CD in ('S', 'A','I','W')
+  </select>
+
+
+  <!--商品分类详细-->
+  <select id="selectProductCategoryDetail" parameterType="java.lang.Integer" resultType="com.neusoft.commerce.models.dto.ProductCategory">
+    select
+    pro.PRO_ID,
+    pro.MAN_ID,
+    pro.TITLE,
+	pro.STS_CD,
+	prc.PRC_ID,
+	prc.CATEGORY_NAME
+	from pro_product pro
+	left join prc_product_category prc on pro.PRO_ID = prc.PRO_ID
+	where pro.PRO_ID=#{proId}
+  </select>
+
+
+
+
+
+
+
+
+
+
+
   <update id="deleteProductById" parameterType="java.lang.Integer">
       update pro_product
       set
-      IS_DEL=0
+      STS_CD='D'
       where PRO_ID = #{proId,jdbcType=INTEGER}
   </update>
 

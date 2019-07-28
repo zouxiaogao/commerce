@@ -22,11 +22,13 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://193.112.202.115:3306/commerce?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://localhost:3306/commerce?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
     username: root
-    password: 123456
+    password: 1234
 
 
+#path
+uploadpath: E:/IdeaProjects/commerce/src/main/resources/static/image/upload
 
 
 

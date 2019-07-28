@@ -2,7 +2,10 @@ package com.neusoft.commerce.dao;
 
 
 import com.neusoft.commerce.models.PrcProductCategory;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
+@Mapper
 public interface PrcProductCategoryMapper {
     int deleteByPrimaryKey(Integer prcId);
 
@@ -15,4 +18,6 @@ public interface PrcProductCategoryMapper {
     int updateByPrimaryKeySelective(PrcProductCategory record);
 
     int updateByPrimaryKey(PrcProductCategory record);
+
+    PrcProductCategory selectByProId(@Param("proId") Integer proId);
 }
