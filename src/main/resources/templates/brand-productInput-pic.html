@@ -137,10 +137,10 @@
                                 data-toggle="modal"  data-target="#myModal2">
                             <i class="icon-edit"></i>
                         </button>
-                        <button class="btn btn-mini btn-danger">
+                        <button class="btn btn-mini btn-danger" th:onclick="javascript:del(([[${product.proId}]]))">
                             <i class="icon-trash"></i>
                         </button>
-                        <button class="btn btn-mini btn-success">
+                        <button class="btn btn-mini btn-success" th:onclick="javascript:goRepo(([[${product.proId}]]))">
                             入仓
                         </button>
                     </div>
@@ -490,6 +490,44 @@
         $("#category").val(categoryName);
         $("#tId").val(proId)
         $("#cId").val(prcId)
+    }
+
+
+    function del(proId) {
+        if(window.confirm("是否删除")){
+            //删除数据 用
+            $.ajax({
+                type: "GET",
+                url: "/brand-productInput-attr/delete",
+                data: {"id": proId},
+                success: function(data){//data就是 controller 中的 return 的 数据
+                    if(data.code==200){
+                        //刷新数据
+                        alert(data.message)
+                        window.location.reload();
+                    }else{
+                        alert(data.message);
+                    }
+                }
+            });
+        }
+    }
+    function goRepo(proId) {
+            //入仓
+            $.ajax({
+                type: "GET",
+                url: "/product/productlist/goRepo",
+                data: {"id": proId},
+                success: function(data){//data就是 controller 中的 return 的 数据
+                    if(data.code==200){
+                        //刷新数据
+                        alert(data.message)
+                        window.location.reload();
+                    }else{
+                        alert(data.message);
+                    }
+                }
+            });
     }
 
 

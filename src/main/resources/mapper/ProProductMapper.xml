@@ -24,7 +24,6 @@
     <result column="KEY_WORDS" property="keyWords" jdbcType="VARCHAR" />
     <result column="TIME_UNIT" property="timeUnit" jdbcType="VARCHAR" />
     <result column="STOCKSETING" property="stockseting" jdbcType="INTEGER" />
-    <result column="IS_DEL" property="isDel" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.neusoft.commerce.models.ProProduct" extends="BaseResultMap" >
     <result column="WARRANTY" property="warranty" jdbcType="LONGVARCHAR" />
@@ -32,7 +31,7 @@
   <sql id="Base_Column_List" >
     PRO_ID, SKU_CD, BRD_ID, MAN_ID, TITLE, UPC, EAN, MODEL, WARRANTY_DAY, RETAIL_PRICE, 
     CREATED_BY, CREATION_DATE, LAST_UPDATE_BY, LAST_UPDATE_DATE, CALL_CNT, REMARK, STS_CD, 
-    MININUM_RETAIL_PRICE, REPLENISHMENT_PERIOD, KEY_WORDS, TIME_UNIT, STOCKSETING,IS_DEL
+    MININUM_RETAIL_PRICE, REPLENISHMENT_PERIOD, KEY_WORDS, TIME_UNIT, STOCKSETING
   </sql>
   <sql id="Blob_Column_List" >
     WARRANTY
@@ -246,6 +245,15 @@
       update pro_product
       set
       STS_CD='D'
+      where PRO_ID = #{proId,jdbcType=INTEGER}
+  </update>
+
+
+
+  <update id="updateProductRepo" parameterType="java.lang.Integer">
+      update pro_product
+      set
+      STS_CD='W'
       where PRO_ID = #{proId,jdbcType=INTEGER}
   </update>
 

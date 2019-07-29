@@ -38,6 +38,7 @@ public interface ProductService {
     int insertProduct(ProductDTO productDTO,String name);
 
     int deleteByProduct(Integer id);
+    int updateProductRepo(Integer proId);
 
 
     List<ProductCategory> selectProductCategory(@Param("manId") Integer manId);

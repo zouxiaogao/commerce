@@ -172,6 +172,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public int updateProductRepo(Integer proId) {
+        return proProductMapper.updateProductRepo(proId);
+    }
+
+    @Override
     public List<ProductCategory> selectProductCategory(Integer manId) {
         return proProductMapper.selectProductCategory(manId);
     }

@@ -93,6 +93,26 @@ public class BrandProductCtrl extends BaseCtrl{
     }
 
 
+    //入仓
+    @GetMapping("/product/productlist/goRepo")
+    @ResponseBody
+    public Result goRepo(Integer id) {
+        try {
+            ProProduct product = productService.selectByPrimaryKey(id);
+            if(product.getStsCd().equals("W")){
+                return this.send(-1,"以入仓，请不要重复操作");
+            }
+            productService.updateProductRepo(id);
+            return this.send(200,"入仓成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            return this.send(-1,"操作失败");
+        }
+    }
+
+
+
+
 
 
 
