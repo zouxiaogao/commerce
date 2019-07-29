@@ -1,6 +1,7 @@
-package com.neusoft.commerce.ctrls;
+package com.neusoft.commerce.ctrls.brand;
 
 import com.neusoft.commerce.common.Result;
+import com.neusoft.commerce.ctrls.BaseCtrl;
 import com.neusoft.commerce.models.ManManufacturer;
 import com.neusoft.commerce.models.SysUser;
 import com.neusoft.commerce.services.impl.ManManufacturerServiceImpl;
@@ -21,7 +22,7 @@ import javax.validation.Valid;
  * @Date 2019/07/19
  */
 @Controller
-public class BrdBrandCtrl extends BaseCtrl{
+public class BrdBrandCtrl extends BaseCtrl {
 
     @Autowired
     private ManManufacturerServiceImpl manufacturerService;

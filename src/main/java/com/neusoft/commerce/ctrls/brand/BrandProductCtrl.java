@@ -1,6 +1,7 @@
-package com.neusoft.commerce.ctrls;
+package com.neusoft.commerce.ctrls.brand;
 
 import com.neusoft.commerce.common.Result;
+import com.neusoft.commerce.ctrls.BaseCtrl;
 import com.neusoft.commerce.models.*;
 import com.neusoft.commerce.models.dto.ProductCategory;
 import com.neusoft.commerce.models.dto.ProductDTO;
@@ -24,7 +25,7 @@ import java.util.List;
  * @Date 2019/07/19
  */
 @Controller
-public class BrandProductCtrl extends BaseCtrl{
+public class BrandProductCtrl extends BaseCtrl {
 
     @Autowired
     private ProductServiceImpl productService;

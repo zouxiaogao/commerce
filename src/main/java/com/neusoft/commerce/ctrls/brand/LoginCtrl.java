@@ -1,7 +1,8 @@
-package com.neusoft.commerce.ctrls;
+package com.neusoft.commerce.ctrls.brand;
 
 import com.neusoft.commerce.common.PasswordUtil;
 import com.neusoft.commerce.common.Result;
+import com.neusoft.commerce.ctrls.BaseCtrl;
 import com.neusoft.commerce.models.SysUser;
 import com.neusoft.commerce.services.impl.SysUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import java.io.IOException;
  * @Date 2019/07/18
  */
 @Controller
-public class LoginCtrl extends BaseCtrl{
+public class LoginCtrl extends BaseCtrl {
 
     @Autowired
     private SysUserServiceImpl sysUserService;

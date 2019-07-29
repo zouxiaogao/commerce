@@ -1,4 +1,4 @@
-package com.neusoft.commerce.ctrls;
+package com.neusoft.commerce.ctrls.brand;
 
 import com.neusoft.commerce.common.StringUtils;
 import com.neusoft.commerce.models.SysMenu;

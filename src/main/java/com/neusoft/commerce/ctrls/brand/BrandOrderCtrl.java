@@ -1,6 +1,7 @@
-package com.neusoft.commerce.ctrls;
+package com.neusoft.commerce.ctrls.brand;
 
 import com.neusoft.commerce.common.Result;
+import com.neusoft.commerce.ctrls.BaseCtrl;
 import com.neusoft.commerce.models.SysUser;
 import com.neusoft.commerce.models.dto.OrderDto;
 import com.neusoft.commerce.models.dto.ProductDTO;
@@ -19,7 +20,7 @@ import java.util.List;
  * @Date 2019/07/23
  */
 @Controller
-public class BrandOrderCtrl extends BaseCtrl{
+public class BrandOrderCtrl extends BaseCtrl {
 
     @Autowired
     private OrderServiceImpl saoSalesOrderService;
