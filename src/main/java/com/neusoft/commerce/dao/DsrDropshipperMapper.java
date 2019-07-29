@@ -2,7 +2,9 @@ package com.neusoft.commerce.dao;
 
 
 import com.neusoft.commerce.models.DsrDropshipper;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface DsrDropshipperMapper {
     int deleteByPrimaryKey(Integer dsrId);
 

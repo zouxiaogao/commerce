@@ -222,4 +222,21 @@
       MAN_BUYER_ID = #{manId,jdbcType=INTEGER}
     where USER_ID = #{userId,jdbcType=INTEGER}
   </update>
+
+
+  <!--查看借卖方信息-->
+  <select id="selectBvoInfo" parameterType="java.lang.Integer" resultType="com.neusoft.commerce.models.dto.BvoInfoDTO">
+    select
+    sys.USER_ID,
+    sys.USERNAME,
+    sys.EMAIL,
+    sys.PHONE,
+    sys.MAN_BUYER_ID,
+    dsr.DSR_ID,
+    dsr.NAME
+    from sys_user sys
+    left join dsr_dropshipper dsr on sys.MAN_BUYER_ID=dsr.DSR_ID
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </select>
+
 </mapper>

@@ -86,11 +86,13 @@
 
     <ul class="nav nav-list" th:each="menu:${menus}">
         <li>
-            <a th:href="@{${menu.menuUrl}}" target="menuFrame">
+            <a th:href="@{${menu.menuUrl}}" target="menuFrame" id="#systemSetting">
                 <i class="icon-dashboard"></i>
                 <span th:text="${menu.menuName}">品牌商-我的信息</span>
             </a>
         </li>
+
+
     </ul><!--/.nav-list-->
 
 

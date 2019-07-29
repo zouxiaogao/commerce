@@ -1,6 +1,7 @@
 package com.neusoft.commerce.services;
 
 import com.neusoft.commerce.models.SysUser;
+import com.neusoft.commerce.models.dto.BvoInfoDTO;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -21,4 +22,6 @@ public interface SysUserService {
     int updateByPrimaryKeySelective(SysUser record);
 
     int updateByPrimaryKey(SysUser record);
+
+    BvoInfoDTO selectBvoInfo(Integer userId);
 }
