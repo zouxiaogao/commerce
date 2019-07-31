@@ -2,7 +2,10 @@ package com.neusoft.commerce.dao;
 
 
 import com.neusoft.commerce.models.DsrDropshipper;
+import com.neusoft.commerce.models.dto.DsrStoreDTO;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface DsrDropshipperMapper {
@@ -17,4 +20,5 @@ public interface DsrDropshipperMapper {
     int updateByPrimaryKeySelective(DsrDropshipper record);
 
     int updateByPrimaryKey(DsrDropshipper record);
+
 }

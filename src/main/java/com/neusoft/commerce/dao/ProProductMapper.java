@@ -41,4 +41,9 @@ public interface ProProductMapper {
     int deleteProductById(Integer proId);
 
     int updateProductRepo(Integer proId);
+
+    List<ProductDTO> selectAllProduct();
+
+    //已上架
+    ProductDTO selectProductByProId(Integer proId);
 }

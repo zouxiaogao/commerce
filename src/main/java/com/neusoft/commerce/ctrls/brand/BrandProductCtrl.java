@@ -6,7 +6,6 @@ import com.neusoft.commerce.models.*;
 import com.neusoft.commerce.models.dto.ProductCategory;
 import com.neusoft.commerce.models.dto.ProductDTO;
 import com.neusoft.commerce.services.impl.ProductServiceImpl;
-import com.neusoft.commerce.services.impl.SysNewRoleServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;

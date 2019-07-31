@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="utf-8">
 
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
-        <link rel="stylesheet" href="css/font-awesome.min.css">
-        <link rel="stylesheet" href="css/ace.min.css">
-        <link rel="stylesheet" href="css/ace-skins.min.css">
-        <link rel="stylesheet" href="css/ace-responsive.min.css">
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/ace.min.css">
+        <link rel="stylesheet" href="/css/ace-skins.min.css">
+        <link rel="stylesheet" href="/css/ace-responsive.min.css">
 
 
         <style type="text/css">
@@ -41,62 +41,87 @@
     <body>
     <div id="main-content" class="clearfix">
           <div id="page-content" class="clearfix">
-              <h3 class="header smaller lighter blue">eBay</h3>
-              <div class="controls shoplist ebay" >
+              <h3 class="header smaller lighter blue">我的店铺</h3>
+              <div class="controls shoplist store" >
 
-                  <label>
-                      <input name="form-field-checkbox" class="ace-checkbox-2" type="checkbox"><span class="lbl"> store001</span>
-                  </label>
-                  <label>
-                      <input name="form-field-checkbox" class="ace-checkbox-2" type="checkbox"><span class="lbl"> store002</span>
-                  </label>
-                  <label>
-                      <input name="form-field-checkbox" class="ace-checkbox-2" type="checkbox"><span class="lbl"> store003</span>
-                  </label>
-                  <label>
-                      <input name="form-field-checkbox" class="ace-checkbox-2" type="checkbox"><span class="lbl"> store004</span>
-                  </label>
-
-              </div>
-
-              <h3 class="header smaller lighter blue">Amazon</h3>
-              <div class="controls shoplist amazon" >
-
-                  <label>
-                      <input name="form-field-checkbox" class="ace-checkbox-2" type="checkbox"><span class="lbl">store001</span>
-                  </label>
-                  <label>
-                      <input name="form-field-checkbox" class="ace-checkbox-2" type="checkbox"><span class="lbl">store002</span>
-                  </label>
-                  <label>
-                      <input name="form-field-checkbox" class="ace-checkbox-2" type="checkbox"><span class="lbl">store003</span>
-                  </label>
-                  <label>
-                      <input name="form-field-checkbox" class="ace-checkbox-2" type="checkbox"><span class="lbl">store004</span>
+                  <label th:each="store:${store}" >
+                      <input name="checkboxlist" class="ace-checkbox-2" type="checkbox" th:value="${store!=null}?${store.strId}">
+                      <span class="lbl" th:text="${store!=null}?${store.storeName}"> store001</span>
                   </label>
 
               </div>
               <div class="controls upc hide">UPC: <input type="text"></div>
-              <div style="text-align: right;margin-top: 20px;"><button class="btn btn-primary" onclick="push()">Push</button></div>
+              <div style="text-align: right;margin-top: 20px;"><button class="btn btn-primary" id="push">推送</button></div>
           </div>
   </div>
     </body>
-    <script src="js/jquery-1.9.1.js"></script>
+    <script src="/js/jquery-1.9.1.js"></script>
 
-    <script>
+
+    <script th:inline="javascript">
 
       function push(){
         alert("推送成功")
       }
+
       $(function () {
-          var checkbox = $('.amazon input[type=checkbox]');
-         checkbox.change(function () {
-             if($(" .amazon input[type='checkbox']:checked").length>0){
-                 $('.upc').show();
-             }else{
-                 $('.upc').hide();
-             }
-         })
+         //  var checkbox = $('.store input[type=checkbox]');
+         // checkbox.change(function () {
+         //     if($(" .store input[type='checkbox']:checked").length>0){
+         //         $('.upc').show();
+         //     }else{
+         //         $('.upc').hide();
+         //     }
+         // })
+
+          $("#push").click(function () {
+              // var id = [];
+              // $(".store input[type='checkbox']:checked").each(function(index,item){//index 1234 索引  item 当前数  名字可以自选
+              //     if(item.checked){
+              //         id.push($(item).parent().next().val());//里面的 是 获取 编号id   id.push 把编号存放在数组里面
+              //     }else{
+              //     }
+              //
+              // })
+              // alert(id)
+              // alert("推送成功")
+
+              var id = [];
+              var checkSize = $("[name=checkboxlist]:checked").size();//通过筛选 name=del 且已选中获得的元素对象数组 来得到选中的数量
+              var length = 0;
+              $("[name=checkboxlist]:checked").each(function(){//遍历已选中的checked数组
+                  length++;
+                  if(checkSize>length){//当遍历的次数 等于 数组的长度时执行
+                      //id += $(this).val()+",";
+                      id.push($(this).val());
+                  }else{
+                      id.push($(this).val());
+                  }
+              })
+              alert(id)
+
+              //var product=[[${product}]];
+              console.log(id)
+              // console.log(product)
+              var proId=[[${proId}]];
+
+              //推送到店铺
+              $.ajax({
+                  type: "POST",
+                  url: "/bvo/store/push",
+                  data: {"id": id,"proId":proId},//传递数组时，请注意后台代码 id是上面var的 数组
+                  traditional: true,//传递数组时，请加上该选项 %%%使前端传到 后端的数据为 数组类型  深度序列化
+                  success: function(data){//data就是 controller 中的 return 的 数据
+                      if(data.code==200){
+                          alert(data.message);
+                      }else{
+                          alert(data.message);
+                      }
+                  }
+              });
+          })
+
+
       })
 
 

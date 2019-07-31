@@ -186,6 +186,16 @@ public class ProductServiceImpl implements ProductService {
         return proProductMapper.selectProductCategoryDetail(proId);
     }
 
+    @Override
+    public List<ProductDTO> selectAllProduct() {
+        return proProductMapper.selectAllProduct();
+    }
+
+    @Override
+    public ProductDTO selectProductByProId(Integer proId) {
+        return proProductMapper.selectProductByProId(proId);
+    }
+
 
     public PrcProductCategory selectCategory(Integer id){
         return productCategoryMapper.selectByProId(id);

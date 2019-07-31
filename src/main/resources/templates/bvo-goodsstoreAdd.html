@@ -31,10 +31,10 @@
   <div id="page-content" class="clearfix">
         <div class="goodscontent">
             <p>我的店铺</p>
-            <div class="store">
+            <p th:text="${msg!=null}?${msg}"></p>
+            <div class="store" >
                 <h3 class="blue">现有店铺</h3>
-                <p th:text="${msg!=null}?${msg}"></p>
-                <p th:value="${store!=null}?${store.storeName}"></p>
+                <p th:each="store:${store}" th:text="${store!=null}?${store.storeName}"></p>
             </div>
             <div style="text-align: right"><button class="btn btn-primary addshop">新建店铺</button></div>
 
@@ -42,11 +42,11 @@
     </div>
   </div>
     </body>
-    <!--<script src="../js/jquery-1.9.1.js"></script>-->
+    <script src="/js/jquery-1.9.1.js"></script>
     <script type="text/javascript">
-      // $('.addshop').click(function(){
-      //   window.location.href = "bvo-shops.html";
-      // })
+      $('.addshop').click(function(){
+        window.location.href = "/bvo/store/showAdd";
+      })
 
     </script>
 </html>

@@ -44,5 +44,10 @@ public interface ProductService {
     List<ProductCategory> selectProductCategory(@Param("manId") Integer manId);
     ProductCategory selectProductCategoryDetail(@Param("proId") Integer proId);
 
+    List<ProductDTO> selectAllProduct();
+
+    //已上架
+    ProductDTO selectProductByProId(Integer proId);
+
 
 }

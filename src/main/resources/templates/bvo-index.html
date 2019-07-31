@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="utf-8">
 
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
-        <link rel="stylesheet" href="css/font-awesome.min.css">
-        <link rel="stylesheet" href="css/ace.min.css">
-        <link rel="stylesheet" href="css/ace-skins.min.css">
-        <link rel="stylesheet" href="css/ace-responsive.min.css">
-        <link rel="stylesheet" href="css/ace.min.css">
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/ace.min.css">
+        <link rel="stylesheet" href="/css/ace-skins.min.css">
+        <link rel="stylesheet" href="/css/ace-responsive.min.css">
+        <link rel="stylesheet" href="/css/ace.min.css">
+        <script src="../js/jquery-1.9.1.js" type="text/javascript"></script>
         <style type="text/css">
             body,html{
                 width: 100%;
@@ -34,86 +35,39 @@
             .main li img{width: 100%;}
             .main h5{line-height: 40px;padding-left: 2%;box-sizing: border-box;font-size: 20px;}
         </style>
+
+
+        <!--<script type="text/javascript">-->
+            <!--$(function() {-->
+
+                <!--//显示所有数据  用-->
+                <!--$.ajax({-->
+                    <!--url: "/bvo/productlist",-->
+                    <!--type: "GET",-->
+                    <!--success: function (result) {-->
+                        <!--$("table:last tbody:last").before(result);-->
+                    <!--}-->
+                <!--});-->
+            <!--})-->
+        <!--</script>-->
     </head>
     <body>
 
         <div class="main">
-            <h5 style="margin-top: 45px;">Feature Products</h5>
-            <ul>
-                <li>
-                    <a href="bvo-goodsdetail.html">
-                    <div class="img"></div><img src="image/61X0zlgsL9L._SL1001_.jpg"  alt="" />
-                    <p>Glass Housing Multi-purpose 12L Portable Convection Oven</p>
-                    <span>$16.00</span>
-                    </a>
-                </li>
-                <li>
-                <a href="bvo-goodsdetail.html">
-                    <img src="image/7145urh2rSL._SL1001_.jpg"  alt="" />
-                    <p>Glass Housing Multi-purpose 12L Portable Convection Oven</p>
-                    <span>$16.00</span>
-                    </a>
-                </li>
-                <li>
-                <a href="bvo-goodsdetail.html">
-                    <img src="image/71vLlWAjOoL._SL1001_.jpg"  alt="" />
-                    <p>Glass Housing Multi-purpose 12L Portable Convection Oven</p>
-                    <span>$16.00</span>
-                    </a>
-                </li>
-                <li>
-                <a href="bvo-goodsdetail.html">
-                    <img src="image/61X0zlgsL9L._SL1001_.jpg"  alt="" />
-                    <p>Glass Housing Multi-purpose 12L Portable Convection Oven</p>
-                    <span>$16.00</span>
-                    </a>
-                </li>
-                <li>
-                <a href="bvo-goodsdetail.html">
-                    <img src="image/7145urh2rSL._SL1001_.jpg"  alt="" />
-                    <p>Glass Housing Multi-purpose 12L Portable Convection Oven</p>
-                    <span>$16.00</span>
-                    </a>
-                </li>
-            </ul>
-             <h5>Feature Products</h5>
-            <ul>
-                <li>
-                    <a href="bvo-goodsdetail.html">
-                    <div class="img"></div><img src="image/rBAAaFb2LiqAF0_BAAGGh3-weZ4884_b_360x360.jpg"  alt="" />
-                    <p>Glass Housing Multi-purpose 12L Portable Convection Oven</p>
-                    <span>$16.00</span>
-                    </a>
-                </li>
-                <li>
-                <a href="bvo-goodsdetail.html">
-                    <img src="image/rBAAaVb2LbGARcUQAAFpw8tY5Qc060_b_360x360.jpg"  alt="" />
-                    <p>Glass Housing Multi-purpose 12L Portable Convection Oven</p>
-                    <span>$16.00</span>
-                    </a>
-                </li>
-                <li>
-                <a href="bvo-goodsdetail.html">
-                    <img src="image/rBAAaFb2LiqAF0_BAAGGh3-weZ4884_b_360x360.jpg"  alt="" />
-                    <p>Glass Housing Multi-purpose 12L Portable Convection Oven</p>
-                    <span>$16.00</span>
-                    </a>
-                </li>
-                <li>
-                <a href="bvo-goodsdetail.html">
-                    <img src="image/rBAAaFb2LiqAF0_BAAGGh3-weZ4884_b_360x360.jpg"  alt="" />
-                    <p>Glass Housing Multi-purpose 12L Portable Convection Oven</p>
-                    <span>$16.00</span>
-                    </a>
-                </li>
-                <li>
-                <a href="bvo-goodsdetail.html">
-                    <img src="image/rBAAaFb2LiqAF0_BAAGGh3-weZ4884_b_360x360.jpg"  alt="" />
-                    <p>Glass Housing Multi-purpose 12L Portable Convection Oven</p>
-                    <span>$16.00</span>
+            <h5 style="margin-top: 45px;">全部产品</h5>
+            <ul >
+                <li th:each="product:${products}">
+                    <a th:href="@{'/bvo/product/detail?id='+${product.proId}}">
+                    <div class="img"></div><img th:src="@{${product.uri}}"  alt="" />
+                    <p th:text="${product.title}">测试商品1</p>
+                    <span th:text="${product.price}">$16.00</span>
                     </a>
                 </li>
             </ul>
         </div>
     </body>
+
+
+
+
 </html>

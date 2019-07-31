@@ -3,8 +3,11 @@ package com.neusoft.commerce.ctrls.bvo;
 import com.neusoft.commerce.common.Result;
 import com.neusoft.commerce.ctrls.BaseCtrl;
 import com.neusoft.commerce.models.DsrDropshipper;
+import com.neusoft.commerce.models.StrStore;
 import com.neusoft.commerce.models.SysUser;
 import com.neusoft.commerce.models.dto.BvoInfoDTO;
+import com.neusoft.commerce.services.StroeServiceImpl;
+import com.neusoft.commerce.services.impl.BvoServiceImpl;
 import com.neusoft.commerce.services.impl.SysUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,6 +32,10 @@ public class BvoInfoCtrl extends BaseCtrl {
 
     @Autowired
     private SysUserServiceImpl sysUserService;
+    @Autowired
+    private BvoServiceImpl bvoServiceImpl;
+    @Autowired
+    private StroeServiceImpl stroeService;
 
 
     @GetMapping("/bvo/info")
@@ -59,36 +67,5 @@ public class BvoInfoCtrl extends BaseCtrl {
     }
 
 
-    //网店管理
-
-
-    @GetMapping("/bvo/store/show")
-    public String showStore(HttpSession session,Model model){
-        SysUser user =(SysUser) session.getAttribute("user");
-        if(user.getManBuyerId()==null){
-            model.addAttribute("msg","您还没有店铺，快去创建一个吧");
-            return "bvo-goodsstoreAdd";
-        }
-
-        return "bvo-goodsstoreAdd";
-
-    }
-
-
-    @PostMapping("/bvo/store/save")
-    @ResponseBody
-    public Result saveStore(HttpSession session){
-        try {
-            SysUser user =(SysUser) session.getAttribute("user");
-            if(user.getManBuyerId()==null){  //新增
-                return this.send(-2,"操作成功");
-            }
-
-            return this.send(200,"操作成功");
-
-        }catch (Exception e){
-            return this.send(-1,"操作失败");
-        }
-    }
 
 }

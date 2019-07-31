@@ -213,10 +213,10 @@
   </div>
   </div>
 
-    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/bootbox.min.js"></script>
-    <script type="text/javascript" src="../js/order/order.js"></script>
+    <script src="/js/jquery-1.9.1.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/bootbox.min.js"></script>
+    <script type="text/javascript" src="/js/order/order.js"></script>
 
     <script type="text/javascript">
 
@@ -241,7 +241,7 @@
         });
 
         //默认显示
-          $.get('../brand/orderlist',{status:1},function(response){
+          $.get('/brand/orderlist',{status:1},function(response){
               console.log("response:====");
               console.log(response);
               if(response.code === 200){

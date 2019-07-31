@@ -18,20 +18,30 @@ public class ProductDTO {
     private String model;  //型号
     private String title;  //商品标题
     private String timeUnit;  //保修期
+
     private Integer ofpId; //商品价格配置表id
     private BigDecimal price;  //商品价格
+
     private Integer pckId;  //体积重表id
     private Integer warId; //仓库id
     private BigDecimal height;  //高
     private BigDecimal width;  //宽
     private BigDecimal length;  //长
     private BigDecimal weight;  //重量
+
     private Integer pdnId; //商品描述表id
     private String typeCd; //Amazon商品描述
     private String descrition; //商品描述  数据库字段DESCRITION
+
     private Integer spaId; //商品属性表id
     private Integer spvId; //商品属性值表id
+
     private String stsCd; //删除标记
+
+
+    private Integer imgId; //图片id
+    private String uri; //图片url
+
 
     public String getStsCd() {
         return stsCd;
@@ -209,6 +219,23 @@ public class ProductDTO {
         this.spvId = spvId;
     }
 
+    public Integer getImgId() {
+        return imgId;
+    }
+
+    public void setImgId(Integer imgId) {
+        this.imgId = imgId;
+    }
+
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
+
     @Override
     public String toString() {
         return "ProductDTO{" +
@@ -234,6 +261,8 @@ public class ProductDTO {
                 ", spaId=" + spaId +
                 ", spvId=" + spvId +
                 ", stsCd='" + stsCd + '\'' +
+                ", imgId=" + imgId +
+                ", uri='" + uri + '\'' +
                 '}';
     }
 }

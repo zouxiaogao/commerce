@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
-        <link rel="stylesheet" href="css/font-awesome.min.css">
-        <link rel="stylesheet" href="css/ace.min.css">
-        <link rel="stylesheet" href="css/ace-skins.min.css">
-        <link rel="stylesheet" href="css/ace-responsive.min.css">
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/ace.min.css">
+        <link rel="stylesheet" href="/css/ace-skins.min.css">
+        <link rel="stylesheet" href="/css/ace-responsive.min.css">
         <style type="text/css">
             body,html{
                 width: 100%;
@@ -37,31 +37,27 @@
             <div id="page-content" class="clearfix">
 
             <div class="goods-header">
-                <div class="goods-header-left"><img src="image/61X0zlgsL9L._SL1001_.jpg" alt="" /></div>
+                <div class="goods-header-left"><img  th:src="@{${product.uri}}" alt="" /></div>
                 <div class="goods-header-right">
-                    <p>Glass Housing Multi-purpose 12L Portable Convection Oven</p>
-                    <p class="red">$16.00</p>
-                    <p>sku:2545464471</p>
-                    <p>Brand：GMY</p>
-                    <p>Stock in US：32</p>
+                    <p th:text="|商品名称：${product.title}|">Glass Housing Multi-purpose 12L Portable Convection Oven</p>
+                    <p class="red" th:text="|商品价格：${product.price}|">$16.00</p>
+                    <p th:text="|sku码：${product.skuCd}|">sku:2545464471</p>
+                    <p th:text="|商品型号：${product.model}|">Brand：GMY</p>
+                    <p th:text="|商品库存：${product.price}"|> Stock in US：32</p>
 
-                    <button class="btn btn-primary"><a style="color:#fff" href="bvo-goodsstorechoose.html">Dropship Now</a></button>
-                    <button class="btn btn-primary">Add to Wish List</button>
+                    <button class="btn btn-primary"><a style="color:#fff" th:href="@{'/bvo/store/choose?id='+${product.proId}}" >借卖</a></button>
+                    <button class="btn btn-primary">加入心愿单</button>
                 </div>
             </div>
 
-                <h4 class="lighter">Item Description</h4>
+                <h4 class="lighter">商品描述</h4>
                 <div class="tabbable">
                     <ul class="nav nav-tabs" id="myTab">
-                        <li class="active"><a data-toggle="tab" href="#ebay"> ebay description</a></li>
-                        <li class=""><a data-toggle="tab" href="#Amazon">Amazon description</a></li>
+                        <li class="active"><a data-toggle="tab" href="#ebay"> 商品介绍</a></li>
                     </ul>
                     <div class="tab-content">
                         <div id="ebay" class="tab-pane active">
-                            Raw denim you probably haven't heard of them jean shorts Austin.
-                        </div>
-                        <div id="Amazon" class="tab-pane">
-                            Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.
+                            <a th:text="${product!=null}?${product.descrition}"></a>
                         </div>
                     </div>
                 </div>
@@ -70,6 +66,6 @@
         </div>
 
     </body>
-    <script src="js/jquery-1.9.1.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="/js/jquery-1.9.1.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
 </html>

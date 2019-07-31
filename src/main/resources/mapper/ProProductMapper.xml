@@ -75,7 +75,51 @@
 	spa.SPA_ID,
     spa.NAME_EN ,
 	spv.SPV_ID,
-    spv.NAME_CN
+    spv.NAME_CN,
+    img.IMG_ID,
+    img.URI
+    from pro_product pro
+    left join ofp_offer_price ofp on ofp.PRO_ID =  pro.PRO_ID
+    left join pck_package_info pck on pck.PRO_ID = pro.PRO_ID
+    left join pdn_product_descrition pdn on pdn.PRO_ID = pro.PRO_ID
+    left join spa_specific_attribute spa on spa.PRO_ID=pro.PRO_ID
+    left join spv_specific_attribute_value spv on spv.SPA_ID = spa.SPA_ID
+    left join img_image img on img.PRO_ID=pro.PRO_ID
+    where pro.MAN_ID = #{manId,jdbcType=INTEGER} and pro.STS_CD='A'
+    order by  ofp.PRICE
+
+  </select>
+
+
+  <!--查询全部商品-->
+  <select id="selectAllProduct" resultType="com.neusoft.commerce.models.dto.ProductDTO">
+    select
+    pro.PRO_ID,
+    pro.MAN_ID,
+    pro.TITLE,
+	pro.SKU_CD,
+	pro.UPC,
+	pro.EAN,
+	pro.MODEL,
+	pro.TIME_UNIT,
+	pro.STS_CD,
+	ofp.OFP_ID,
+    ofp.PRICE,
+	pck.PCK_ID,
+    pck.WAR_ID ,
+	pck.WIDTH,
+	pck.HEIGHT,
+	pck.LENGTH,
+	pck.WEIGHT,
+	pdn.PDN_ID,
+	pdn.TYPE_CD,
+    pdn.DESCRITION ,
+	spa.SPA_ID,
+    spa.NAME_EN ,
+	spv.SPV_ID,
+    spv.NAME_CN,
+    img.IMG_ID,
+    img.URI
 
     from pro_product pro
     left join ofp_offer_price ofp on ofp.PRO_ID =  pro.PRO_ID
@@ -83,10 +127,51 @@
     left join pdn_product_descrition pdn on pdn.PRO_ID = pro.PRO_ID
     left join spa_specific_attribute spa on spa.PRO_ID=pro.PRO_ID
     left join spv_specific_attribute_value spv on spv.SPA_ID = spa.SPA_ID
-    where pro.MAN_ID = #{manId,jdbcType=INTEGER} and pro.STS_CD='A'
+    left join img_image img on img.PRO_ID=pro.PRO_ID
+    where pro.STS_CD='A'
     order by  ofp.PRICE
-
   </select>
+
+    <!--根据商品id查询上架单个商品信息-->
+    <select id="selectProductByProId" resultType="com.neusoft.commerce.models.dto.ProductDTO">
+        select
+    pro.PRO_ID,
+    pro.MAN_ID,
+    pro.TITLE,
+	pro.SKU_CD,
+	pro.UPC,
+	pro.EAN,
+	pro.MODEL,
+	pro.TIME_UNIT,
+	pro.STS_CD,
+	ofp.OFP_ID,
+    ofp.PRICE,
+	pck.PCK_ID,
+    pck.WAR_ID ,
+	pck.WIDTH,
+	pck.HEIGHT,
+	pck.LENGTH,
+	pck.WEIGHT,
+	pdn.PDN_ID,
+	pdn.TYPE_CD,
+    pdn.DESCRITION ,
+	spa.SPA_ID,
+    spa.NAME_EN ,
+	spv.SPV_ID,
+    spv.NAME_CN,
+    img.IMG_ID,
+    img.URI
+
+    from pro_product pro
+    left join ofp_offer_price ofp on ofp.PRO_ID =  pro.PRO_ID
+    left join pck_package_info pck on pck.PRO_ID = pro.PRO_ID
+    left join pdn_product_descrition pdn on pdn.PRO_ID = pro.PRO_ID
+    left join spa_specific_attribute spa on spa.PRO_ID=pro.PRO_ID
+    left join spv_specific_attribute_value spv on spv.SPA_ID = spa.SPA_ID
+    left join img_image img on img.PRO_ID=pro.PRO_ID
+    where pro.PRO_ID = #{proId,jdbcType=INTEGER} and pro.STS_CD='A'
+    </select>
+
   <select id="selectByProId" resultType="com.neusoft.commerce.models.dto.ProductDTO" parameterType="java.lang.Integer" >
     select
     pro.PRO_ID,
@@ -112,13 +197,16 @@
 	spa.SPA_ID,
     spa.NAME_EN ,
 	spv.SPV_ID,
-    spv.NAME_CN
+    spv.NAME_CN,
+    img.IMG_ID,
+    img.URI
     from pro_product pro
     left join ofp_offer_price ofp on ofp.PRO_ID =  pro.PRO_ID
     left join pck_package_info pck on pck.PRO_ID = pro.PRO_ID
     left join pdn_product_descrition pdn on pdn.PRO_ID = pro.PRO_ID
     left join spa_specific_attribute spa on spa.PRO_ID=pro.PRO_ID
     left join spv_specific_attribute_value spv on spv.SPA_ID = spa.SPA_ID
+    left join img_image img on img.PRO_ID=pro.PRO_ID
     where pro.PRO_ID = #{proId,jdbcType=INTEGER}
 
   </select>
@@ -148,7 +236,9 @@
     spa.SPA_ID,
     spa.NAME_EN ,
     spv.SPV_ID,
-    spv.NAME_CN
+    spv.NAME_CN,
+    img.IMG_ID,
+    img.URI
 
     from pro_product pro
     left join ofp_offer_price ofp on ofp.PRO_ID =  pro.PRO_ID
@@ -156,6 +246,7 @@
     left join pdn_product_descrition pdn on pdn.PRO_ID = pro.PRO_ID
     left join spa_specific_attribute spa on spa.PRO_ID=pro.PRO_ID
     left join spv_specific_attribute_value spv on spv.SPA_ID = spa.SPA_ID
+    left join img_image img on img.PRO_ID=pro.PRO_ID
     where pro.MAN_ID = #{manId,jdbcType=INTEGER} and pro.STS_CD = 'A'
     <if test="tittle">
       and pro.TITLE like concat('%',#{tittle,jdbcType=VARCHAR},'%')
@@ -188,7 +279,9 @@
 	spa.SPA_ID,
     spa.NAME_EN ,
 	spv.SPV_ID,
-    spv.NAME_CN
+    spv.NAME_CN,
+    img.IMG_ID,
+    img.URI
 
     from pro_product pro
     left join ofp_offer_price ofp on ofp.PRO_ID =  pro.PRO_ID
@@ -196,6 +289,7 @@
     left join pdn_product_descrition pdn on pdn.PRO_ID = pro.PRO_ID
     left join spa_specific_attribute spa on spa.PRO_ID=pro.PRO_ID
     left join spv_specific_attribute_value spv on spv.SPA_ID = spa.SPA_ID
+    left join img_image img on img.PRO_ID=pro.PRO_ID
     where pro.MAN_ID = #{manId,jdbcType=INTEGER} and  pro.STS_CD in ('S', 'A','I','W')
     order by  ofp.PRICE
 
@@ -210,9 +304,12 @@
     pro.TITLE,
 	pro.STS_CD,
 	prc.PRC_ID,
-	prc.CATEGORY_NAME
+	prc.CATEGORY_NAME,
+	img.IMG_ID,
+    img.URI
 	from pro_product pro
 	left join prc_product_category prc on pro.PRO_ID = prc.PRO_ID
+	left join img_image img on img.PRO_ID=pro.PRO_ID
 	where pro.MAN_ID=#{manId} and pro.STS_CD in ('S', 'A','I','W')
   </select>
 
@@ -225,9 +322,12 @@
     pro.TITLE,
 	pro.STS_CD,
 	prc.PRC_ID,
-	prc.CATEGORY_NAME
+	prc.CATEGORY_NAME,
+	img.IMG_ID,
+    img.URI
 	from pro_product pro
 	left join prc_product_category prc on pro.PRO_ID = prc.PRO_ID
+	left join img_image img on img.PRO_ID=pro.PRO_ID
 	where pro.PRO_ID=#{proId}
   </select>
 
