@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
-        <link rel="stylesheet" href="css/font-awesome.min.css">
-        <link rel="stylesheet" href="css/ace.min.css">
-        <link rel="stylesheet" href="css/ace-skins.min.css">
-        <link rel="stylesheet" href="css/ace-responsive.min.css">
-        <script type="text/javascript" src="js/jquery-1.9.1.js"></script>
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/ace.min.css">
+        <link rel="stylesheet" href="/css/ace-skins.min.css">
+        <link rel="stylesheet" href="/css/ace-responsive.min.css">
+        <script type="text/javascript" src="/js/jquery-1.9.1.js"></script>
         <style type="text/css">
             body,html{
                 width: 100%;
@@ -51,69 +51,21 @@
              <div class="page-header position-relative">
               <h1 style="color: #2679b5;">借卖方<small><i class="icon-double-angle-right"></i> 心愿单</small></h1>
             </div>
-            <button class="btn btn-success"><i class="icon-trash icon-4x icon-only">delete</i></button>
+            <button class="btn btn-success" id="del"><i class="icon-trash icon-4x icon-only">删除</i></button>
             <ul>
-                <li class="imglist">
+                <li class="imglist" th:each="wish:${wish}">
 
-                    <a href="bvo-goodsdetail.html">
-                    <label><input type="checkbox" class="input"><span class="lbl"></span></label>
-                    <img src="image/61X0zlgsL9L._SL1001_.jpg"  alt="" />
+                    <a th:href="@{'/bvo/product/detail?id='+${wish.proId}}">
+                    <label><input type="checkbox" class="input" name="checklist" th:value="${wish.proId}"/><span class="lbl"></span></label>
+                    <img th:src="@{${wish.uri}}"  alt="" />
                     <div class="right">
-                        <p>Glass Housing Multi-purpose 12L Portable Convection Oven</p>
-                        <span class="red">$16.00</span>
-                        <p>sku:GM08713</p>
+                        <p th:text="${wish.title}">Glass Housing Multi-purpose 12L Portable Convection Oven</p>
+                        <span class="red" th:text="${wish.price}">$16.00</span>
+                        <p th:text="${wish.skuCd}">sku:GM08713</p>
                         <input type="checkbox" />
                     </div>
                     </a>
 
-                </li>
-                <li class="imglist">
-                <a href="bvo-goodsdetail.html">
-                    <label><input type="checkbox" class="input"><span class="lbl"></span></label>
-                    <img src="image/7145urh2rSL._SL1001_.jpg"  alt="" />
-                    <div class="right">
-                    <p>Glass Housing Multi-purpose 12L Portable Convection Oven</p>
-                    <span class="red">$16.00</span>
-                    <p>sku:GM08713</p>
-                    <input type="checkbox" />
-                    </div>
-                    </a>
-                </li>
-                <li class="imglist">
-                <a href="bvo-goodsdetail.html">
-                    <label><input type="checkbox" class="input"><span class="lbl"></span></label>
-                    <img src="image/71vLlWAjOoL._SL1001_.jpg"  alt="" />
-                    <div class="right">
-                    <p>Glass Housing Multi-purpose 12L Portable Convection Oven</p>
-                    <span class="red">$16.00</span>
-                    <p>sku:GM08713</p>
-                    <input type="checkbox" />
-                    </div>
-                    </a>
-                </li>
-                <li class="imglist">
-                <a href="bvo-goodsdetail.html">
-                    <label><input type="checkbox" class="input"><span class="lbl"></span></label>
-                    <img src="image/61X0zlgsL9L._SL1001_.jpg"  alt="" />
-                    <div class="right">
-                    <p>Glass Housing Multi-purpose 12L Portable Convection Oven</p>
-                    <span class="red">$16.00</span>
-                    <p>sku:GM08713</p>
-                    <input type="checkbox" />
-                    </div>
-                    </a>
-                </li>
-                <li class="imglist">
-                <a href="bvo-goodsdetail.html">
-                    <label><input type="checkbox" class="input"><span class="lbl"></span></label>
-                    <img src="image/7145urh2rSL._SL1001_.jpg"  alt="" />
-                    <div class="right">
-                    <p>Glass Housing Multi-purpose 12L Portable Convection Oven</p>
-                    <span class="red">$16.00</span>
-                    <p>sku:GM08713</p>
-                    <input type="checkbox" />
-                    </div>
-                    </a>
                 </li>
             </ul>
         </div>
@@ -121,6 +73,37 @@
         <script type="text/javascript">
             $(function(){
 
+                $("#del").click(function () {
+
+                    var id = [];
+                    var checkSize = $("[name=checklist]:checked").size();//通过筛选 name=del 且已选中获得的元素对象数组 来得到选中的数量
+                    var length = 0;
+                    $("[name=checklist]:checked").each(function(){//遍历已选中的checked数组
+                        length++;
+                        if(checkSize>length){//当遍历的次数 等于 数组的长度时执行
+                            //id += $(this).val()+",";
+                            id.push($(this).val());
+                        }else{
+                            id.push($(this).val());
+                        }
+                    })
+                    alert(id)
+
+                    $.ajax({
+                        type: "GET",
+                        url: "/bvo/wish/remove",
+                        data: {"id": id},//传递数组时，请注意后台代码 id是上面var的 数组
+                        traditional: true,//传递数组时，请加上该选项 %%%使前端传到 后端的数据为 数组类型  深度序列化
+                        success: function(data){//data就是 controller 中的 return 的 数据
+                            if(data.code==200){
+                                alert(data.message);
+                                window.location.reload();
+                            }else{
+                                alert(data.message);
+                            }
+                        }
+                    });
+                })
             })
         </script>
     </body>

@@ -35,7 +35,7 @@
     <foreach collection="menuId" item="menuId" open="(" close=")" separator=",">
       #{menuId}
     </foreach>
-    order by CREATION_DATE
+    order by (MENU_ORDER+0) asc
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from sys_menu

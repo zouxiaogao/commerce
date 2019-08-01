@@ -1,15 +1,15 @@
-package com.neusoft.commerce.dao;
-
+package com.neusoft.commerce.services;
 
 import com.neusoft.commerce.models.WitWishlist;
 import com.neusoft.commerce.models.dto.WishProductDTO;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-@Mapper
-public interface WitWishlistMapper {
+/**
+ * @Author zqy
+ * @Date 2019/07/31
+ */
+public interface WitWishlistService {
     int deleteByPrimaryKey(Integer witId);
 
     int insert(WitWishlist record);
@@ -22,14 +22,10 @@ public interface WitWishlistMapper {
 
     int updateByPrimaryKey(WitWishlist record);
 
+    WitWishlist selectByProId(Integer proId);
+    int batchRemove(Integer[] id);
+    List<WishProductDTO> selectWishList(Integer dsrId);
     int updateByProId(Integer proId);
 
 
-
-
-    WitWishlist selectByProId(Integer proId);
-
-    int batchRemove(@Param("ids") Integer[] id);
-
-    List<WishProductDTO> selectWishList(Integer dsrId);
 }

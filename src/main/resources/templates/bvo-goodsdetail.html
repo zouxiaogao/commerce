@@ -46,7 +46,7 @@
                     <p th:text="|商品库存：${product.price}"|> Stock in US：32</p>
 
                     <button class="btn btn-primary"><a style="color:#fff" th:href="@{'/bvo/store/choose?id='+${product.proId}}" >借卖</a></button>
-                    <button class="btn btn-primary">加入心愿单</button>
+                    <button class="btn btn-primary" th:onclick="javascript:add(([[${product.proId}]]))">加入心愿单</button>
                 </div>
             </div>
 
@@ -68,4 +68,25 @@
     </body>
     <script src="/js/jquery-1.9.1.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+
+
+
+        function add(proId) {
+            $.ajax({
+                type: "GET",
+                url: "/bvo/wish/add",
+                data: {"proId": proId},
+                success: function(data){//data就是 controller 中的 return 的 数据
+                    if(data.code==200){
+                        //刷新数据
+                        alert(data.message)
+                    }else{
+                        alert(data.message);
+                    }
+                }
+            });
+        }
+    </script>
 </html>

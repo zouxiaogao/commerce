@@ -29,22 +29,22 @@
       <h1 style="color: #2679b5;">借卖方<small><i class="icon-double-angle-right"></i> 订单管理</small></h1>
     </div>
   <form class="form-search">
-    Title：
+    商品标题：
     <input type="text" class="input-medium search-query">
-    <button onclick="return false;" class="btn btn-purple btn-small">Search <i class="icon-search icon-on-right"></i></button>
+    <button onclick="return false;" class="btn btn-purple btn-small">搜索 <i class="icon-search icon-on-right"></i></button>
   </form>
   <a href="#" class="btn  btn-success"  style="margin-bottom: 30px">
     <i class="icon-refresh"></i>
-    Pull Orders
+    刷新订单
   </a>
 
 <div class="tabbable">
       <ul class="nav nav-tabs" id="myTab">
-        <li class="active"><a data-toggle="tab" href="#AwaitingPayment"> Awaiting Payment</a></li>
-        <li class=""><a data-toggle="tab" href="#AwaitingShipment"> Awaiting Shipment</a></li>
-        <li class=""><a data-toggle="tab" href="#shipped">Shiped</a></li>
-        <li class=""><a data-toggle="tab" href="#complete">Completed Orders</a></li>
-        <li class=""><a data-toggle="tab" href="#canceled">Cancelled Orders</a></li>
+        <li class="active"><a data-toggle="tab" href="#AwaitingPayment"> 待支付</a></li>
+        <li class=""><a data-toggle="tab" href="#AwaitingShipment"> 待发货</a></li>
+        <li class=""><a data-toggle="tab" href="#shipped">已发货</a></li>
+        <li class=""><a data-toggle="tab" href="#complete">已完成</a></li>
+        <li class=""><a data-toggle="tab" href="#canceled">已取消</a></li>
       </ul>
       <div class="tab-content">
         <div id="AwaitingPayment" class="tab-pane active">
@@ -77,44 +77,12 @@
               <td class="hidden-480">4,400</td>
               <td>$500</td>
               <td>
-                 <a href="bvo-orderPayment.html">Pay Now</a>
+                 <a href="bvo-orderPayment.html">付款</a>
               </td>
             </tr>
 
-
-            <tr>
-              <td class="center">
-                <label><input type="checkbox" class="input"><span class="lbl"></span></label>
-              </td>
-              <td><a href="bvo-goodsdetail.html">best.com</a></td>
-              <td>$75</td>
-              <td class="hidden-480">6,500</td>
-              <td class="hidden-phone">GM9012203</td>
-              <td class="hidden-480">OD23336500</td>
-              <td>$5678</td>
-              <td>
-                 <a href="bvo-orderPayment.html">Pay Now</a>
-              </td>
-            </tr>
-
-
-            <tr>
-              <td class="center">
-                <label><input type="checkbox" class="input"><span class="lbl"></span></label>
-              </td>
-              <td><a href="bvo-goodsdetail.html">pro.com</a></td>
-              <td>$55</td>
-              <td class="hidden-480">4,250</td>
-              <td class="hidden-phone">GM775332</td>
-              <td class="hidden-480">T4536476250</td>
-              <td>$6788</td>
-              <td>
-                  <a href="bvo-orderPayment.html">Pay Now</a>
-              </td>
-            </tr>
-
-                  </tbody>
-            </table>
+          </tbody>
+          </table>
           </p>
         </div>
         <div id="AwaitingShipment" class="tab-pane">
