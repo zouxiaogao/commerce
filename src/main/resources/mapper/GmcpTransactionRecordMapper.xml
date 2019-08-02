@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.commerce.dao.GmcpTransactionRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.neusoft.commerce.models.GmcpTransactionRecord" >
+    <id column="transaction_id" property="transactionId" jdbcType="INTEGER" />
+    <result column="buyer_id" property="buyerId" jdbcType="INTEGER" />
+    <result column="bank_card_id" property="bankCardId" jdbcType="INTEGER" />
+    <result column="transaction_number" property="transactionNumber" jdbcType="VARCHAR" />
+    <result column="transaction_type" property="transactionType" jdbcType="TINYINT" />
+    <result column="account_name" property="accountName" jdbcType="VARCHAR" />
+    <result column="transaction_money" property="transactionMoney" jdbcType="DECIMAL" />
+    <result column="commission" property="commission" jdbcType="DECIMAL" />
+    <result column="discount_commission" property="discountCommission" jdbcType="DECIMAL" />
+    <result column="transaction_method" property="transactionMethod" jdbcType="TINYINT" />
+    <result column="complete_time" property="completeTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="actual_money" property="actualMoney" jdbcType="DECIMAL" />
+    <result column="actual_commission" property="actualCommission" jdbcType="DECIMAL" />
+    <result column="actual_discount_commission" property="actualDiscountCommission" jdbcType="DECIMAL" />
+    <result column="balance" property="balance" jdbcType="DECIMAL" />
+    <result column="business_id" property="businessId" jdbcType="INTEGER" />
+    <result column="finance_type" property="financeType" jdbcType="TINYINT" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+    <result column="operator_name" property="operatorName" jdbcType="VARCHAR" />
+    <result column="operator_ip" property="operatorIp" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_update_by" property="lastUpdateBy" jdbcType="VARCHAR" />
+    <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="bank_receipt_url" property="bankReceiptUrl" jdbcType="VARCHAR" />
+    <result column="exchange_rate" property="exchangeRate" jdbcType="DECIMAL" />
+    <result column="transaction_desc" property="transactionDesc" jdbcType="VARCHAR" />
+    <result column="foreign_exchange_fee" property="foreignExchangeFee" jdbcType="DECIMAL" />
+    <result column="withdraw_fee" property="withdrawFee" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    transaction_id, buyer_id, bank_card_id, transaction_number, transaction_type, account_name, 
+    transaction_money, commission, discount_commission, transaction_method, complete_time, 
+    status, actual_money, actual_commission, actual_discount_commission, balance, business_id, 
+    finance_type, note, operator_name, operator_ip, create_by, create_time, last_update_by, 
+    last_update_time, bank_receipt_url, exchange_rate, transaction_desc, foreign_exchange_fee, 
+    withdraw_fee
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from gmcp$transaction_record
+    where transaction_id = #{transactionId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from gmcp$transaction_record
+    where transaction_id = #{transactionId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.neusoft.commerce.models.GmcpTransactionRecord" >
+    insert into gmcp$transaction_record (transaction_id, buyer_id, bank_card_id, 
+      transaction_number, transaction_type, account_name, 
+      transaction_money, commission, discount_commission, 
+      transaction_method, complete_time, status, 
+      actual_money, actual_commission, actual_discount_commission, 
+      balance, business_id, finance_type, 
+      note, operator_name, operator_ip, 
+      create_by, create_time, last_update_by, 
+      last_update_time, bank_receipt_url, exchange_rate, 
+      transaction_desc, foreign_exchange_fee, withdraw_fee
+      )
+    values (#{transactionId,jdbcType=INTEGER}, #{buyerId,jdbcType=INTEGER}, #{bankCardId,jdbcType=INTEGER}, 
+      #{transactionNumber,jdbcType=VARCHAR}, #{transactionType,jdbcType=TINYINT}, #{accountName,jdbcType=VARCHAR}, 
+      #{transactionMoney,jdbcType=DECIMAL}, #{commission,jdbcType=DECIMAL}, #{discountCommission,jdbcType=DECIMAL}, 
+      #{transactionMethod,jdbcType=TINYINT}, #{completeTime,jdbcType=TIMESTAMP}, #{status,jdbcType=TINYINT}, 
+      #{actualMoney,jdbcType=DECIMAL}, #{actualCommission,jdbcType=DECIMAL}, #{actualDiscountCommission,jdbcType=DECIMAL}, 
+      #{balance,jdbcType=DECIMAL}, #{businessId,jdbcType=INTEGER}, #{financeType,jdbcType=TINYINT}, 
+      #{note,jdbcType=VARCHAR}, #{operatorName,jdbcType=VARCHAR}, #{operatorIp,jdbcType=VARCHAR}, 
+      #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{lastUpdateBy,jdbcType=VARCHAR}, 
+      #{lastUpdateTime,jdbcType=TIMESTAMP}, #{bankReceiptUrl,jdbcType=VARCHAR}, #{exchangeRate,jdbcType=DECIMAL}, 
+      #{transactionDesc,jdbcType=VARCHAR}, #{foreignExchangeFee,jdbcType=DECIMAL}, #{withdrawFee,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.neusoft.commerce.models.GmcpTransactionRecord" useGeneratedKeys="true" keyProperty="transactionId">
+    insert into gmcp$transaction_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="transactionId != null" >
+        transaction_id,
+      </if>
+      <if test="buyerId != null" >
+        buyer_id,
+      </if>
+      <if test="bankCardId != null" >
+        bank_card_id,
+      </if>
+      <if test="transactionNumber != null" >
+        transaction_number,
+      </if>
+      <if test="transactionType != null" >
+        transaction_type,
+      </if>
+      <if test="accountName != null" >
+        account_name,
+      </if>
+      <if test="transactionMoney != null" >
+        transaction_money,
+      </if>
+      <if test="commission != null" >
+        commission,
+      </if>
+      <if test="discountCommission != null" >
+        discount_commission,
+      </if>
+      <if test="transactionMethod != null" >
+        transaction_method,
+      </if>
+      <if test="completeTime != null" >
+        complete_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="actualMoney != null" >
+        actual_money,
+      </if>
+      <if test="actualCommission != null" >
+        actual_commission,
+      </if>
+      <if test="actualDiscountCommission != null" >
+        actual_discount_commission,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="businessId != null" >
+        business_id,
+      </if>
+      <if test="financeType != null" >
+        finance_type,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+      <if test="operatorName != null" >
+        operator_name,
+      </if>
+      <if test="operatorIp != null" >
+        operator_ip,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="createTime != null" >
+        now(),
+      </if>
+      <if test="lastUpdateBy != null" >
+        last_update_by,
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time,
+      </if>
+      <if test="bankReceiptUrl != null" >
+        bank_receipt_url,
+      </if>
+      <if test="exchangeRate != null" >
+        exchange_rate,
+      </if>
+      <if test="transactionDesc != null" >
+        transaction_desc,
+      </if>
+      <if test="foreignExchangeFee != null" >
+        foreign_exchange_fee,
+      </if>
+      <if test="withdrawFee != null" >
+        withdraw_fee,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="transactionId != null" >
+        #{transactionId,jdbcType=INTEGER},
+      </if>
+      <if test="buyerId != null" >
+        #{buyerId,jdbcType=INTEGER},
+      </if>
+      <if test="bankCardId != null" >
+        #{bankCardId,jdbcType=INTEGER},
+      </if>
+      <if test="transactionNumber != null" >
+        #{transactionNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionType != null" >
+        #{transactionType,jdbcType=TINYINT},
+      </if>
+      <if test="accountName != null" >
+        #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionMoney != null" >
+        #{transactionMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="commission != null" >
+        #{commission,jdbcType=DECIMAL},
+      </if>
+      <if test="discountCommission != null" >
+        #{discountCommission,jdbcType=DECIMAL},
+      </if>
+      <if test="transactionMethod != null" >
+        #{transactionMethod,jdbcType=TINYINT},
+      </if>
+      <if test="completeTime != null" >
+        #{completeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="actualMoney != null" >
+        #{actualMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="actualCommission != null" >
+        #{actualCommission,jdbcType=DECIMAL},
+      </if>
+      <if test="actualDiscountCommission != null" >
+        #{actualDiscountCommission,jdbcType=DECIMAL},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="businessId != null" >
+        #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="financeType != null" >
+        #{financeType,jdbcType=TINYINT},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorName != null" >
+        #{operatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorIp != null" >
+        #{operatorIp,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateBy != null" >
+        #{lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bankReceiptUrl != null" >
+        #{bankReceiptUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="exchangeRate != null" >
+        #{exchangeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="transactionDesc != null" >
+        #{transactionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="foreignExchangeFee != null" >
+        #{foreignExchangeFee,jdbcType=DECIMAL},
+      </if>
+      <if test="withdrawFee != null" >
+        #{withdrawFee,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.neusoft.commerce.models.GmcpTransactionRecord" >
+    update gmcp$transaction_record
+    <set >
+      <if test="buyerId != null" >
+        buyer_id = #{buyerId,jdbcType=INTEGER},
+      </if>
+      <if test="bankCardId != null" >
+        bank_card_id = #{bankCardId,jdbcType=INTEGER},
+      </if>
+      <if test="transactionNumber != null" >
+        transaction_number = #{transactionNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionType != null" >
+        transaction_type = #{transactionType,jdbcType=TINYINT},
+      </if>
+      <if test="accountName != null" >
+        account_name = #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionMoney != null" >
+        transaction_money = #{transactionMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="commission != null" >
+        commission = #{commission,jdbcType=DECIMAL},
+      </if>
+      <if test="discountCommission != null" >
+        discount_commission = #{discountCommission,jdbcType=DECIMAL},
+      </if>
+      <if test="transactionMethod != null" >
+        transaction_method = #{transactionMethod,jdbcType=TINYINT},
+      </if>
+      <if test="completeTime != null" >
+        complete_time = #{completeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="actualMoney != null" >
+        actual_money = #{actualMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="actualCommission != null" >
+        actual_commission = #{actualCommission,jdbcType=DECIMAL},
+      </if>
+      <if test="actualDiscountCommission != null" >
+        actual_discount_commission = #{actualDiscountCommission,jdbcType=DECIMAL},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="businessId != null" >
+        business_id = #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="financeType != null" >
+        finance_type = #{financeType,jdbcType=TINYINT},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorName != null" >
+        operator_name = #{operatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorIp != null" >
+        operator_ip = #{operatorIp,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateBy != null" >
+        last_update_by = #{lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bankReceiptUrl != null" >
+        bank_receipt_url = #{bankReceiptUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="exchangeRate != null" >
+        exchange_rate = #{exchangeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="transactionDesc != null" >
+        transaction_desc = #{transactionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="foreignExchangeFee != null" >
+        foreign_exchange_fee = #{foreignExchangeFee,jdbcType=DECIMAL},
+      </if>
+      <if test="withdrawFee != null" >
+        withdraw_fee = #{withdrawFee,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where transaction_id = #{transactionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.neusoft.commerce.models.GmcpTransactionRecord" >
+    update gmcp$transaction_record
+    set buyer_id = #{buyerId,jdbcType=INTEGER},
+      bank_card_id = #{bankCardId,jdbcType=INTEGER},
+      transaction_number = #{transactionNumber,jdbcType=VARCHAR},
+      transaction_type = #{transactionType,jdbcType=TINYINT},
+      account_name = #{accountName,jdbcType=VARCHAR},
+      transaction_money = #{transactionMoney,jdbcType=DECIMAL},
+      commission = #{commission,jdbcType=DECIMAL},
+      discount_commission = #{discountCommission,jdbcType=DECIMAL},
+      transaction_method = #{transactionMethod,jdbcType=TINYINT},
+      complete_time = #{completeTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=TINYINT},
+      actual_money = #{actualMoney,jdbcType=DECIMAL},
+      actual_commission = #{actualCommission,jdbcType=DECIMAL},
+      actual_discount_commission = #{actualDiscountCommission,jdbcType=DECIMAL},
+      balance = #{balance,jdbcType=DECIMAL},
+      business_id = #{businessId,jdbcType=INTEGER},
+      finance_type = #{financeType,jdbcType=TINYINT},
+      note = #{note,jdbcType=VARCHAR},
+      operator_name = #{operatorName,jdbcType=VARCHAR},
+      operator_ip = #{operatorIp,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_update_by = #{lastUpdateBy,jdbcType=VARCHAR},
+      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      bank_receipt_url = #{bankReceiptUrl,jdbcType=VARCHAR},
+      exchange_rate = #{exchangeRate,jdbcType=DECIMAL},
+      transaction_desc = #{transactionDesc,jdbcType=VARCHAR},
+      foreign_exchange_fee = #{foreignExchangeFee,jdbcType=DECIMAL},
+      withdraw_fee = #{withdrawFee,jdbcType=DECIMAL}
+    where transaction_id = #{transactionId,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="selectRecordAndAudit" parameterType="java.lang.Integer" resultType="com.neusoft.commerce.models.dto.RecordAuditDTO">
+    select
+    record.transaction_id,
+    record.transaction_number,
+    record.account_name,
+    record.transaction_money,
+    record.create_time,
+    audit.transaction_audit_id,
+    audit.status
+    from gmcp$transaction_record  record
+    left join  gmcp$transaction_audit audit on record.transaction_id=audit.transaction_id
+    where record.buyer_id = #{buyerId,jdbcType=INTEGER}
+  </select>
+</mapper>

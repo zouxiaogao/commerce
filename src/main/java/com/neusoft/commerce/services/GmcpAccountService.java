@@ -1,15 +1,16 @@
-package com.neusoft.commerce.dao;
-
+package com.neusoft.commerce.services;
 
 import com.neusoft.commerce.models.GmcpAccount;
 import com.neusoft.commerce.models.dto.GmcFundDTO;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.math.BigDecimal;
 
-@Mapper
-public interface GmcpAccountMapper {
+/**
+ * @Author zqy
+ * @Date 2019/08/01
+ */
+public interface GmcpAccountService {
     int deleteByPrimaryKey(Integer buyerId);
 
     int insert(GmcpAccount record);
@@ -24,8 +25,8 @@ public interface GmcpAccountMapper {
 
     //buyerId
     GmcpAccount selectByBuyerId(Integer buyerId);
-
     GmcFundDTO selectMoneyByBuyerId(Integer buyerId);
+
 
 
 }

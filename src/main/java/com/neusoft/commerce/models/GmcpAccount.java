@@ -30,6 +30,16 @@ public class GmcpAccount {
     private String holdOrderTime;
 
     private String autoPayStatus;
+    private Integer manBuyerId;
+
+
+    public Integer getManBuyerId() {
+        return manBuyerId;
+    }
+
+    public void setManBuyerId(Integer manBuyerId) {
+        this.manBuyerId = manBuyerId;
+    }
 
     public Integer getBuyerId() {
         return buyerId;

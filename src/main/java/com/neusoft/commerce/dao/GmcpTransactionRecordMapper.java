@@ -2,7 +2,13 @@ package com.neusoft.commerce.dao;
 
 
 import com.neusoft.commerce.models.GmcpTransactionRecord;
+import com.neusoft.commerce.models.dto.RecordAuditDTO;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
+@Mapper
 public interface GmcpTransactionRecordMapper {
     int deleteByPrimaryKey(Integer transactionId);
 
@@ -15,4 +21,5 @@ public interface GmcpTransactionRecordMapper {
     int updateByPrimaryKeySelective(GmcpTransactionRecord record);
 
     int updateByPrimaryKey(GmcpTransactionRecord record);
+    List<RecordAuditDTO> selectRecordAndAudit(@Param("buyerId") Integer buyerId);
 }

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="utf-8">
     </head>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/ace.min.css">
-    <link rel="stylesheet" href="css/ace-skins.min.css">
-    <link rel="stylesheet" href="css/ace-responsive.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/ace.min.css">
+    <link rel="stylesheet" href="/css/ace-skins.min.css">
+    <link rel="stylesheet" href="/css/ace-responsive.min.css">
   <style>
     body,html{
       width: 100%;
@@ -34,43 +34,32 @@
     <table id="table_bug_report" class="table table-striped table-bordered table-hover">
       <thead>
         <tr>
-          <th>Transaction Number</th>
+          <th>订单流水号</th>
 
-          <th>Available Money</th>
-          <th>Create Time</th>
-          <th class="center">State</th>
+          <th>交易金额</th>
+          <th>创建时间</th>
+          <th class="center">状态</th>
         </tr>
       </thead>
 
       <tbody>
-        <tr>
-          <td>2017154154122</td>
+        <tr th:each="record:${record}">
+          <td th:text="${record.transactionNumber}">2017154154122</td>
 
-          <td>$45</td>
-          <td>
+          <td th:text="${record.transactionMoney}">$45</td>
+          <td th:text="${#dates.format(record.createTime,'yyyy-MM-dd HH:mm:ss')}">
             2017-08-04 09:12:11
           </td>
-          <td class="center">
+          <td class="center" th:text="${record.remark}">
             secceed
           </td>
         </tr>
-        <tr>
-          <td>2017154154122</td>
 
-          <td>$45</td>
-          <td>
-            2017-08-04 09:12:11
-          </td>
-          <td class="center">
-            failed
-          </td>
-        </tr>
-
-              </tbody>
+      </tbody>
     </table>
   </div></div>
-    <script src="js/jquery-1.9.1.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="/js/jquery-1.9.1.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
     <script>
       $(function(){
         $('.nav li').click(function(){

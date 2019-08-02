@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.commerce.dao.GmcpAccountMapper" >
+  <resultMap id="BaseResultMap" type="com.neusoft.commerce.models.GmcpAccount" >
+    <id column="buyer_id" property="buyerId" jdbcType="INTEGER" />
+    <result column="account_name" property="accountName" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="active_time" property="activeTime" jdbcType="TIMESTAMP" />
+    <result column="is_active" property="isActive" jdbcType="CHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_update_by" property="lastUpdateBy" jdbcType="VARCHAR" />
+    <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="account_type" property="accountType" jdbcType="INTEGER" />
+    <result column="hold_order_time" property="holdOrderTime" jdbcType="CHAR" />
+    <result column="auto_pay_status" property="autoPayStatus" jdbcType="VARCHAR" />
+    <result column="man_buyer_id" property="manBuyerId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    buyer_id, account_name, email, password, active_time, is_active, status, create_by, 
+    create_time, last_update_by, last_update_time, account_type, hold_order_time, auto_pay_status,man_buyer_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  select
+  <include refid="Base_Column_List" />
+  from gmcp$account
+  where buyer_id = #{buyerId,jdbcType=INTEGER}
+</select>
+
+
+
+    <!--查询账户对应余额-->
+    <select id="selectMoneyByBuyerId" resultType="com.neusoft.commerce.models.dto.GmcFundDTO" parameterType="java.lang.Integer" >
+        select
+        ac.buyer_id,
+        ac.account_name,
+        fu.available_money,
+        fu.depositing_money,
+        fu.withdrawing_money,
+        fu.currency
+        from gmcp$account ac
+        left join gmcp$account_fund fu on ac.buyer_id=fu.buyer_id
+        where ac.buyer_id = #{buyerId,jdbcType=INTEGER}
+    </select>
+
+
+
+
+  <select id="selectByBuyerId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from gmcp$account
+    where man_buyer_id = #{buyerId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from gmcp$account
+    where buyer_id = #{buyerId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.neusoft.commerce.models.GmcpAccount" >
+    insert into gmcp$account (buyer_id, account_name, email, 
+      password, active_time, is_active, 
+      status, create_by, create_time, 
+      last_update_by, last_update_time, account_type, 
+      hold_order_time, auto_pay_status)
+    values (#{buyerId,jdbcType=INTEGER}, #{accountName,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{activeTime,jdbcType=TIMESTAMP}, #{isActive,jdbcType=CHAR}, 
+      #{status,jdbcType=TINYINT}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{lastUpdateBy,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{accountType,jdbcType=INTEGER}, 
+      #{holdOrderTime,jdbcType=CHAR}, #{autoPayStatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neusoft.commerce.models.GmcpAccount" useGeneratedKeys="true" keyProperty="buyerId">
+    insert into gmcp$account
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="buyerId != null" >
+        buyer_id,
+      </if>
+      <if test="accountName != null" >
+        account_name,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="activeTime != null" >
+        active_time,
+      </if>
+      <if test="isActive != null" >
+        is_active,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastUpdateBy != null" >
+        last_update_by,
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time,
+      </if>
+      <if test="accountType != null" >
+        account_type,
+      </if>
+      <if test="holdOrderTime != null" >
+        hold_order_time,
+      </if>
+      <if test="autoPayStatus != null" >
+        auto_pay_status,
+      </if>
+      <if test="manBuyerId != null" >
+        man_buyer_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="buyerId != null" >
+        #{buyerId,jdbcType=INTEGER},
+      </if>
+      <if test="accountName != null" >
+        #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="activeTime != null" >
+        #{activeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isActive != null" >
+        #{isActive,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateBy != null" >
+        #{lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accountType != null" >
+        #{accountType,jdbcType=INTEGER},
+      </if>
+      <if test="holdOrderTime != null" >
+        #{holdOrderTime,jdbcType=CHAR},
+      </if>
+      <if test="autoPayStatus != null" >
+        #{autoPayStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="manBuyerId != null" >
+        #{manBuyerId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.neusoft.commerce.models.GmcpAccount" >
+    update gmcp$account
+    <set >
+      <if test="accountName != null" >
+        account_name = #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="activeTime != null" >
+        active_time = #{activeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isActive != null" >
+        is_active = #{isActive,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateBy != null" >
+        last_update_by = #{lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accountType != null" >
+        account_type = #{accountType,jdbcType=INTEGER},
+      </if>
+      <if test="holdOrderTime != null" >
+        hold_order_time = #{holdOrderTime,jdbcType=CHAR},
+      </if>
+      <if test="autoPayStatus != null" >
+        auto_pay_status = #{autoPayStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where buyer_id = #{buyerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.neusoft.commerce.models.GmcpAccount" >
+    update gmcp$account
+    set account_name = #{accountName,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      active_time = #{activeTime,jdbcType=TIMESTAMP},
+      is_active = #{isActive,jdbcType=CHAR},
+      status = #{status,jdbcType=TINYINT},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_update_by = #{lastUpdateBy,jdbcType=VARCHAR},
+      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      account_type = #{accountType,jdbcType=INTEGER},
+      hold_order_time = #{holdOrderTime,jdbcType=CHAR},
+      auto_pay_status = #{autoPayStatus,jdbcType=VARCHAR}
+    where buyer_id = #{buyerId,jdbcType=INTEGER}
+  </update>
+</mapper>
