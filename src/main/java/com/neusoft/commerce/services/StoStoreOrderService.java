@@ -1,14 +1,15 @@
-package com.neusoft.commerce.dao;
-
+package com.neusoft.commerce.services;
 
 import com.neusoft.commerce.models.StoStoreOrder;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-@Mapper
-public interface StoStoreOrderMapper {
+/**
+ * @Author zqy
+ * @Date 2019/08/02
+ */
+public interface StoStoreOrderService {
+
     int deleteByPrimaryKey(Integer stoId);
 
     int insert(StoStoreOrder record);
@@ -21,5 +22,5 @@ public interface StoStoreOrderMapper {
 
     int updateByPrimaryKey(StoStoreOrder record);
 
-    List<StoStoreOrder> selectStoreOrderList(@Param("list") List<Integer> ids);
+    List<StoStoreOrder> selectStoreOrderList(List<Integer> ids);
 }

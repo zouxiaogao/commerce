@@ -27,4 +27,8 @@ public interface SaoSalesOrderMapper {
 
 
     List<OrderDto> selectOrderByManId(@Param("id") Integer id,@Param("status")String status);
+
+    public List<OrderDto> selectSaoOrderByStos(@Param("list") List<Integer> ids,@Param("status") String status);
+
+    OrderDto selectOrderDetailBySaoId(Integer saoId);
 }

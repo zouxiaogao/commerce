@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="utf-8">
     </head>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/ace.min.css">
-    <link rel="stylesheet" href="css/ace-skins.min.css">
-    <link rel="stylesheet" href="css/ace-responsive.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/ace.min.css">
+    <link rel="stylesheet" href="/css/ace-skins.min.css">
+    <link rel="stylesheet" href="/css/ace-responsive.min.css">
   <style>
       body,html{
           width: 100%;
@@ -24,63 +24,63 @@
               <h1 style="color: #2679b5;">借卖方<small><i class="icon-double-angle-right"></i> 支付订单</small></h1>
             </div>
 
-<h4>商品名称：MP3</h4>
+<h4>商品名称：<a th:text="${order.title}"></a></h4>
 
  <form class="form-horizontal" style="width: 60%; margin:20px auto">
             <div class="control-group">
-             <label class="control-label" for="form-field-1">Receiver</label>
+             <label class="control-label" for="name">收货人</label>
              <div class="controls">
-                 <input type="text" id="form-field-4" value="luji">
+                 <input type="text" id="name" value="收货人">
              </div>
          </div>
             <div class="control-group">
-              <label class="control-label" for="form-field-1">Ship To</label>
+              <label class="control-label" for="address">收货地址</label>
                 <div class="controls">
-                    <input type="text" id="form-field-4" placeholder="Address">
+                    <input type="text" id="address" placeholder="地址">
                 </div>
             </div>
-            <div class="control-group">
-                <div class="controls">
-                    <select>
-                        <option value="0">State</option>
-                        <option value="1">AL</option>
-                    </select>
-                </div>
-             </div>
-            <div class="control-group">
-                    <div class="controls">
-                        <select>
-                            <option value="0">city</option>
-                            <option value="1">AL</option>
-                        </select>
-                    </div>
-               </div>
+            <!--<div class="control-group">-->
+                <!--<div class="controls">-->
+                    <!--<select>-->
+                        <!--<option value="0">State</option>-->
+                        <!--<option value="1">AL</option>-->
+                    <!--</select>-->
+                <!--</div>-->
+             <!--</div>-->
+            <!--<div class="control-group">-->
+                    <!--<div class="controls">-->
+                        <!--<select>-->
+                            <!--<option value="0">city</option>-->
+                            <!--<option value="1">AL</option>-->
+                        <!--</select>-->
+                    <!--</div>-->
+               <!--</div>-->
            <div class="control-group">
-              <label class="control-label" for="form-field-1">Quantity</label>
+              <label class="control-label" for="amount">数量</label>
               <div class="controls">
-                <input type="text" id="form-field-4" value="2">
+                <input type="text" id="amount" th:value="${order.qty}">
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label" for="form-field-1">Mobile</label>
+              <label class="control-label" for="phone">手机号码</label>
               <div class="controls">
-                <input type="text" id="form-field-4" value="1354678655">
+                <input type="text" id="phone" value="1354678655">
               </div>
             </div>
              <div class="control-group">
-              <label class="control-label" for="form-field-1">ZIP code</label>
+              <label class="control-label" for="code">邮编</label>
               <div class="controls">
-                <input type="text" id="form-field-4" value="510000">
+                <input type="text" id="code" value="510000">
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label" for="form-field-1">Shipping Method</label>
+              <label class="control-label">发货方式</label>
               <div class="controls">
                 <label>
-                  <input name="form-field-radio" type="radio"><span class="lbl"> 2-5天  $10 </span><br>
+                  <input name="form-field-radio" id="ship1" type="radio"><span class="lbl"> 2-5天  ￥10 </span><br>
                 </label>
                 <label>
-                  <input name="form-field-radio" type="radio"><span class="lbl"> 5-10天  $5 </span><br>
+                  <input name="form-field-radio" id="ship2" type="radio"><span class="lbl"> 5-10天  ￥5 </span><br>
                 </label>
               </div>
             </div>
@@ -89,10 +89,10 @@
         </form>
 
               <h3 style="text-align: center">
-                Total：<b class="red">$100</b>
+                总计：<b class="red" th:text="${order.total}">$100</b>
               </h3>
 
-<div style="text-align: center"><button class="btn btn-primary" data-toggle="modal" data-target="#myModal"><i class="icon-beaker"></i> Pay Now</button></div>
+<div style="text-align: center"><button class="btn btn-primary" data-toggle="modal" data-target="#myModal"><i class="icon-beaker"></i> 去支付</button></div>
 
 
 
@@ -102,28 +102,23 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Payment</h4>
+        <h4 class="modal-title" id="myModalLabel">支付</h4>
       </div>
       <div class="modal-body" >
           <form class="form-horizontal">
               <div class="control-group">
-                  <h3>Total:<span class="red">$56767</span></h3>
+                  <h3>总计:<span class="red" th:text="${order.total}">$56767</span></h3>
               </div>
               <div class="control-group">
-                  Payment Method：
+                  支付方式：
                   <div>
-                      <input name="form-field-radio" type="radio" style="opacity: 1;position: inherit"><img src="image/gmc.png" alt="">My Wallet
-                      <div class="blue">Account Balance:$6775</div>
+                      <input name="form-field-radio" type="radio" style="opacity: 1;position: inherit"><img src="image/gmc.png" alt="">我的钱包
+                      <div class="blue">钱包余额:<span th:text="${account.availableMoney}"></span></div>
                   </div>
-                  <div>
-                      <input name="form-field-radio" type="radio" style="opacity: 1;position: inherit"><img src="image/paycal@2x.png" alt="">Paypal
-                      <div class="blue">Total amount you should pay include payment processing fee:$5765</div>
-                  </div>
-
               </div>
 
             <div class="control-group">
-              Enter Password：<input type="password" id="form-field-2" placeholder="Password">
+              支付密码：<input type="password" id="form-field-2" placeholder="Password">
             </div>
         </form>
       </div>
@@ -135,10 +130,10 @@
   </div>
 </div>
   </div></div>
-    <script src="js/jquery-1.9.1.js"></script>
+    <script src="/js/jquery-1.9.1.js"></script>
 
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/bootbox.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/bootbox.min.js"></script>
     <script>
       $(function(){
         $('.sure').click(function(){

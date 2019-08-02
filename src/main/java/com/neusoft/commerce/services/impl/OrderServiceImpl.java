@@ -27,4 +27,12 @@ public class OrderServiceImpl {
         return salesOrderMapper.updateBySaoId(saoId,status);
     }
 
+    public List<OrderDto> selectSaoOrderByStos(List<Integer> ids,String status){
+        return salesOrderMapper.selectSaoOrderByStos(ids,status);
+    }
+
+    public OrderDto selectOrderDetailBySaoId(Integer saoId){
+        return salesOrderMapper.selectOrderDetailBySaoId(saoId);
+    }
+
 }

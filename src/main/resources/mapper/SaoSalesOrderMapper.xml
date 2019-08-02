@@ -472,6 +472,63 @@
   </update>
 
 
+  <select id="selectSaoOrderByStos" parameterType="java.util.List" resultType="com.neusoft.commerce.models.dto.OrderDto">
+    SELECT
+      sao.SAO_ID,
+      sao.PRODUCT_AMOUNT,
+      sao.ORDER_NO,
+      sao.ORDER_STS,
+      sao.REFUND_STS,
+      sao.DELIVERY_STS,
+      sal.SAL_ID,
+      sal.STS_CD,
+      sal.PRICE,
+      sal.TRACKING_NO ,
+      pro.TITLE,
+      sol.SOL_ID,
+      sol.ORDER_ITEM_ID,
+      sol.SALES_PRICE,
+      sol.QTY,
+      sol.SKU_NO
+      FROM sao_sales_order sao
+      LEFT JOIN sal_sales_order_line_item sal ON sao.SAO_ID = sal.SAO_ID
+      LEFT JOIN pro_product pro ON pro.PRO_ID=sal.PRO_ID
+      LEFT JOIN sol_store_order_line_item sol ON sol.SOL_ID=sal.SOL_ID
+    WHERE sao.STO_ID IN
+    <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+    AND ORDER_STS=#{status}
+  </select>
+
+
+
+    <select id="selectOrderDetailBySaoId" parameterType="java.lang.Integer" resultType="com.neusoft.commerce.models.dto.OrderDto">
+        SELECT
+      sao.SAO_ID,
+      sao.PRODUCT_AMOUNT,
+      sao.ORDER_NO,
+      sao.ORDER_STS,
+      sao.REFUND_STS,
+      sao.DELIVERY_STS,
+      sal.SAL_ID,
+      sal.STS_CD,
+      sal.PRICE,
+      sal.TRACKING_NO ,
+      pro.TITLE,
+      sol.SOL_ID,
+      sol.ORDER_ITEM_ID,
+      sol.SALES_PRICE,
+      sol.QTY,
+      sol.SKU_NO
+      FROM sao_sales_order sao
+      LEFT JOIN sal_sales_order_line_item sal ON sao.SAO_ID = sal.SAO_ID
+      LEFT JOIN pro_product pro ON pro.PRO_ID=sal.PRO_ID
+      LEFT JOIN sol_store_order_line_item sol ON sol.SOL_ID=sal.SOL_ID
+    WHERE sao.SAO_ID=#{saoId}
+    </select>
+
+
 
 
 </mapper>

@@ -30,34 +30,32 @@ public class BrandProductCtrl extends BaseCtrl {
     private ProductServiceImpl productService;
 
 
-
     /**********************商品管理**************************/
     @GetMapping("/product/showProductList")
-    public String showProductList(){
+    public String showProductList() {
         return "brand-productInput-pic";
     }
 
     @GetMapping("/product/productlist")
-    public String productList(HttpServletRequest request, Model model){
-        SysUser user =(SysUser) request.getSession().getAttribute("user");
+    public String productList(HttpServletRequest request, Model model) {
+        SysUser user = (SysUser) request.getSession().getAttribute("user");
         List<ProductCategory> productCategories = productService.selectProductCategory(user.getManBuyerId());
-        for(ProductCategory productCategory:productCategories){
-            if(productCategory.getStsCd().equals("I")){
+        for (ProductCategory productCategory : productCategories) {
+            if (productCategory.getStsCd().equals("I")) {
                 productCategory.setStsCd("待上架");
-            }else if(productCategory.getStsCd().equals("A")){
+            } else if (productCategory.getStsCd().equals("A")) {
                 productCategory.setStsCd("上架中");
-            }else if(productCategory.getStsCd().equals("W")){
+            } else if (productCategory.getStsCd().equals("W")) {
                 productCategory.setStsCd("入仓中");
-            }else if(productCategory.getStsCd().equals("S")){
+            } else if (productCategory.getStsCd().equals("S")) {
                 productCategory.setStsCd("待入仓");
-            }else {
+            } else {
                 productCategory.setStsCd("待入仓");
             }
         }
-        model.addAttribute("products",productCategories);
+        model.addAttribute("products", productCategories);
         return "brand-productInput-pic";
     }
-
 
 
 //    //修改页面
@@ -77,11 +75,11 @@ public class BrandProductCtrl extends BaseCtrl {
             //查询分类
             PrcProductCategory category = productService.selectCategory(productCategory.getProId());
 
-            if(category==null){
-                    productService.insertProductCategory(productCategory);
-            }else {
-                    productCategory.setPrcId(category.getPrcId());
-                    productService.updateProductCategory(productCategory);
+            if (category == null) {
+                productService.insertProductCategory(productCategory);
+            } else {
+                productCategory.setPrcId(category.getPrcId());
+                productService.updateProductCategory(productCategory);
             }
 
 
@@ -99,43 +97,38 @@ public class BrandProductCtrl extends BaseCtrl {
     public Result goRepo(Integer id) {
         try {
             ProProduct product = productService.selectByPrimaryKey(id);
-            if(product.getStsCd().equals("W")){
-                return this.send(-1,"以入仓，请不要重复操作");
+            if (product.getStsCd().equals("W")) {
+                return this.send(-1, "以入仓，请不要重复操作");
             }
             productService.updateProductRepo(id);
-            return this.send(200,"入仓成功");
-        }catch (Exception e){
+            return this.send(200, "入仓成功");
+        } catch (Exception e) {
             e.printStackTrace();
-            return this.send(-1,"操作失败");
+            return this.send(-1, "操作失败");
         }
     }
-
-
-
-
-
 
 
     /***********************商品录入*****************************/
 
     @GetMapping("/brand-productInput-attr")
-    public String brandProductattr(){
+    public String brandProductattr() {
         return "/brand-productInput-attr";
     }
 
 
     @GetMapping("/brand-productInput-attr/productlist")
-    public String brandProduct(HttpServletRequest request, Model model){
-        SysUser user =(SysUser) request.getSession().getAttribute("user");
+    public String brandProduct(HttpServletRequest request, Model model) {
+        SysUser user = (SysUser) request.getSession().getAttribute("user");
         List<ProductDTO> productDTOS = productService.selectByManId(user.getManBuyerId());
-        model.addAttribute("products",productDTOS);
+        model.addAttribute("products", productDTOS);
         return "brand-productInput-attr::productlist";
     }
 
     @GetMapping("/brand-productInput-attr/search")
-    public String brandProductSearch(HttpServletRequest request, Model model,String tittle){
-        SysUser user =(SysUser) request.getSession().getAttribute("user");
-        model.addAttribute("products",productService.selectByManIdAndCondition(user.getManBuyerId(),tittle));
+    public String brandProductSearch(HttpServletRequest request, Model model, String tittle) {
+        SysUser user = (SysUser) request.getSession().getAttribute("user");
+        model.addAttribute("products", productService.selectByManIdAndCondition(user.getManBuyerId(), tittle));
         return "brand-productInput-attr::productlist";
     }
 
@@ -143,9 +136,9 @@ public class BrandProductCtrl extends BaseCtrl {
     //修改页面
     @Transactional
     @GetMapping("/brand-productInput-attr2/detail")
-    public String updateProduct(Integer id,Model model) {
+    public String updateProduct(Integer id, Model model) {
         ProductDTO productDTO = productService.selectByProId(id);
-        model.addAttribute("product",productDTO);
+        model.addAttribute("product", productDTO);
         return "/brand-productInput-attr2";
     }
 
@@ -156,25 +149,24 @@ public class BrandProductCtrl extends BaseCtrl {
     }
 
 
-
     @Transactional
     @PostMapping("/brand-productInput-attr/save")
     @ResponseBody
-    public Result brandProductSave(HttpServletRequest request,@RequestBody ProductDTO productDTO){
+    public Result brandProductSave(HttpServletRequest request, @RequestBody ProductDTO productDTO) {
         try {
-            SysUser user =(SysUser) request.getSession().getAttribute("user");
+            SysUser user = (SysUser) request.getSession().getAttribute("user");
             productDTO.setManId(user.getManBuyerId());
             //SysNewRole sysNewRole = sysNewRoleService.selectByPrimaryKey(Integer.parseInt(user.getRoleId()));
-            if(productDTO.getProId()!=null){  //update
-                productService.updateProduct(productDTO,user.getName());
-                return this.send(200,"修改成功");
-            }else { //insert
-                productService.insertProduct(productDTO,user.getName());
-                return this.send(200,"新增成功");
+            if (productDTO.getProId() != null) {  //update
+                productService.updateProduct(productDTO, user.getName());
+                return this.send(200, "修改成功");
+            } else { //insert
+                productService.insertProduct(productDTO, user.getName());
+                return this.send(200, "新增成功");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            return this.send(-1,"操作失败");
+            return this.send(-1, "操作失败");
         }
     }
 
@@ -183,15 +175,13 @@ public class BrandProductCtrl extends BaseCtrl {
     @GetMapping("/brand-productInput-attr/delete")
     @ResponseBody
     public Result delete(Integer id) {
-
-
         try {
             //productService.deleteByPrimaryKey(id);
             productService.deleteByProduct(id);
-            return this.send(200,"删除成功");
-        }catch (Exception e){
+            return this.send(200, "删除成功");
+        } catch (Exception e) {
             e.printStackTrace();
-            return this.send(-1,"操作失败");
+            return this.send(-1, "操作失败");
         }
     }
 }

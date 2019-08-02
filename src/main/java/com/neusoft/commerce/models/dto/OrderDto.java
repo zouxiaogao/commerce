@@ -37,6 +37,17 @@ public class OrderDto {
     private Integer proId;
     private String title;
 
+    //总价格
+    private BigDecimal total;
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+
     public Integer getStoId() {
         return stoId;
     }
