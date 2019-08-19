@@ -33,7 +33,7 @@
     delete from sto_store_order
     where STO_ID = #{stoId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.neusoft.commerce.models.StoStoreOrder" >
+  <insert id="insert" parameterType="com.neusoft.commerce.models.StoStoreOrder" useGeneratedKeys="true" keyProperty="stoId">
     insert into sto_store_order (STO_ID, STR_ID, ORDER_ID, 
       ORDER_CREATED_TIME, PAID_TIME, LAST_MODIFIED_TIME, 
       CREATED_BY, CREATION_DATE, LAST_UPDATE_BY, 
@@ -41,10 +41,10 @@
       STS_CD, PLATEFORM_TYPE, CANCEL_COMPLETE_DATE
       )
     values (#{stoId,jdbcType=INTEGER}, #{strId,jdbcType=INTEGER}, #{orderId,jdbcType=VARCHAR}, 
-      #{orderCreatedTime,jdbcType=VARCHAR}, #{paidTime,jdbcType=VARCHAR}, #{lastModifiedTime,jdbcType=VARCHAR}, 
-      #{createdBy,jdbcType=VARCHAR}, #{creationDate,jdbcType=TIMESTAMP}, #{lastUpdateBy,jdbcType=VARCHAR}, 
+     now(), #{paidTime,jdbcType=TIMESTAMP}, #{lastModifiedTime,jdbcType=TIMESTAMP},
+      #{createdBy,jdbcType=VARCHAR}, now(), #{lastUpdateBy,jdbcType=VARCHAR},
       #{lastUpdateDate,jdbcType=TIMESTAMP}, #{callCnt,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
-      #{stsCd,jdbcType=CHAR}, #{plateformType,jdbcType=VARCHAR}, #{cancelCompleteDate,jdbcType=VARCHAR}
+      'A', #{plateformType,jdbcType=VARCHAR}, #{cancelCompleteDate,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.neusoft.commerce.models.StoStoreOrder" >

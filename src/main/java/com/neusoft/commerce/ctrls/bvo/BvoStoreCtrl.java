@@ -2,6 +2,7 @@ package com.neusoft.commerce.ctrls.bvo;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.neusoft.commerce.common.OrderCodeFactory;
 import com.neusoft.commerce.common.Result;
 import com.neusoft.commerce.ctrls.BaseCtrl;
 import com.neusoft.commerce.dao.SysUserMapper;
@@ -42,6 +43,17 @@ public class BvoStoreCtrl extends BaseCtrl {
     private DrpDropshpServiceImpl drpDropshpService;
     @Autowired
     private SdiStoreDropShipServiceImpl sdiStoreDropShipService;
+    @Autowired
+    private StoStoreOrderServiceImpl stoStoreOrderService;
+    @Autowired
+    private SolStoreOrderLineItemServiceImpl storeOrderLineItemService;
+    @Autowired
+    private OrderServiceImpl orderService;
+    @Autowired
+    private SalSalesOrderLineItemServiceImpl salesOrderLineItemService;
+
+
+
 
 
 
@@ -135,6 +147,48 @@ public class BvoStoreCtrl extends BaseCtrl {
                 sdiStoreDropShipService.insertSelective(sdiStoreDropshipItem);
             }
 
+
+            //生成订单
+
+            for(int i:id){
+
+                //1.插入原始订单sto store表
+                StoStoreOrder storeOrder=new StoStoreOrder();
+                storeOrder.setStrId(i);
+                storeOrder.setOrderId(OrderCodeFactory.getOrderCode(new Long(user.getManBuyerId())));
+                storeOrder.setCreatedBy(user.getUsername());
+                stoStoreOrderService.insert(storeOrder);
+
+                //2.插入原始订单详细 sol
+                SolStoreOrderLineItem storeOrderLineItem=new SolStoreOrderLineItem();
+                storeOrderLineItem.setStoId(storeOrder.getStoId());
+                storeOrderLineItem.setCreatedBy(user.getUsername());
+                storeOrderLineItem.setSalesPrice(product.getPrice());
+                storeOrderLineItem.setQty(1);
+                storeOrderLineItem.setSkuNo(product.getSkuCd());
+                storeOrderLineItemService.insert(storeOrderLineItem);
+
+                //3.插入销售订单 sao_sales_order
+                SaoSalesOrder salesOrder=new SaoSalesOrder();
+                salesOrder.setStoId(storeOrder.getStoId());
+                salesOrder.setCreatedBy(user.getUsername());
+                salesOrder.setProductAmount(product.getPrice());
+                salesOrder.setManId(product.getManId());
+                salesOrder.setOrderNo(OrderCodeFactory.getOrderCode(new Long(user.getManBuyerId())));
+                salesOrder.setOrderSts("1"); // 待支付
+                salesOrder.setDeliverySts("1"); //发货状态 1. SYNC - 已同步到仓库 2. STOCK_OUT - 已出库 3. SHIPPING - 发货中 4. FULFILLED - 已妥投
+                orderService.insert(salesOrder);
+
+                //4.插入销售详细订单
+                SalSalesOrderLineItem salSalesOrderLineItem=new SalSalesOrderLineItem();
+                salSalesOrderLineItem.setSaoId(salesOrder.getSaoId());
+                salSalesOrderLineItem.setSolId(storeOrderLineItem.getSolId());  //原始订单详细
+                salSalesOrderLineItem.setProId(product.getProId());
+                salSalesOrderLineItem.setQty(1);
+                salSalesOrderLineItem.setPrice(product.getPrice());
+                salSalesOrderLineItem.setTrackingNo(Long.toString(OrderCodeFactory.getRandom(new Long(product.getProId()))));  //物流追踪号
+                salesOrderLineItemService.insert(salSalesOrderLineItem);
+            }
 
             return this.send(200,"推送成功,订单已生成,快去查看吧");
         }catch (Exception e){

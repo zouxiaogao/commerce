@@ -11,10 +11,10 @@ public class OrderDto {
     //原始订单表
     private Integer stoId;
     private String orderId;
-    private String orderCreatedTime; //创建时间
-    private String paidTime;
-    private String lastModifiedTime; //更新时间
-    private String cancelCompleteDate;
+    private Date orderCreatedTime; //创建时间
+    private Date paidTime;
+    private Date lastModifiedTime; //更新时间
+    private Date cancelCompleteDate;
     //原始订单明细表
     private Integer solId;
     private String orderItemId;
@@ -40,13 +40,8 @@ public class OrderDto {
     //总价格
     private BigDecimal total;
 
-    public BigDecimal getTotal() {
-        return total;
-    }
-
-    public void setTotal(BigDecimal total) {
-        this.total = total;
-    }
+    //time
+    private String strTime;
 
     public Integer getStoId() {
         return stoId;
@@ -64,35 +59,35 @@ public class OrderDto {
         this.orderId = orderId;
     }
 
-    public String getOrderCreatedTime() {
+    public Date getOrderCreatedTime() {
         return orderCreatedTime;
     }
 
-    public void setOrderCreatedTime(String orderCreatedTime) {
+    public void setOrderCreatedTime(Date orderCreatedTime) {
         this.orderCreatedTime = orderCreatedTime;
     }
 
-    public String getPaidTime() {
+    public Date getPaidTime() {
         return paidTime;
     }
 
-    public void setPaidTime(String paidTime) {
+    public void setPaidTime(Date paidTime) {
         this.paidTime = paidTime;
     }
 
-    public String getLastModifiedTime() {
+    public Date getLastModifiedTime() {
         return lastModifiedTime;
     }
 
-    public void setLastModifiedTime(String lastModifiedTime) {
+    public void setLastModifiedTime(Date lastModifiedTime) {
         this.lastModifiedTime = lastModifiedTime;
     }
 
-    public String getCancelCompleteDate() {
+    public Date getCancelCompleteDate() {
         return cancelCompleteDate;
     }
 
-    public void setCancelCompleteDate(String cancelCompleteDate) {
+    public void setCancelCompleteDate(Date cancelCompleteDate) {
         this.cancelCompleteDate = cancelCompleteDate;
     }
 
@@ -232,32 +227,19 @@ public class OrderDto {
         this.title = title;
     }
 
-    @Override
-    public String toString() {
-        return "OrderDto{" +
-                "stoId=" + stoId +
-                ", orderId='" + orderId + '\'' +
-                ", orderCreatedTime='" + orderCreatedTime + '\'' +
-                ", paidTime='" + paidTime + '\'' +
-                ", lastModifiedTime='" + lastModifiedTime + '\'' +
-                ", cancelCompleteDate='" + cancelCompleteDate + '\'' +
-                ", solId=" + solId +
-                ", orderItemId='" + orderItemId + '\'' +
-                ", salesPrice=" + salesPrice +
-                ", qty=" + qty +
-                ", skuNo='" + skuNo + '\'' +
-                ", saoId=" + saoId +
-                ", productAmount=" + productAmount +
-                ", orderNo='" + orderNo + '\'' +
-                ", orderSts='" + orderSts + '\'' +
-                ", refundSts='" + refundSts + '\'' +
-                ", deliverySts='" + deliverySts + '\'' +
-                ", salId=" + salId +
-                ", stsCd='" + stsCd + '\'' +
-                ", price=" + price +
-                ", trackingNo='" + trackingNo + '\'' +
-                ", proId=" + proId +
-                ", title='" + title + '\'' +
-                '}';
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+
+    public String getStrTime() {
+        return strTime;
+    }
+
+    public void setStrTime(String strTime) {
+        this.strTime = strTime;
     }
 }

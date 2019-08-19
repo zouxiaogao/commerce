@@ -1,4 +1,4 @@
-package com.neusoft.commerce.ctrls.bvo;
+package com.neusoft.commerce.ctrls.brand;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -27,37 +27,37 @@ import java.util.List;
 
 /**
  * @Author zqy
- * @Date 2019/08/01
+ * @Date 2019/08/19
  */
 @Controller
-public class BvoGmcCtrl extends BaseCtrl {
+public class MvoGmcCtrl extends BaseCtrl {
 
     @Autowired
     private GmcpAccountServiceImpl gmcpAccountService;
     @Autowired
     private GmcAccountFundServiceImpl gmcAccountFundService;
 
-    @GetMapping("/bvo/gmc/show")
+    @GetMapping("/mvo/gmc/show")
     public String showGmc(HttpSession session, Model model){
         SysUser user = (SysUser)session.getAttribute("user");
         //查找钱包是否存在
         GmcpAccount gmcpAccount = gmcpAccountService.selectByBuyerId(user.getManBuyerId());
         if(gmcpAccount==null){
-            return "bvo-gmcwallerAcount";
+            return "brand-wallerAcountRegister";
         }
 
         //查询余额
         GmcFundDTO gmcFundDTO = gmcpAccountService.selectMoneyByBuyerId(gmcpAccount.getBuyerId());
         model.addAttribute("account",gmcFundDTO);
-        return "bvo-gmcwallermoney";
+        return "brand-gmcwallerAcount";
     }
 
 
 
     //注册钱包
-    @PostMapping("/bvo/gmc/register")
+    @PostMapping("/mvo/gmc/register")
     @ResponseBody
-    public Result registerGmc(HttpSession session,@RequestBody GmcpAccount gmcpAccount){
+    public Result registerGmc(HttpSession session, @RequestBody GmcpAccount gmcpAccount){
         try {
             SysUser user = (SysUser)session.getAttribute("user");
             gmcpAccount.setManBuyerId(user.getManBuyerId());
@@ -78,7 +78,7 @@ public class BvoGmcCtrl extends BaseCtrl {
 
 
     //提现
-    @PostMapping("/bvo/gmc/deposit")
+    @PostMapping("/mvo/gmc/deposit")
     @ResponseBody
     @Transactional
     public Result showMoney(HttpSession session, @RequestBody String str ){
@@ -114,7 +114,7 @@ public class BvoGmcCtrl extends BaseCtrl {
 
 
     //查看流水
-    @GetMapping("/bvo/gmc/record")
+    @GetMapping("/mvo/gmc/record")
     public String showRecord(HttpSession session,Model model,Integer id){
 
         List<RecordAuditDTO> recordAuditDTOS = gmcAccountFundService.selectRecordAndAudit(id);
@@ -141,6 +141,6 @@ public class BvoGmcCtrl extends BaseCtrl {
         }
 
         model.addAttribute("record",recordAuditDTOS);
-        return "bvo-gmcwallerAcountList";
+        return "brand-gmcwallerAcountList";
     }
 }

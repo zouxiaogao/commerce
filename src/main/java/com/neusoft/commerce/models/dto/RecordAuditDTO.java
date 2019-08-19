@@ -20,8 +20,28 @@ public class RecordAuditDTO {
 
     private Integer transactionAuditId;
 
+    private Byte transactionType;
+
+    private String type;
+
     private Byte status;
     private String remark;
+
+    public Byte getTransactionType() {
+        return transactionType;
+    }
+
+    public void setTransactionType(Byte transactionType) {
+        this.transactionType = transactionType;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getRemark() {
         return remark;

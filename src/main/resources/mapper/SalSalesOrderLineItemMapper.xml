@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.commerce.dao.SalSalesOrderLineItemMapper" >
+  <resultMap id="BaseResultMap" type="com.neusoft.commerce.models.SalSalesOrderLineItem" >
+    <id column="SAL_ID" property="salId" jdbcType="INTEGER" />
+    <result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+    <result column="CREATION_DATE" property="creationDate" jdbcType="TIMESTAMP" />
+    <result column="LAST_UPDATE_BY" property="lastUpdateBy" jdbcType="VARCHAR" />
+    <result column="LAST_UPDATE_DATE" property="lastUpdateDate" jdbcType="TIMESTAMP" />
+    <result column="CALL_CNT" property="callCnt" jdbcType="INTEGER" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="STS_CD" property="stsCd" jdbcType="CHAR" />
+    <result column="SAO_ID" property="saoId" jdbcType="INTEGER" />
+    <result column="PRO_ID" property="proId" jdbcType="INTEGER" />
+    <result column="QTY" property="qty" jdbcType="INTEGER" />
+    <result column="PRICE" property="price" jdbcType="DECIMAL" />
+    <result column="SOL_ID" property="solId" jdbcType="INTEGER" />
+    <result column="TRACKING_NO" property="trackingNo" jdbcType="VARCHAR" />
+    <result column="WSP_NAME" property="wspName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SAL_ID, CREATED_BY, CREATION_DATE, LAST_UPDATE_BY, LAST_UPDATE_DATE, CALL_CNT, REMARK, 
+    STS_CD, SAO_ID, PRO_ID, QTY, PRICE, SOL_ID, TRACKING_NO, WSP_NAME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sal_sales_order_line_item
+    where SAL_ID = #{salId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sal_sales_order_line_item
+    where SAL_ID = #{salId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.neusoft.commerce.models.SalSalesOrderLineItem" >
+    insert into sal_sales_order_line_item (SAL_ID, CREATED_BY, CREATION_DATE, 
+      LAST_UPDATE_BY, LAST_UPDATE_DATE, CALL_CNT, 
+      REMARK, STS_CD, SAO_ID, 
+      PRO_ID, QTY, PRICE, 
+      SOL_ID, TRACKING_NO, WSP_NAME
+      )
+    values (#{salId,jdbcType=INTEGER}, #{createdBy,jdbcType=VARCHAR},now(),
+      #{lastUpdateBy,jdbcType=VARCHAR}, #{lastUpdateDate,jdbcType=TIMESTAMP}, #{callCnt,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, 'A', #{saoId,jdbcType=INTEGER},
+      #{proId,jdbcType=INTEGER}, #{qty,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL}, 
+      #{solId,jdbcType=INTEGER}, #{trackingNo,jdbcType=VARCHAR}, #{wspName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.neusoft.commerce.models.SalSalesOrderLineItem" >
+    insert into sal_sales_order_line_item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="salId != null" >
+        SAL_ID,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="creationDate != null" >
+        CREATION_DATE,
+      </if>
+      <if test="lastUpdateBy != null" >
+        LAST_UPDATE_BY,
+      </if>
+      <if test="lastUpdateDate != null" >
+        LAST_UPDATE_DATE,
+      </if>
+      <if test="callCnt != null" >
+        CALL_CNT,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="stsCd != null" >
+        STS_CD,
+      </if>
+      <if test="saoId != null" >
+        SAO_ID,
+      </if>
+      <if test="proId != null" >
+        PRO_ID,
+      </if>
+      <if test="qty != null" >
+        QTY,
+      </if>
+      <if test="price != null" >
+        PRICE,
+      </if>
+      <if test="solId != null" >
+        SOL_ID,
+      </if>
+      <if test="trackingNo != null" >
+        TRACKING_NO,
+      </if>
+      <if test="wspName != null" >
+        WSP_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="salId != null" >
+        #{salId,jdbcType=INTEGER},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="creationDate != null" >
+        #{creationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateBy != null" >
+        #{lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateDate != null" >
+        #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="callCnt != null" >
+        #{callCnt,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="stsCd != null" >
+        #{stsCd,jdbcType=CHAR},
+      </if>
+      <if test="saoId != null" >
+        #{saoId,jdbcType=INTEGER},
+      </if>
+      <if test="proId != null" >
+        #{proId,jdbcType=INTEGER},
+      </if>
+      <if test="qty != null" >
+        #{qty,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="solId != null" >
+        #{solId,jdbcType=INTEGER},
+      </if>
+      <if test="trackingNo != null" >
+        #{trackingNo,jdbcType=VARCHAR},
+      </if>
+      <if test="wspName != null" >
+        #{wspName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.neusoft.commerce.models.SalSalesOrderLineItem" >
+    update sal_sales_order_line_item
+    <set >
+      <if test="createdBy != null" >
+        CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="creationDate != null" >
+        CREATION_DATE = #{creationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateBy != null" >
+        LAST_UPDATE_BY = #{lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateDate != null" >
+        LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="callCnt != null" >
+        CALL_CNT = #{callCnt,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="stsCd != null" >
+        STS_CD = #{stsCd,jdbcType=CHAR},
+      </if>
+      <if test="saoId != null" >
+        SAO_ID = #{saoId,jdbcType=INTEGER},
+      </if>
+      <if test="proId != null" >
+        PRO_ID = #{proId,jdbcType=INTEGER},
+      </if>
+      <if test="qty != null" >
+        QTY = #{qty,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        PRICE = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="solId != null" >
+        SOL_ID = #{solId,jdbcType=INTEGER},
+      </if>
+      <if test="trackingNo != null" >
+        TRACKING_NO = #{trackingNo,jdbcType=VARCHAR},
+      </if>
+      <if test="wspName != null" >
+        WSP_NAME = #{wspName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SAL_ID = #{salId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.neusoft.commerce.models.SalSalesOrderLineItem" >
+    update sal_sales_order_line_item
+    set CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      CREATION_DATE = #{creationDate,jdbcType=TIMESTAMP},
+      LAST_UPDATE_BY = #{lastUpdateBy,jdbcType=VARCHAR},
+      LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      CALL_CNT = #{callCnt,jdbcType=INTEGER},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      STS_CD = #{stsCd,jdbcType=CHAR},
+      SAO_ID = #{saoId,jdbcType=INTEGER},
+      PRO_ID = #{proId,jdbcType=INTEGER},
+      QTY = #{qty,jdbcType=INTEGER},
+      PRICE = #{price,jdbcType=DECIMAL},
+      SOL_ID = #{solId,jdbcType=INTEGER},
+      TRACKING_NO = #{trackingNo,jdbcType=VARCHAR},
+      WSP_NAME = #{wspName,jdbcType=VARCHAR}
+    where SAL_ID = #{salId,jdbcType=INTEGER}
+  </update>
+</mapper>

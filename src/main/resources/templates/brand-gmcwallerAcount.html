@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-    </head>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/ace.min.css">
-    <link rel="stylesheet" href="css/ace-skins.min.css">
-    <link rel="stylesheet" href="css/ace-responsive.min.css">
-  <style>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+</head>
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/ace.min.css">
+<link rel="stylesheet" href="/css/ace-skins.min.css">
+<link rel="stylesheet" href="/css/ace-responsive.min.css">
+<style>
     body,html{
-      width: 100%;
-      height: 100%;
-      background: #fff;
+        width: 100%;
+        height: 100%;
+        background: #fff;
     }
 
     .info div{
@@ -21,86 +21,160 @@
     }
     a{color:#fff;}
     a:hover{color:#fff;}
-  </style>
-    <body>
+</style>
+<body>
 
-    <div id="main-content" class="clearfix">
-      <div id="page-content" class="clearfix">
-    <div class="page-header position-relative">
-      <h1 style="color: #2679b5;">品牌商 <small><i class="icon-double-angle-right"></i> 账户余额</small></h1>
+<div id="main-content" class="clearfix">
+    <div id="page-content" class="clearfix">
+        <div class="page-header position-relative">
+            <h1 style="color: #2679b5;">品牌商 <small><i class="icon-double-angle-right"></i> 账户余额</small></h1>
+        </div>
+
+        <table id="table_bug_report" class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>账户</th>
+                <th>余额</th>
+                <th></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="account:${account}">
+                <td><a style="color: #0b6cbc" href="#" th:text="${account!=null}?${account.accountName}">ace.com</a></td>
+                <td th:text="${account!=null}?${account.availableMoney}">$45</td>
+                <td class="center">
+                    <div class="inline position-relative" >
+                        <button class="btn btn-mini btn-info" data-toggle="modal" data-target="#myModal">提现</button>
+
+                    </div>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+        <div class="inline position-relative" >
+            <!--<button class="btn btn-mini btn-info" data-toggle="modal" data-target="#myModal1">修改密码</button>-->
+            <button class="btn btn-mini btn-info history">订单流水</button>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">提现</h4>
+                    </div>
+                    <div class="modal-body" >
+                        <form class="form-horizontal">
+
+                            <div class="control-group">
+                                <label class="control-label" for="money">提现：￥</label>
+                                <div class="controls">
+                                    <input type="text" id="money" >
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="password">密码：</label>
+                                <div class="controls">
+                                    <input type="password" id="password" >
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="confirm">确认</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">修改密码</h4>
+                    </div>
+                    <div class="modal-body" >
+                        <form class="form-horizontal">
+
+                            <div class="control-group">
+                                <label class="control-label" for="form-field-1">旧密码</label>
+                                <div class="controls">
+                                    <input type="password" id="" >
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="form-field-1">新密码：</label>
+                                <div class="controls">
+                                    <input type="password" id="form-field-1" >
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">确认</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-     <table id="table_bug_report" class="table table-striped table-bordered table-hover">
-      <thead>
-        <tr>
-          <th>账户</th>
-          <th>余额</th>
-          <th class="center">操作</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr>
-          <td>ace.com</td>
-          <td>$45</td>
-          <td class="center">
-            <div class="inline position-relative" data-toggle="modal" data-target="#myModal">
-              <button class="btn btn-mini btn-info">提现</button>
-            </div>
-          </td>
-        </tr>
-
-              </tbody>
-    </table>
-     <div class="inline position-relative">
-              <button class="btn btn-mini btn-info"><a href="brand-gmcwallerAcountlist.html">提现流水</a></button>
-            </div>
-
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">提现</h4>
-      </div>
-      <div class="modal-body" >
-          <form class="form-horizontal">
-
-            <div class="control-group">
-              <label class="control-label" for="form-field-1">提现：$</label>
-              <div class="controls">
-                <input type="text" id="form-field-1" >
-              </div>
-            </div>
-            <div class="control-group">
-              <label class="control-label" for="form-field-1">密码：</label>
-              <div class="controls">
-                <input tid="form-field-1" type="password">
-              </div>
-            </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal">确认</button>
-      </div>
-    </div>
-  </div>
 </div>
-  </div>
-    </div>
 
 
-    <script src="js/jquery-1.9.1.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script>
-      $(function(){
+<script src="/js/jquery-1.9.1.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script th:inline="javascript">
+    $(function(){
+        $('.history').click(function(){
 
-})
+            var account=[[${account}]];
+
+            window.location.href = "/mvo/gmc/record?id="+account.buyerId;
+        })
 
 
 
-    </script>
-    </body>
+        $("#confirm").click(function () {
+            var account=[[${account}]];
+
+            var data={
+                acName:account.accountName,
+                buyerId:account.buyerId,
+                oldMoney:account.availableMoney,
+                money:$("#money").val(),
+                password:$("#password").val()
+            }
+
+            $.ajax({
+                url:"/mvo/gmc/deposit",
+                type:"POST",
+                contentType:"application/json",
+                dataType:"json",
+                data:  JSON.stringify(data),
+                success : function (result) {
+                    if(result.code==200){
+                        alert(result.message)
+                        window.location.reload();
+                    }else if(result.code==-1){
+                        alert(result.message)
+                    }else {
+                        alert("系统繁忙")
+                    }
+                }
+            })
+
+        })
+    })
+
+
+
+</script>
+</body>
 </html>

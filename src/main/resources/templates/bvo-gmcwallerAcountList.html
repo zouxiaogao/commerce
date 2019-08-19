@@ -38,6 +38,7 @@
 
           <th>交易金额</th>
           <th>创建时间</th>
+          <th>消费类型</th>
           <th class="center">状态</th>
         </tr>
       </thead>
@@ -50,6 +51,7 @@
           <td th:text="${#dates.format(record.createTime,'yyyy-MM-dd HH:mm:ss')}">
             2017-08-04 09:12:11
           </td>
+           <td th:text="${record.type}">消费</td>
           <td class="center" th:text="${record.remark}">
             secceed
           </td>

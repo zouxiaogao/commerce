@@ -51,7 +51,7 @@
     delete from gmcp$transaction_record
     where transaction_id = #{transactionId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.neusoft.commerce.models.GmcpTransactionRecord" >
+  <insert id="insert" parameterType="com.neusoft.commerce.models.GmcpTransactionRecord" useGeneratedKeys="true" keyProperty="transactionId">
     insert into gmcp$transaction_record (transaction_id, buyer_id, bank_card_id, 
       transaction_number, transaction_type, account_name, 
       transaction_money, commission, discount_commission, 
@@ -70,7 +70,7 @@
       #{actualMoney,jdbcType=DECIMAL}, #{actualCommission,jdbcType=DECIMAL}, #{actualDiscountCommission,jdbcType=DECIMAL}, 
       #{balance,jdbcType=DECIMAL}, #{businessId,jdbcType=INTEGER}, #{financeType,jdbcType=TINYINT}, 
       #{note,jdbcType=VARCHAR}, #{operatorName,jdbcType=VARCHAR}, #{operatorIp,jdbcType=VARCHAR}, 
-      #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{lastUpdateBy,jdbcType=VARCHAR}, 
+      #{createBy,jdbcType=VARCHAR}, now(), #{lastUpdateBy,jdbcType=VARCHAR},
       #{lastUpdateTime,jdbcType=TIMESTAMP}, #{bankReceiptUrl,jdbcType=VARCHAR}, #{exchangeRate,jdbcType=DECIMAL}, 
       #{transactionDesc,jdbcType=VARCHAR}, #{foreignExchangeFee,jdbcType=DECIMAL}, #{withdrawFee,jdbcType=DECIMAL}
       )
@@ -144,9 +144,7 @@
       <if test="createBy != null" >
         create_by,
       </if>
-      <if test="createTime != null" >
         now(),
-      </if>
       <if test="lastUpdateBy != null" >
         last_update_by,
       </if>
@@ -397,6 +395,7 @@
     record.account_name,
     record.transaction_money,
     record.create_time,
+    record.transaction_type,
     audit.transaction_audit_id,
     audit.status
     from gmcp$transaction_record  record

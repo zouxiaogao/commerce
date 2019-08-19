@@ -55,7 +55,7 @@ $(function(){
                         '<td className="hidden-480">'+order.qty+'</td>'+
                         '<td className="">'+order.skuNo+'</td>'+
                         '<td className="hidden-480" >'+order.orderNo+'</td>'+
-                        '<td>'+order.orderCreatedTime+'</td>'+
+                        '<td>'+order.strTime+'</td>'+
                     '</tr>'   ;
                 });
                 $('#AwaitingPayment').find('tbody').html(tableList);
@@ -69,9 +69,6 @@ $(function(){
      */
     function getTabContent2(){
         $.get('../brand/orderlist',{status:2},function(response){
-            console.log("response:====");
-            console.log(response);
-            console.log(status)
             if(response.code === 200){
                 var data = response.data,
                     tableList = '';
@@ -83,8 +80,8 @@ $(function(){
                         '<td className="hidden-480">'+order.qty+'</td>'+
                         '<td className="">'+order.skuNo+'</td>'+
                         '<td className="hidden-480" >'+order.orderNo+'</td>'+
-                        '<td>'+order.orderCreatedTime+'</td>'+
-                        '<td><button class="btn btn-minier btn-purple send-out")>发货</button> </td>'+
+                        '<td>'+order.strTime+'</td>'+
+                        '<td><button class="btn btn-minier btn-purple send-out" th:onclick="javascript:goship('+order.saoId+')" >发货</button> </td>'+
                         '</tr>'   ;
                 });
                 $('#AwaitingShipment').find('tbody').html(tableList);
@@ -93,35 +90,12 @@ $(function(){
     }
 
 
-    function goShip(saoId) {
-        alert(saoId)
-        alert("ceshi")
-        $.ajax({
-            type: "GET",
-            url: "/brand/goShip",
-            data: {"id": saoId},
-            success: function(data){//data就是 controller 中的 return 的 数据
-                if(data.code==200){
-                    //刷新数据
-                    // alert(data.message)
-                    bootbox.alert("已发货!");
-                    window.location.reload();
-                }else{
-                    alert(data.message);
-                }
-            }
-        });
-
-
-    }
-
     /**
      * 获取tab3的内容
      * @return {[type]} [description]
      */
     function getTabContent3(){
         $.get('../brand/orderlist',{status:3},function(response){
-            console.log(response);
             if(response.code === 200){
                 var data = response.data,
                     tableList = '';
@@ -133,7 +107,7 @@ $(function(){
                         '<td className="hidden-480">'+order.qty+'</td>'+
                         '<td className="">'+order.skuNo+'</td>'+
                         '<td className="hidden-480" >'+order.orderNo+'</td>'+
-                        '<td>'+order.orderCreatedTime+'</td>'+
+                        '<td>'+order.strTime+'</td>'+
                         '<td><a href="brand-ordertracking">'+order.trackingNo+'</a></td>'+
                         '<td><button class="btn btn-minier btn-yellow cancel">取消</button> </td>'+
                         '</tr>';
@@ -150,7 +124,6 @@ $(function(){
      */
     function getTabContent4(){
         $.get('../brand/orderlist',{status:4},function(response){
-            console.log(response);
             if(response.code === 200){
                 var data = response.data,
                     tableList = '';
@@ -162,7 +135,7 @@ $(function(){
                         '<td className="hidden-480">'+order.qty+'</td>'+
                         '<td className="">'+order.skuNo+'</td>'+
                         '<td className="hidden-480" >'+order.orderNo+'</td>'+
-                        '<td>'+order.orderCreatedTime+'</td>'+
+                        '<td>'+order.strTime+'</td>'+
                         '<td><a href="brand-ordertracking">'+order.trackingNo+'</a></td>'+
                         '</tr>';
                 });
@@ -177,7 +150,6 @@ $(function(){
      */
     function getTabContent5(){
         $.get('../brand/orderlist',{status:5},function(response){
-            console.log(response);
             if(response.code === 200){
                 var data = response.data,
                     tableList = '';
@@ -189,7 +161,7 @@ $(function(){
                         '<td className="hidden-480">'+order.qty+'</td>'+
                         '<td className="">'+order.skuNo+'</td>'+
                         '<td className="hidden-480" >'+order.orderNo+'</td>'+
-                        '<td>'+order.orderCreatedTime+'</td>'+
+                        '<td>'+order.strTime+'</td>'+
                         '</tr>';
                 });
                 $('#canceled').find('tbody').html(tableList);

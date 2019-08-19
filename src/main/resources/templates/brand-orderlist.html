@@ -242,8 +242,6 @@
 
         //默认显示
           $.get('/brand/orderlist',{status:1},function(response){
-              console.log("response:====");
-              console.log(response);
               if(response.code === 200){
                   var data = response.data,
                       tableList = '';
@@ -263,6 +261,28 @@
           });
 })
 
+
+      function goShip(saoId) {
+          alert(saoId)
+          alert("ceshi")
+          $.ajax({
+              type: "GET",
+              url: "/brand/goShip",
+              data: {"id": saoId},
+              success: function(data){//data就是 controller 中的 return 的 数据
+                  if(data.code==200){
+                      //刷新数据
+                      // alert(data.message)
+                      bootbox.alert("已发货!");
+                      window.location.reload();
+                  }else{
+                      alert(data.message);
+                  }
+              }
+          });
+
+
+      }
 
 
     </script>

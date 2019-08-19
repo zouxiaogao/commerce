@@ -57,7 +57,7 @@
     delete from sao_sales_order
     where SAO_ID = #{saoId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.neusoft.commerce.models.SaoSalesOrder" >
+  <insert id="insert" parameterType="com.neusoft.commerce.models.SaoSalesOrder" useGeneratedKeys="true" keyProperty="saoId">
     insert into sao_sales_order (SAO_ID, CREATED_BY, CREATION_DATE, 
       LAST_UPDATE_BY, LAST_UPDATE_DATE, CALL_CNT, 
       REMARK, STS_CD, MAN_ID, 
@@ -69,9 +69,9 @@
       STO_ID, LAST_FREIGHT_COST, CANCLE_TIME, 
       AUTO_PAY_STATUS, AUTO_PAY_TIME, BUYER_CHECKOUT_MESSAGE
       )
-    values (#{saoId,jdbcType=INTEGER}, #{createdBy,jdbcType=VARCHAR}, #{creationDate,jdbcType=TIMESTAMP}, 
+    values (#{saoId,jdbcType=INTEGER}, #{createdBy,jdbcType=VARCHAR}, now(),
       #{lastUpdateBy,jdbcType=VARCHAR}, #{lastUpdateDate,jdbcType=TIMESTAMP}, #{callCnt,jdbcType=INTEGER}, 
-      #{remark,jdbcType=VARCHAR}, #{stsCd,jdbcType=CHAR}, #{manId,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, 'A', #{manId,jdbcType=INTEGER},
       #{warId,jdbcType=INTEGER}, #{syncDate,jdbcType=TIMESTAMP}, #{paymentDate,jdbcType=TIMESTAMP}, 
       #{pushDate,jdbcType=TIMESTAMP}, #{trackNoDate,jdbcType=TIMESTAMP}, #{fulfillmentDate,jdbcType=TIMESTAMP}, 
       #{settlementDate,jdbcType=TIMESTAMP}, #{productAmount,jdbcType=DECIMAL}, #{freightCost,jdbcType=DECIMAL}, 
@@ -464,7 +464,7 @@
   </select>
 
 
-  <update id="updateBySaoId" parameterType="java.lang.Integer" >
+  <update id="updateBySaoId" parameterType="java.util.List" >
      update sao_sales_order
     set
       ORDER_STS = #{status,jdbcType=VARCHAR}
@@ -515,6 +515,7 @@
       sal.STS_CD,
       sal.PRICE,
       sal.TRACKING_NO ,
+      pro.PRO_ID,
       pro.TITLE,
       sol.SOL_ID,
       sol.ORDER_ITEM_ID,

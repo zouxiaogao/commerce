@@ -1,11 +1,12 @@
-package com.neusoft.commerce.dao;
-
+package com.neusoft.commerce.services;
 
 import com.neusoft.commerce.models.SolStoreOrderLineItem;
-import org.apache.ibatis.annotations.Mapper;
 
-@Mapper
-public interface SolStoreOrderLineItemMapper {
+/**
+ * @Author zqy
+ * @Date 2019/08/03
+ */
+public interface SolStoreOrderLineItemService {
     int deleteByPrimaryKey(Integer solId);
 
     int insert(SolStoreOrderLineItem record);

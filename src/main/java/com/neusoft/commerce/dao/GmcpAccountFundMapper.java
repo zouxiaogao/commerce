@@ -14,4 +14,6 @@ public interface GmcpAccountFundMapper {
     int insertSelective(GmcpAccountFund record);
     int updateMoney(@Param("money") BigDecimal money, @Param("buyerId")Integer buyerId);
 
+
+
 }

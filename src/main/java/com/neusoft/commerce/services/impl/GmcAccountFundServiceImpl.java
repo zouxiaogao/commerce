@@ -4,6 +4,7 @@ import com.neusoft.commerce.common.OrderCodeFactory;
 import com.neusoft.commerce.dao.GmcpAccountFundMapper;
 import com.neusoft.commerce.dao.GmcpTransactionAuditMapper;
 import com.neusoft.commerce.dao.GmcpTransactionRecordMapper;
+import com.neusoft.commerce.dao.SaoSalesOrderMapper;
 import com.neusoft.commerce.models.GmcpAccountFund;
 import com.neusoft.commerce.models.GmcpTransactionAudit;
 import com.neusoft.commerce.models.GmcpTransactionRecord;
@@ -29,6 +30,8 @@ public class GmcAccountFundServiceImpl implements GmcAccountFundService {
     private GmcpTransactionAuditMapper gmcpTransactionAuditMapper;
     @Autowired
     private GmcpTransactionRecordMapper gmcpTransactionRecordMapper;
+    @Autowired
+    private SaoSalesOrderMapper salesOrderMapper;
 
     @Override
     public int insert(GmcpAccountFund record) {
@@ -68,7 +71,7 @@ public class GmcAccountFundServiceImpl implements GmcAccountFundService {
         record.setStatus(status);
         byte finance=1;
         record.setFinanceType(finance);
-        gmcpTransactionRecordMapper.insertSelective(record);
+        gmcpTransactionRecordMapper.insert(record);
 
 
         //插入审计表
@@ -86,7 +89,7 @@ public class GmcAccountFundServiceImpl implements GmcAccountFundService {
         //st 操作状态 2-申请 , 4 -完成 , -1-失败
         byte st=2;
         audit.setStatus(st);
-        gmcpTransactionAuditMapper.insertSelective(audit);
+        gmcpTransactionAuditMapper.insert(audit);
 
     }
 
@@ -96,4 +99,64 @@ public class GmcAccountFundServiceImpl implements GmcAccountFundService {
     public List<RecordAuditDTO> selectRecordAndAudit(Integer buyerId){
         return gmcpTransactionRecordMapper.selectRecordAndAudit(buyerId);
     }
+
+
+    //支付
+    @Transactional
+    public void payMoney(Integer buyerId,Integer brandId,String name, String address, Integer amount,
+                         String phone, String code, BigDecimal total,
+                         String wallet, BigDecimal money, BigDecimal brandMoney,String password,Integer orderId) {
+
+        //1.fund 修改
+        gmcpAccountFundMapper.updateMoney(money.subtract(total),buyerId);
+        gmcpAccountFundMapper.updateMoney(brandMoney.add(total),brandId);
+
+        //2.生成流水
+
+        //插入流水表
+        //transaction_type  业务类型 1-充值 2-提现 3-消费 4-退款
+        //finance_type 类型 1-入款 2-出款
+        //status状态 2 -申请 , 4 -完成 , -1-失败
+        GmcpTransactionRecord record=new GmcpTransactionRecord();
+        record.setAccountName(name); // 账户名
+        record.setBuyerId(buyerId);  //卖方id
+        record.setTransactionMoney(total); //交易金额
+        record.setTransactionNumber(OrderCodeFactory.getOrderCode(new Long(buyerId))); //订单流水号
+        record.setBalance(money.subtract(total));  //余额
+        byte type=3;
+        record.setTransactionType(type);
+        byte status=4;
+        record.setStatus(status);
+        byte finance=2;
+        record.setFinanceType(finance);
+        gmcpTransactionRecordMapper.insert(record);
+
+
+        //插入审计表
+        GmcpTransactionAudit audit=new GmcpTransactionAudit();
+        audit.setTransactionId(record.getTransactionId());
+        audit.setBuyerId(buyerId);
+        //前可用余额
+        audit.setAvailableMoneyBefore(money);
+        audit.setWithdrawingMoneyBefore(money);
+        audit.setOperateMoney(money);
+        //operation_type 操作类型 1-申请 2-提现 3-消费 4-退款
+        byte op=3;
+        audit.setOperateType(op);
+        audit.setAvailableMoneyAfter(money.subtract(total));
+        //st 操作状态 2-申请 , 4 -完成 , -1-失败
+        byte st=4;
+        audit.setStatus(st);
+        gmcpTransactionAuditMapper.insertSelective(audit);
+
+
+        //3.更新sao 的order_sts
+        //订单状态: 1. AwaitingPayment  待支付 2. AwaitingShipment 待发货 3. SHIPPED 已发货 4. Complete 已完成5. Canceled已取消
+        salesOrderMapper.updateBySaoId(orderId,"2");
+
+    }
+
+
+
+
 }

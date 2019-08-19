@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -48,6 +49,11 @@ public class BrandOrderCtrl extends BaseCtrl {
         SysUser user =(SysUser) request.getSession().getAttribute("user");
         //默认显示未支付订单
         List<OrderDto> orderDtos = saoSalesOrderService.selectOrderByManId(user.getManBuyerId(),status);
+        SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss" );
+        for(OrderDto order:orderDtos){
+            order.setStrTime(sdf.format(order.getOrderCreatedTime()));
+        }
+
         return this.send(200,"查询成功",orderDtos);
     }
 

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neusoft.commerce.dao.SolStoreOrderLineItemMapper" >
+  <resultMap id="BaseResultMap" type="com.neusoft.commerce.models.SolStoreOrderLineItem" >
+    <id column="SOL_ID" property="solId" jdbcType="INTEGER" />
+    <result column="ORDER_ITEM_ID" property="orderItemId" jdbcType="VARCHAR" />
+    <result column="STO_ID" property="stoId" jdbcType="INTEGER" />
+    <result column="SALES_PRICE" property="salesPrice" jdbcType="DECIMAL" />
+    <result column="QTY" property="qty" jdbcType="INTEGER" />
+    <result column="SKU_NO" property="skuNo" jdbcType="VARCHAR" />
+    <result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+    <result column="CREATION_DATE" property="creationDate" jdbcType="TIMESTAMP" />
+    <result column="LAST_UPDATE_BY" property="lastUpdateBy" jdbcType="VARCHAR" />
+    <result column="LAST_UPDATE_DATE" property="lastUpdateDate" jdbcType="TIMESTAMP" />
+    <result column="CALL_CNT" property="callCnt" jdbcType="INTEGER" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="STS_CD" property="stsCd" jdbcType="CHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.neusoft.commerce.models.SolStoreOrderLineItem" extends="BaseResultMap" >
+    <result column="BUYER_CHECKOUT_MESSAGE" property="buyerCheckoutMessage" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SOL_ID, ORDER_ITEM_ID, STO_ID, SALES_PRICE, QTY, SKU_NO, CREATED_BY, CREATION_DATE, 
+    LAST_UPDATE_BY, LAST_UPDATE_DATE, CALL_CNT, REMARK, STS_CD
+  </sql>
+  <sql id="Blob_Column_List" >
+    BUYER_CHECKOUT_MESSAGE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sol_store_order_line_item
+    where SOL_ID = #{solId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sol_store_order_line_item
+    where SOL_ID = #{solId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.neusoft.commerce.models.SolStoreOrderLineItem" useGeneratedKeys="true" keyProperty="solId" >
+    insert into sol_store_order_line_item (SOL_ID, ORDER_ITEM_ID, STO_ID, 
+      SALES_PRICE, QTY, SKU_NO, 
+      CREATED_BY, CREATION_DATE, LAST_UPDATE_BY, 
+      LAST_UPDATE_DATE, CALL_CNT, REMARK, 
+      STS_CD, BUYER_CHECKOUT_MESSAGE)
+    values (#{solId,jdbcType=INTEGER}, #{orderItemId,jdbcType=VARCHAR}, #{stoId,jdbcType=INTEGER}, 
+      #{salesPrice,jdbcType=DECIMAL}, #{qty,jdbcType=INTEGER}, #{skuNo,jdbcType=VARCHAR}, 
+      #{createdBy,jdbcType=VARCHAR}, now(), #{lastUpdateBy,jdbcType=VARCHAR},
+      #{lastUpdateDate,jdbcType=TIMESTAMP}, #{callCnt,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      'A', #{buyerCheckoutMessage,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neusoft.commerce.models.SolStoreOrderLineItem" >
+    insert into sol_store_order_line_item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="solId != null" >
+        SOL_ID,
+      </if>
+      <if test="orderItemId != null" >
+        ORDER_ITEM_ID,
+      </if>
+      <if test="stoId != null" >
+        STO_ID,
+      </if>
+      <if test="salesPrice != null" >
+        SALES_PRICE,
+      </if>
+      <if test="qty != null" >
+        QTY,
+      </if>
+      <if test="skuNo != null" >
+        SKU_NO,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="creationDate != null" >
+        CREATION_DATE,
+      </if>
+      <if test="lastUpdateBy != null" >
+        LAST_UPDATE_BY,
+      </if>
+      <if test="lastUpdateDate != null" >
+        LAST_UPDATE_DATE,
+      </if>
+      <if test="callCnt != null" >
+        CALL_CNT,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="stsCd != null" >
+        STS_CD,
+      </if>
+      <if test="buyerCheckoutMessage != null" >
+        BUYER_CHECKOUT_MESSAGE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="solId != null" >
+        #{solId,jdbcType=INTEGER},
+      </if>
+      <if test="orderItemId != null" >
+        #{orderItemId,jdbcType=VARCHAR},
+      </if>
+      <if test="stoId != null" >
+        #{stoId,jdbcType=INTEGER},
+      </if>
+      <if test="salesPrice != null" >
+        #{salesPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="qty != null" >
+        #{qty,jdbcType=INTEGER},
+      </if>
+      <if test="skuNo != null" >
+        #{skuNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="creationDate != null" >
+        #{creationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateBy != null" >
+        #{lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateDate != null" >
+        #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="callCnt != null" >
+        #{callCnt,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="stsCd != null" >
+        #{stsCd,jdbcType=CHAR},
+      </if>
+      <if test="buyerCheckoutMessage != null" >
+        #{buyerCheckoutMessage,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.neusoft.commerce.models.SolStoreOrderLineItem" >
+    update sol_store_order_line_item
+    <set >
+      <if test="orderItemId != null" >
+        ORDER_ITEM_ID = #{orderItemId,jdbcType=VARCHAR},
+      </if>
+      <if test="stoId != null" >
+        STO_ID = #{stoId,jdbcType=INTEGER},
+      </if>
+      <if test="salesPrice != null" >
+        SALES_PRICE = #{salesPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="qty != null" >
+        QTY = #{qty,jdbcType=INTEGER},
+      </if>
+      <if test="skuNo != null" >
+        SKU_NO = #{skuNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="creationDate != null" >
+        CREATION_DATE = #{creationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateBy != null" >
+        LAST_UPDATE_BY = #{lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateDate != null" >
+        LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="callCnt != null" >
+        CALL_CNT = #{callCnt,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="stsCd != null" >
+        STS_CD = #{stsCd,jdbcType=CHAR},
+      </if>
+      <if test="buyerCheckoutMessage != null" >
+        BUYER_CHECKOUT_MESSAGE = #{buyerCheckoutMessage,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where SOL_ID = #{solId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.neusoft.commerce.models.SolStoreOrderLineItem" >
+    update sol_store_order_line_item
+    set ORDER_ITEM_ID = #{orderItemId,jdbcType=VARCHAR},
+      STO_ID = #{stoId,jdbcType=INTEGER},
+      SALES_PRICE = #{salesPrice,jdbcType=DECIMAL},
+      QTY = #{qty,jdbcType=INTEGER},
+      SKU_NO = #{skuNo,jdbcType=VARCHAR},
+      CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      CREATION_DATE = #{creationDate,jdbcType=TIMESTAMP},
+      LAST_UPDATE_BY = #{lastUpdateBy,jdbcType=VARCHAR},
+      LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      CALL_CNT = #{callCnt,jdbcType=INTEGER},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      STS_CD = #{stsCd,jdbcType=CHAR},
+      BUYER_CHECKOUT_MESSAGE = #{buyerCheckoutMessage,jdbcType=LONGVARCHAR}
+    where SOL_ID = #{solId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.neusoft.commerce.models.SolStoreOrderLineItem" >
+    update sol_store_order_line_item
+    set ORDER_ITEM_ID = #{orderItemId,jdbcType=VARCHAR},
+      STO_ID = #{stoId,jdbcType=INTEGER},
+      SALES_PRICE = #{salesPrice,jdbcType=DECIMAL},
+      QTY = #{qty,jdbcType=INTEGER},
+      SKU_NO = #{skuNo,jdbcType=VARCHAR},
+      CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      CREATION_DATE = #{creationDate,jdbcType=TIMESTAMP},
+      LAST_UPDATE_BY = #{lastUpdateBy,jdbcType=VARCHAR},
+      LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      CALL_CNT = #{callCnt,jdbcType=INTEGER},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      STS_CD = #{stsCd,jdbcType=CHAR}
+    where SOL_ID = #{solId,jdbcType=INTEGER}
+  </update>
+</mapper>

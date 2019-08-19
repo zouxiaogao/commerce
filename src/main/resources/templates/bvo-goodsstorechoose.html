@@ -112,6 +112,7 @@
                   success: function(data){//data就是 controller 中的 return 的 数据
                       if(data.code==200){
                           alert(data.message);
+                          window.location.href = "/bvo/order/show"
                       }else{
                           alert(data.message);
                       }

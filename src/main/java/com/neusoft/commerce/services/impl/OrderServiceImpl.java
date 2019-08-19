@@ -35,4 +35,13 @@ public class OrderServiceImpl {
         return salesOrderMapper.selectOrderDetailBySaoId(saoId);
     }
 
+
+    public int insert(SaoSalesOrder record){
+        return  salesOrderMapper.insert(record);
+    }
+
+    public int insertSelective(SaoSalesOrder record){
+        return salesOrderMapper.insertSelective(record);
+    }
+
 }

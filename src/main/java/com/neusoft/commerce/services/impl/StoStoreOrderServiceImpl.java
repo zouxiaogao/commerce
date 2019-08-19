@@ -24,7 +24,7 @@ public class StoStoreOrderServiceImpl implements StoStoreOrderService {
 
     @Override
     public int insert(StoStoreOrder record) {
-        return 0;
+        return storeOrderMapper.insert(record);
     }
 
     @Override

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="utf-8">
     </head>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/ace.min.css">
-    <link rel="stylesheet" href="css/ace-skins.min.css">
-    <link rel="stylesheet" href="css/ace-responsive.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/ace.min.css">
+    <link rel="stylesheet" href="/css/ace-skins.min.css">
+    <link rel="stylesheet" href="/css/ace-responsive.min.css">
   <style>
     body,html{
       width: 100%;
@@ -29,34 +29,38 @@
     <div class="page-header position-relative">
               <h1 style="color: #2679b5;">品牌商 <small><i class="icon-double-angle-right"></i> 提现明细</small></h1>
             </div>
-    <table id="table_bug_report" class="table table-striped table-bordered table-hover">
-      <thead>
-        <tr>
-          <th>交易流水号</th>
-          <th>余额</th>
-          <th>时间</th>
-          <th class="center">状态</th>
-        </tr>
-      </thead>
+          <table id="table_bug_report" class="table table-striped table-bordered table-hover">
+              <thead>
+              <tr>
+                  <th>订单流水号</th>
 
-      <tbody>
-        <tr>
-          <td>2017154154122</td>
-          <td>$45</td>
-          <td>
-            2017-08-04 09:12:11
-          </td>
-          <td class="center">
-            处理中
-          </td>
-        </tr>
+                  <th>交易金额</th>
+                  <th>创建时间</th>
+                  <th>消费类型</th>
+                  <th class="center">状态</th>
+              </tr>
+              </thead>
+
+              <tbody>
+              <tr th:each="record:${record}">
+                  <td th:text="${record.transactionNumber}">2017154154122</td>
+
+                  <td th:text="${record.transactionMoney}">$45</td>
+                  <td th:text="${#dates.format(record.createTime,'yyyy-MM-dd HH:mm:ss')}">
+                      2017-08-04 09:12:11
+                  </td>
+                  <td th:text="${record.type}">消费</td>
+                  <td class="center" th:text="${record.remark}">
+                      secceed
+                  </td>
+              </tr>
 
               </tbody>
-    </table>
+          </table>
   </div></div>
 
-    <script src="js/jquery-1.9.1.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="/js/jquery-1.9.1.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
     <script>
       $(function(){
 

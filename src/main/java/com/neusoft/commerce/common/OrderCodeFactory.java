@@ -61,7 +61,7 @@ public class OrderCodeFactory {
      *      * @param n  长度
      *      
      */
-    private static long getRandom(long n) {
+    public static long getRandom(long n) {
         long min = 1, max = 9;
         for (int i = 1; i < n; i++) {
             min *= 10;
